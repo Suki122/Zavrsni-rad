@@ -38,6 +38,10 @@ class Boid{
         let ali = this.poravnanje(boidi);
         let coh = this.kohezija(boidi);
 
+        sep.mult(1.2); 
+        ali.mult(1.0); 
+        coh.mult(1.1);
+
         this.ubrzanje.add(sep);
         this.ubrzanje.add(ali);
         this.ubrzanje.add(coh);
@@ -49,7 +53,7 @@ class Boid{
     }
     //Reynold's flocking rules
     separacija(boidi){
-        let percepcija=50; //vidno polje Boida
+        let percepcija=100; //vidno polje Boida
         let upravljanje=createVector(0,0); //vektor na koji se spremaju sve sile koje utjecu na Boid
         let ukupno=0; //broj Boidova koji su unutar vidnog polja Boida
         for(let boid of boidi){
@@ -71,7 +75,7 @@ class Boid{
     }
 
     poravnanje(boidi){
-        let percepcija=50; 
+        let percepcija=100; 
         let upravljanje=createVector(0,0); 
         let ukupno=0; 
         for(let boid of boidi){
@@ -91,7 +95,7 @@ class Boid{
     }
 
     kohezija(boidi){
-        let percepcija=50; 
+        let percepcija=150; 
         let upravljanje=createVector(0,0); 
         let ukupno=0; 
         for(let boid of boidi){
