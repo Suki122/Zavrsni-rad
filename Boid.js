@@ -25,13 +25,20 @@ class Boid{
        }
     }
 
+    kretanje(){
+        this.brzina.add(this.ubrzanje);
+        this.pozicija.add(this.brzina);
+        this.brzina.limit(this.maxBrzina);
+        this.ubrzanje.mult(0);
+    }
+
     prikazi(){
         push();
         translate(this.pozicija.x,this.pozicija.y);
         rotate(this.brzina.heading);
         fill(255);
         noStroke();
-        triangle(10, 0, -5, 5, -5, -5);
+        triangle(10, 0, -7, 5, -7, -5);
         pop();
     }
 }

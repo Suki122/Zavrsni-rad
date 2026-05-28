@@ -1,12 +1,16 @@
 let flock=[];
 function setup(){
     createCanvas(800,600);
-    flock.push(new Boid(width/2,height/2));
+    for(let i=0;i<20;i++){
+        flock.push(new Boid(random(width), random(height)));
+    }
 }
 
 function draw(){
     background(30);
     for(let boid of flock){
+        boid.rubovi();
+        boid.kretanje();
         boid.prikazi();
     }
 }
