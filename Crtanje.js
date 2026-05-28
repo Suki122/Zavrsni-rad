@@ -10,7 +10,7 @@ function draw(){
     background(30);
     for(let boid of flock){
         boid.rubovi();
-        boid.kretanje();
+        boid.kretanje(flock);
         boid.prikazi();
     }
 }

@@ -1,3 +1,8 @@
+let boje=[
+    [255, 0, 0],    // Grupa 0: Crvena
+    [0, 255, 0],    // Grupa 1: Zelena
+    [0, 255, 255]   //Grupa 2: Cijan
+    ];
 class Boid{
     constructor(x,y){
         this.pozicija=createVector(x,y); //kreiramo instancu klase p5.Vector koja prima koordinate 
@@ -7,7 +12,10 @@ class Boid{
         this.maxSila=0.2; //maksimalna promjena brzine po frameu
         this.maxBrzina=4;  //maksimalna brzina koju Boid nikada nece prijeci
         this.r=4; //velicina Boida 
+        this.grupa=floor(random(0,3)); //svakom Boidu dodjeljuje grupu
     }
+
+    
     //funkcija za vracanje Boida u Canvas
     rubovi(){
        if(this.pozicija.x>width+this.r){  //provjera desnog ruba
@@ -25,10 +33,18 @@ class Boid{
        }
     }
 
-    kretanje(){
+    kretanje(boidi){
+        let sep = this.separacija(boidi);
+        let ali = this.poravnanje(boidi);
+        let coh = this.kohezija(boidi);
+
+        this.ubrzanje.add(sep);
+        this.ubrzanje.add(ali);
+        this.ubrzanje.add(coh);
+
         this.brzina.add(this.ubrzanje);  //dodaje ubrzanje na brzinu
-        this.pozicija.add(this.brzina);  //ovisno o brzini, boid mijenja poziciju
         this.brzina.limit(this.maxBrzina); //Boid nikada ne prelazi maksimalnu zadanu brzinu
+        this.pozicija.add(this.brzina);  //ovisno o brzini, boid mijenja poziciju
         this.ubrzanje.mult(0); //resetira ubrzanje da ne dode do zbrajanja sila i nekontroliranog ubrzavanja
     }
     //Reynold's flocking rules
@@ -38,7 +54,7 @@ class Boid{
         let ukupno=0; //broj Boidova koji su unutar vidnog polja Boida
         for(let boid of boidi){
             let d=dist(this.pozicija.x,this.pozicija.y,boid.pozicija.x,boid.pozicija.y); //udaljenost izmedu Boidova
-            if(boid!=this && d<percepcija){ //ako nije on sam taj Boid i susjedni Boid je u vidnom polju
+            if(boid!=this && d<percepcija && this.grupa==boid.grupa){ //ako nije on sam taj Boid i susjedni Boid je u vidnom polju
                 let razlika=p5.Vector.sub(this.pozicija,boid.pozicija); //izracun smjera za bijeg
                 razlika.div(d*d); //sto je susjed blize sila odgurivanja je jaca i obrnuto
                 upravljanje.add(razlika);
@@ -60,7 +76,7 @@ class Boid{
         let ukupno=0; 
         for(let boid of boidi){
             let d=dist(this.pozicija.x,this.pozicija.y,boid.pozicija.x,boid.pozicija.y); 
-            if(boid!=this && d<percepcija){ 
+            if(boid!=this && d<percepcija && this.grupa==boid.grupa){ 
                 upravljanje.add(boid.brzina); //zbrajamo brzine svih Boidova u vidnom polju
                 ukupno++;
             }
@@ -80,7 +96,7 @@ class Boid{
         let ukupno=0; 
         for(let boid of boidi){
             let d=dist(this.pozicija.x,this.pozicija.y,boid.pozicija.x,boid.pozicija.y); 
-            if(boid!=this && d<percepcija){ 
+            if(boid!=this && d<percepcija && this.grupa==boid.grupa){ 
                 upravljanje.add(boid.pozicija); //zbrajamo pozicije svih Boidova u vidnom polju
                 ukupno++;
             }
@@ -98,7 +114,8 @@ class Boid{
         push(); //sprema transformacijske matrice i stilove
         translate(this.pozicija.x,this.pozicija.y); //mijenja ishodiste koordinatnog sustava na koordinate Boida
         rotate(this.brzina.heading()); //heading vraca kut vektora u radijanima i rotate rotira koordinatni sustav
-        fill(255);
+        let c = boje[this.grupa]; 
+        fill(c[0], c[1], c[2]); //bojanje Boida pomocu matrice boja
         noStroke();
         triangle(this.r * 2, 0, -this.r, this.r, -this.r, -this.r);
         pop(); //izbacuje promijenjenu transformacijsku matricu i vraca se na izvornu 
