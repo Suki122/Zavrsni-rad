@@ -1,44 +1,44 @@
 class Boid{
     constructor(x,y){
-        this.pozicija=createVector(x,y);
-        this.brzina=p5.Vector.random2D();
-        this.brzina.setMag(random(2,4));
+        this.pozicija=createVector(x,y); //kreiramo instancu klase p5.Vector koja prima koordinate 
+        this.brzina=p5.Vector.random2D(); //bira nasumican kut i racuna x i y
+        this.brzina.setMag(random(2,4)); //racuna broj piksela koje treba proci po frameu
         this.ubrzanje=createVector(0,0);
-        this.maxSila=0.2;
-        this.maxBrzina=4;
-        this.r=4;
+        this.maxSila=0.2; //maksimalna promjena brzine po frameu
+        this.maxBrzina=4;  //maksimalna brzina koju Boid nikada nece prijeci
+        this.r=4; //velicina Boida 
     }
-
+    //funkcija za vracanje Boida u Canvas
     rubovi(){
-       if(this.pozicija.x>width+this.r){
+       if(this.pozicija.x>width+this.r){  //provjera desnog ruba
         this.pozicija.x=-this.r;
        } 
-       else if(this.pozicija.x<-this.r){
+       else if(this.pozicija.x<-this.r){ //provjera lijevog ruba
         this.pozicija.x=width+this.r;
        }
 
-       if(this.pozicija.y>height+this.r){
+       if(this.pozicija.y>height+this.r){  //provjera vrha
         this.pozicija.y=-this.r;
        } 
-       else if(this.pozicija.y<-this.r){
+       else if(this.pozicija.y<-this.r){ //provjera dna
         this.pozicija.y=height+this.r;
        }
     }
 
     kretanje(){
-        this.brzina.add(this.ubrzanje);
-        this.pozicija.add(this.brzina);
-        this.brzina.limit(this.maxBrzina);
-        this.ubrzanje.mult(0);
+        this.brzina.add(this.ubrzanje);  //dodaje ubrzanje na brzinu
+        this.pozicija.add(this.brzina);  //ovisno o brzini, boid mijenja poziciju
+        this.brzina.limit(this.maxBrzina); //Boid nikada ne prelazi maksimalnu zadanu brzinu
+        this.ubrzanje.mult(0); //resetira ubrzanje da ne dode do zbrajanja sila i nekontroliranog ubrzavanja
     }
 
     prikazi(){
-        push();
-        translate(this.pozicija.x,this.pozicija.y);
-        rotate(this.brzina.heading);
+        push(); //sprema transformacijske matrice i stilove
+        translate(this.pozicija.x,this.pozicija.y); //mijenja ishodiste koordinatnog sustava na koordinate Boida
+        rotate(this.brzina.heading()); //heading vraca kut vektora u radijanima i rotate rotira koordinatni sustav
         fill(255);
         noStroke();
-        triangle(10, 0, -7, 5, -7, -5);
-        pop();
+        triangle(this.r * 2, 0, -this.r, this.r, -this.r, -this.r);
+        pop(); //izbacuje promijenjenu transformacijsku matricu i vraca se na izvornu 
     }
 }
