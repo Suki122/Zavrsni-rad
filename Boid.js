@@ -26,8 +26,12 @@ class Boid{
     }
 
     prikazi(){
+        push();
+        translate(this.pozicija.x,this.pozicija.y);
+        rotate(this.brzina.heading);
         fill(255);
         noStroke();
-        circle(this.pozicija.x,this.pozicija.y,this.r*2);
+        triangle(10, 0, -5, 5, -5, -5);
+        pop();
     }
 }
