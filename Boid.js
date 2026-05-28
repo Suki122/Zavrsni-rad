@@ -12,7 +12,7 @@ class Boid{
         this.maxSila=0.2; //maksimalna promjena brzine po frameu
         this.maxBrzina=4;  //maksimalna brzina koju Boid nikada nece prijeci
         this.r=4; //velicina Boida 
-        this.grupa=floor(random(0,3)); //svakom Boidu dodjeljuje grupu
+        
     }
 
     
