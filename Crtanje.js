@@ -28,7 +28,7 @@ function draw(){
     }
     for(let boid of flock){
         boid.rubovi();
-        boid.kretanje(flock);
+        boid.kretanje(flock,zidovi);
         boid.prikazi();
     }
 }

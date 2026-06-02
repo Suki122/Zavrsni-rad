@@ -33,13 +33,14 @@ class Boid{
        }
     }
 
-    kretanje(boidi){
+    kretanje(boidi,zidovi){
         let sep = this.separacija(boidi);
         let ali = this.poravnanje(boidi);
         let coh = this.kohezija(boidi);
+        let prepreka=this.izbjegavanjeZida(zidovi);
         
 
-        sep.mult(1.2); 
+        sep.mult(1.3); 
         ali.mult(1.0); 
         coh.mult(1.2);
         
@@ -47,11 +48,13 @@ class Boid{
         this.ubrzanje.add(sep);
         this.ubrzanje.add(ali);
         this.ubrzanje.add(coh);
-        if(mouseIsPressed){
+        this.ubrzanje.add(prepreka);
+        if(prepreka.mag()===0 && mouseIsPressed){ //boid prati mis samo ako nema prepreku
             let misSila=this.traziMis();
             misSila.mult(1.0);
             this.ubrzanje.add(misSila);
         }
+        
         
 
         this.brzina.add(this.ubrzanje);  //dodaje ubrzanje na brzinu
@@ -138,6 +141,23 @@ class Boid{
         return upravljanje;
 
     }
+
+    izbjegavanjeZida(zidovi){
+            let upravljanje = createVector(0, 0);
+
+        for (let zid of zidovi) {
+            let doBoida = p5.Vector.sub(this.pozicija, zid.srediste); //kreira vektor koji ide od sredista zida ka boidu (ako je boid desno od zida x je pozitivan, ako je boid iznad zida y je negativan)
+            if (abs(doBoida.x) < zid.w / 2 + 15 && abs(doBoida.y) < zid.h / 2 + 15) { //provjera je li boid unutar zida
+                let silaOdbijanja = doBoida.copy();
+                silaOdbijanja.setMag(this.maxBrzina * 2); //postavlja silu i i osigurava da je 2 puta jaca od svih ostalih
+                this.brzina.mult(-0.5); //okrece smjer brzine za 180 i smanjuje jakost za pola
+                upravljanje.add(silaOdbijanja);
+            }
+        }
+        return upravljanje;
+        }
+    
+
     prikazi(){
         push(); //sprema transformacijske matrice i stilove
         translate(this.pozicija.x,this.pozicija.y); //mijenja ishodiste koordinatnog sustava na koordinate Boida

@@ -4,6 +4,7 @@ class Zid{
         this.y=y;
         this.w=w;
         this.h=h;
+        this.srediste=createVector(x+w/2,y+h/2)
     }
     //funkcija za prikazivanje zidova koja sadrzi funkcije biblioteke p5.js
     prikazi(){
