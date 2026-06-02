@@ -37,14 +37,22 @@ class Boid{
         let sep = this.separacija(boidi);
         let ali = this.poravnanje(boidi);
         let coh = this.kohezija(boidi);
+        
 
         sep.mult(1.2); 
         ali.mult(1.0); 
-        coh.mult(1.1);
+        coh.mult(1.2);
+        
 
         this.ubrzanje.add(sep);
         this.ubrzanje.add(ali);
         this.ubrzanje.add(coh);
+        if(mouseIsPressed){
+            let misSila=this.traziMis();
+            misSila.mult(1.0);
+            this.ubrzanje.add(misSila);
+        }
+        
 
         this.brzina.add(this.ubrzanje);  //dodaje ubrzanje na brzinu
         this.brzina.limit(this.maxBrzina); //Boid nikada ne prelazi maksimalnu zadanu brzinu
@@ -113,6 +121,22 @@ class Boid{
             upravljanje.limit(this.maxSila);
         }
         return upravljanje;
+    }
+
+    traziMis(){
+        let mis = createVector(mouseX, mouseY); //hvata koordinate misa
+        let zeljeniSmjer = mis.copy().sub(this.pozicija); //racuna smjer od boida prema misu, copy koristi da se ne uniste izvorne koordinate misa
+        let d = zeljeniSmjer.mag(); //racuna udaljenost od misa do boida
+        if (d < 100) {
+            zeljeniSmjer.setMag(map(d, 0, 100, 2, this.maxBrzina)); //mapiramo prema udaljenosti boida od misa
+        } else {
+            zeljeniSmjer.setMag(this.maxBrzina);
+        }
+        let upravljanje = zeljeniSmjer.copy().sub(this.brzina); //racuna ispravak putanje boida
+        upravljanje.limit(this.maxSila); //maksimalna snaga kojom boid smije promijeniti smjer u 1 frameu
+        
+        return upravljanje;
+
     }
     prikazi(){
         push(); //sprema transformacijske matrice i stilove
