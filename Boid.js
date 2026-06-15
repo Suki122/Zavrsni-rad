@@ -1,17 +1,14 @@
-let boje=[
-    [255, 0, 0],    // Grupa 0: Crvena
-    [0, 255, 0],    // Grupa 1: Zelena
-    [0, 255, 255]   //Grupa 2: Cijan
-    ];
+
 class Boid{
-    constructor(x,y){
+    constructor(x,y,slika){
         this.pozicija=createVector(x,y); //kreiramo instancu klase p5.Vector koja prima koordinate 
         this.brzina=p5.Vector.random2D(); //bira nasumican kut i racuna x i y
         this.brzina.setMag(random(2,4)); //racuna broj piksela koje treba proci po frameu
         this.ubrzanje=createVector(0,0);
         this.maxSila=0.2; //maksimalna promjena brzine po frameu
         this.maxBrzina=4;  //maksimalna brzina koju Boid nikada nece prijeci
-        this.r=4; //velicina Boida 
+        this.r=7; //velicina Boida 
+        this.slika=slika;
         
     }
 
@@ -161,11 +158,13 @@ class Boid{
     prikazi(){
         push(); //sprema transformacijske matrice i stilove
         translate(this.pozicija.x,this.pozicija.y); //mijenja ishodiste koordinatnog sustava na koordinate Boida
-        rotate(this.brzina.heading()); //heading vraca kut vektora u radijanima i rotate rotira koordinatni sustav
-        let c = boje[this.grupa]; 
-        fill(c[0], c[1], c[2]); //bojanje Boida pomocu matrice boja
-        noStroke();
-        triangle(this.r * 2, 0, -this.r, this.r, -this.r, -this.r);
+        rotate(this.brzina.heading()+PI/2); //heading vraca kut vektora u radijanima i rotate rotira koordinatni sustav
+        this.frame=(this.frame || 0)+(this.brzina.mag()*0.15);
+        let col=floor(this.frame)%4;
+        let frameW=this.slika.width/4;
+        let frameH=this.slika.height/4;
+        imageMode(CENTER);
+        image(this.slika,0,0,this.r*8,this.r*8,col*frameW,0,frameW,frameH);
         pop(); //izbacuje promijenjenu transformacijsku matricu i vraca se na izvornu 
     }
 }
