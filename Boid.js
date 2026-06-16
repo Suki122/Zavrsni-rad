@@ -1,6 +1,6 @@
 
 class Boid{
-    constructor(x,y,slika){
+    constructor(x,y,slika,zvuk){
         this.pozicija=createVector(x,y); //kreiramo instancu klase p5.Vector koja prima koordinate 
         this.brzina=p5.Vector.random2D(); //bira nasumican kut i racuna x i y
         this.brzina.setMag(random(2,4)); //racuna broj piksela koje treba proci po frameu
@@ -10,8 +10,7 @@ class Boid{
         this.r=7; //velicina Boida 
         this.frame=0;
         this.slika=slika; //slika koju boid prima
-        
-        
+        this.zvuk=zvuk; //zvuk koji boid prima
     }
 
     
@@ -151,6 +150,11 @@ class Boid{
         for (let zid of zidovi) {
             let doBoida = p5.Vector.sub(this.pozicija, zid.srediste); //kreira vektor koji ide od sredista zida ka boidu (ako je boid desno od zida x je pozitivan, ako je boid iznad zida y je negativan)
             if (abs(doBoida.x) < zid.w / 2 + 0 && abs(doBoida.y) < zid.h / 2 + 15) { //provjera je li boid unutar zida
+                //zvuk svira kada ovca udari u prepreku
+                if (this.zvuk && this.zvuk.paused) { //ako zvuk postoji i trenutno ne svira
+                    this.zvuk.currentTime = 0; // Vrati na nulu
+                    this.zvuk.play();          // Sviraj 
+                }
                 let silaOdbijanja = doBoida.copy();
                 silaOdbijanja.setMag(this.maxBrzina * 2); //postavlja silu i i osigurava da je 2 puta jaca od svih ostalih
                 this.brzina.mult(-0.5); //okrece smjer brzine za 180 i smanjuje jakost za pola

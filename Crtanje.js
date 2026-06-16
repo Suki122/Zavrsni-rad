@@ -5,12 +5,15 @@ let pozadina;
 let travaKvadrat;
 let ograda;
 let ograde=[];
+let zvukOvce;
 //osiguranje da se slike i  zvukovi ucitaju prvi
 function preload(){
     slikaOvce=loadImage("resursi/sheep_walk.png");
     pozadina=loadImage("resursi/GRASS+.png");
     ograda=loadImage("resursi/fence.png");
+    zvukOvce = new Audio("resursi/test1.wav"); //p5.js iz nekog razloga ne radi za zvuk pa koristimo ovaj nacin
 }
+
 function setup(){
     createCanvas(800,600);
     //oznacavamo koji tile iz pozadine zelimo 
@@ -25,7 +28,7 @@ function setup(){
         // let g=floor(random(0,3));
         // let centar=centri[g];
         let centar=createVector(200,200);
-        let b=new Boid(centar.x+random(-30,30),centar.y+random(-30,30),slikaOvce);
+        let b=new Boid(centar.x+random(-30,30),centar.y+random(-30,30),slikaOvce,zvukOvce);
         // b.grupa=g;
         flock.push(b);
     }
@@ -36,6 +39,7 @@ function setup(){
         ograde.push(o2);
     }
 }
+    
 
 function draw(){
     noSmooth();  //da bi p5.js prikazao pozadinu ostro, inace bi bila mutna
