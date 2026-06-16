@@ -151,7 +151,7 @@ class Boid{
             let doBoida = p5.Vector.sub(this.pozicija, zid.srediste); //kreira vektor koji ide od sredista zida ka boidu (ako je boid desno od zida x je pozitivan, ako je boid iznad zida y je negativan)
             if (abs(doBoida.x) < zid.w / 2 + 0 && abs(doBoida.y) < zid.h / 2 + 15) { //provjera je li boid unutar zida
                 //zvuk svira kada ovca udari u prepreku
-                if (this.zvuk && this.zvuk.paused) { //ako zvuk postoji i trenutno ne svira
+                if (this.zvuk && this.zvuk.paused && stanje==="igra") { //ako zvuk postoji i trenutno ne svira te je igra krenula
                     this.zvuk.currentTime = 0; // Vrati na nulu
                     this.zvuk.play();          // Sviraj 
                 }

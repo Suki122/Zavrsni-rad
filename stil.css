@@ -1,27 +1,97 @@
+/* Globalni stilovi */
 body {
     margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #222;
+    background-color: #1a201a; /* Tamnozelena pozadina */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
 }
 
-/* Naš gumb ćemo stilizirati preko klase */
+/* Stil za p5.js canvas */
+canvas {
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    display: block;
+}
+
+/* MODERNI IZBORNIK - Ciljamo klasu iz Crtanje.js */
+.izbornik-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Savršeno centriranje na ekranu */
+    
+    background-color: #FFFFFF !important; /* Forsirana bijela pozadina */
+    width: 500px;
+    padding: 50px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    border: 6px solid #FFEB3B; /* Žuti obrub */
+    z-index: 9999;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Stilovi za tekst unutar izbornika */
+.izbornik-container h1 {
+    color: #FF9800; /* Narančasta */
+    font-size: 52px;
+    margin: 0;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.izbornik-container p {
+    color: #333333;
+    font-size: 20px;
+    margin: 20px 0 40px 0;
+    font-weight: 600;
+}
+
+/* MODERNI 3D GUMB */
 .play-gumb {
-    background-color: #FF9800; /* Narančasta */
-    border: none;
-    color: white;
-    padding: 20px 40px;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    transition: transform 0.2s;
+    background-color: #FF9800 !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    padding: 18px 50px !important;
+    font-size: 24px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    border-radius: 100px !important;
+    cursor: pointer !important;
+    outline: none !important;
+    
+    /* Onemogućujemo p5.js automatsko pozicioniranje ako postoji */
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    
+    /* 3D efekt sjena */
+    box-shadow: 0 8px 0 #E65100, 
+                0 15px 25px rgba(0, 0, 0, 0.3) !important;
+    
+    transition: all 0.1s ease !important;
 }
 
 .play-gumb:hover {
-    transform: scale(1.1);
-    background-color: #F57C00;
+    background-color: #FFA726 !important;
+    transform: translateY(-4px) !important;
+    box-shadow: 0 12px 0 #E65100, 
+                0 20px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+.play-gumb:active {
+    transform: translateY(4px) !important;
+    box-shadow: 0 4px 0 #E65100, 
+                0 8px 15px rgba(0, 0, 0, 0.3) !important;
 }
