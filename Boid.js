@@ -8,7 +8,9 @@ class Boid{
         this.maxSila=0.2; //maksimalna promjena brzine po frameu
         this.maxBrzina=4;  //maksimalna brzina koju Boid nikada nece prijeci
         this.r=7; //velicina Boida 
-        this.slika=slika;
+        this.frame=0;
+        this.slika=slika; //slika koju boid prima
+        
         
     }
 
@@ -158,13 +160,13 @@ class Boid{
     prikazi(){
         push(); //sprema transformacijske matrice i stilove
         translate(this.pozicija.x,this.pozicija.y); //mijenja ishodiste koordinatnog sustava na koordinate Boida
-        rotate(this.brzina.heading()+PI/2); //heading vraca kut vektora u radijanima i rotate rotira koordinatni sustav
-        this.frame=(this.frame || 0)+(this.brzina.mag()*0.15);
-        let col=floor(this.frame)%4;
-        let frameW=this.slika.width/4;
-        let frameH=this.slika.height/4;
-        imageMode(CENTER);
-        image(this.slika,0,0,this.r*8,this.r*8,col*frameW,0,frameW,frameH);
+        rotate(this.brzina.heading()+PI/2); //heading vraca kut vektora u radijanima i rotate rotira koordinatni sustav, pomocu Pi okrecemo sprite ovce u smjeru kretanja
+        this.frame=this.frame+(this.brzina.mag()*0.15);//brzina animacije uskladena s brzinom boida
+        let col=floor(this.frame)%4; //pretvara decimalni frame u stupac koji odgovara slicici animacije, %4 osigurava da se slicice vrte u krug (0-1-2-3-0)
+        let frameW=this.slika.width/4; //sirina spritea ovce
+        let frameH=this.slika.height/4; //visina spritea ovce
+        imageMode(CENTER); //x i y koordinate postaju srediste slike a ne gornji lijevi kut (idealno za rotaciju spritea)
+        image(this.slika,0,0,this.r*8,this.r*8,col*frameW,0,frameW,frameH); //slika,koordinate x i y na ekranu, velicina na ekranu, gdje pocinje rezanje slike, dimenzije reza
         pop(); //izbacuje promijenjenu transformacijsku matricu i vraca se na izvornu 
     }
 }
