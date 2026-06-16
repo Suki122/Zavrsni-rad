@@ -32,11 +32,15 @@ class Boid{
        }
     }
 
-    kretanje(boidi,zidovi){
+    kretanje(boidi,zidovi,ograde){
         let sep = this.separacija(boidi);
         let ali = this.poravnanje(boidi);
         let coh = this.kohezija(boidi);
-        let prepreka=this.izbjegavanjeZida(zidovi);
+        let svePrepreke=[...zidovi]; //prepisi zidove u niz svePrepreke
+        for(let o of ograde){
+            svePrepreke.push(...o.pretvoriOgradu());    //nad svakom ogradom pozov funkciju i stavi ju u niz svePrepreke
+        }
+        let prepreka=this.izbjegavanjeZida(svePrepreke);
         
 
         sep.mult(1.3); 
@@ -146,7 +150,7 @@ class Boid{
 
         for (let zid of zidovi) {
             let doBoida = p5.Vector.sub(this.pozicija, zid.srediste); //kreira vektor koji ide od sredista zida ka boidu (ako je boid desno od zida x je pozitivan, ako je boid iznad zida y je negativan)
-            if (abs(doBoida.x) < zid.w / 2 + 15 && abs(doBoida.y) < zid.h / 2 + 15) { //provjera je li boid unutar zida
+            if (abs(doBoida.x) < zid.w / 2 + 0 && abs(doBoida.y) < zid.h / 2 + 15) { //provjera je li boid unutar zida
                 let silaOdbijanja = doBoida.copy();
                 silaOdbijanja.setMag(this.maxBrzina * 2); //postavlja silu i i osigurava da je 2 puta jaca od svih ostalih
                 this.brzina.mult(-0.5); //okrece smjer brzine za 180 i smanjuje jakost za pola
