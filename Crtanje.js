@@ -17,6 +17,11 @@ let slikaOff="resursi/sound_offf.png";
 let sliderKoh, sliderSep, sliderAli;
 let panel;
 let tekstKoh, tekstSep, tekstAli;
+let slikaPsa;
+let zvukPsa;
+let igraUpravoPokrenuta;
+let pasSmjer = 1; // Globalna varijabla, vidljiva svugdje
+let zadnjeLajanje=-3000;
 //osiguranje da se slike i  zvukovi ucitaju prvi
 function preload(){
     slikaOvce=loadImage("resursi/sheep_walk.png");
@@ -25,7 +30,8 @@ function preload(){
     zvukOvce=new Audio("resursi/test1.wav"); //p5.js iz nekog razloga ne radi za zvuk pa koristimo ovaj nacin
     introGlazba=new Audio("resursi/glazba_uvod.mp3");
     introGlazba.loop=true;
-    
+    slikaPsa=loadImage("resursi/pas.png");
+    zvukPsa=new Audio("resursi/dogBark.mp3");
 }
 
 function setup(){
@@ -94,19 +100,25 @@ function sound(){
 
 function draw() {
     crtaIgru(); 
+    cursor();
 
     //azuriraj vrijednosti slidera
     tekstKoh.html(sliderKoh.value());
     tekstSep.html(sliderSep.value());
     tekstAli.html(sliderAli.value());
     
-    if (stanje==="igra") {
+    if (stanje==="igra" && !igraUpravoPokrenuta) {
         izbornikDiv.hide();
         panel.show();
+        if(mouseIsPressed){
+            nacrtajPsa();
+        }
     }
     else{
         panel.hide();
     }
+
+    
 }
 
 function crtaIgru() {
@@ -149,4 +161,53 @@ function pokreniIgru() {
     stanje="igra";
     
     izbornikDiv.hide(); // Sakrij izbornik kad igra krene
+
+    igraUpravoPokrenuta=true;
+    setTimeout(()=>{
+        igraUpravoPokrenuta=false;
+    },70);
+}
+
+let pasAnimacijaVrijeme = 0; // Dodaj ovo na vrh skripte (globalno)
+
+function nacrtajPsa() {
+    let frameW = slikaPsa.width / 3;
+    let frameH = slikaPsa.height / 4 +50;
+    
+    let dx = mouseX - pmouseX;
+    let dy = mouseY - pmouseY;
+    
+    // Mijenjamo smjer samo ako je vertikalni pomak veći od 2 piksela
+    // Time sprječavamo titranje dok se mičeš vodoravno
+    if (dy > 2) {
+        pasSmjer = 1; // Dolje
+    } else if (dy < -2) {
+        pasSmjer = 3; // Gore
+    }
+    
+    // Animacija - samo ako se pas miče
+    let brzina = dist(0, 0, dx, dy);
+    if (brzina > 0.1) {
+        pasAnimacijaVrijeme += 0.2;
+    }
+    
+    let stupac = floor(pasAnimacijaVrijeme) % 3;
+    
+    push();
+    translate(mouseX, mouseY);
+    imageMode(CENTER);
+    noCursor();
+    // 1 i 3 su tvoji provjereni redovi
+    image(slikaPsa, 0, 0, 40, 40, 
+          (stupac * frameW) + 1, (pasSmjer * frameH) + 1, 
+          frameW - 2, frameH - 2);
+    pop();
+    
+    if(zvukPsa.paused && mouseIsPressed && millis()-zadnjeLajanje>3000 ){
+        zvukPsa.currentTime=0;
+        zvukPsa.play();
+    
+        zadnjeLajanje=millis();
+    
+        }
 }
