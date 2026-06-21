@@ -31,7 +31,7 @@ function setup(){
     // Kreiraj HTML kontejner za izbornik
     izbornikDiv=createDiv('');
     izbornikDiv.class('izbornik-container');
-    izbornikDiv.html('<h1>MOJA FARMA</h1><p>Pomozi ovcama da izbjegnu ogradu!</p>');
+    izbornikDiv.html('<h1>Sheep Scramble</h1><p>Get the sheeps!</p>');
     
     gumbIgraj=createButton("IGRAJ");
     gumbIgraj.class('play-gumb');
