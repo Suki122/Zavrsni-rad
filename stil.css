@@ -10,6 +10,7 @@ body {
     background-color: #1a201a; /* Tamnozelena pozadina */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;
+    gap: 20px;
 }
 
 /* Stil za p5.js canvas */
@@ -116,4 +117,36 @@ canvas {
 
 .zvuk-gumb:hover {
     transform: scale(1.1); /* Blago povečanje kad pređeš mišem */
+}
+
+#kontrole-panel {
+    background: #ffffff; /* Čista bijela pozadina */
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 4px solid #FF9800; /* Narančasti okvir kao gumb */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Lagana sjena za dubinu */
+    transition: all 0.3s ease; /* Za glatki hover efekt */
+}
+
+/* Hover efekt: panel se malo poveća i promijeni boju okvira */
+#kontrole-panel:hover {
+    border-color: #e68900;
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(255,152,0,0.3);
+}
+
+/* Stil za slider */
+input[type=range] {
+    accent-color: #FF9800; /* Boja slidera */
+    cursor: pointer;
+}
+
+/* Stil za labele i brojeve */
+#kontrole-panel div {
+    font-weight: bold;
+    color: #FF9800; /* Boja teksta u stilu gumba */
+    font-family: sans-serif;
 }

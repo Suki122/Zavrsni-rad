@@ -31,7 +31,7 @@ class Boid{
        }
     }
 
-    kretanje(boidi,zidovi,ograde){
+    kretanje(boidi,zidovi,ograde,KOH,SEP,ALI){
         let sep = this.separacija(boidi);
         let ali = this.poravnanje(boidi);
         let coh = this.kohezija(boidi);
@@ -42,9 +42,9 @@ class Boid{
         let prepreka=this.izbjegavanjeZida(svePrepreke);
         
 
-        sep.mult(1.3); 
-        ali.mult(1.0); 
-        coh.mult(1.2);
+        sep.mult(SEP); 
+        ali.mult(ALI); 
+        coh.mult(KOH);
         
 
         this.ubrzanje.add(sep);
@@ -129,19 +129,22 @@ class Boid{
     }
 
     traziMis(){
-        let mis = createVector(mouseX, mouseY); //hvata koordinate misa
-        let zeljeniSmjer = mis.copy().sub(this.pozicija); //racuna smjer od boida prema misu, copy koristi da se ne uniste izvorne koordinate misa
-        let d = zeljeniSmjer.mag(); //racuna udaljenost od misa do boida
-        if (d < 100) {
-            zeljeniSmjer.setMag(map(d, 0, 100, 2, this.maxBrzina)); //mapiramo prema udaljenosti boida od misa
-        } else {
-            zeljeniSmjer.setMag(this.maxBrzina);
-        }
-        let upravljanje = zeljeniSmjer.copy().sub(this.brzina); //racuna ispravak putanje boida
-        upravljanje.limit(this.maxSila); //maksimalna snaga kojom boid smije promijeniti smjer u 1 frameu
-        
-        return upravljanje;
+        if (mouseX>=0 && mouseX<width && mouseY>=0 && mouseY<=height){
+            let mis = createVector(mouseX, mouseY); //hvata koordinate misa
+            let zeljeniSmjer = mis.copy().sub(this.pozicija); //racuna smjer od boida prema misu, copy koristi da se ne uniste izvorne koordinate misa
+            let d = zeljeniSmjer.mag(); //racuna udaljenost od misa do boida
+            if (d < 100) {
+                zeljeniSmjer.setMag(map(d, 0, 100, 2, this.maxBrzina)); //mapiramo prema udaljenosti boida od misa
+            } else {
+                zeljeniSmjer.setMag(this.maxBrzina);
+            }
+            let upravljanje = zeljeniSmjer.copy().sub(this.brzina); //racuna ispravak putanje boida
+            upravljanje.limit(this.maxSila); //maksimalna snaga kojom boid smije promijeniti smjer u 1 frameu
+            
+            return upravljanje;
 
+        }
+        return createVector(0, 0);
     }
 
     izbjegavanjeZida(zidovi){

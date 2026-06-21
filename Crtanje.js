@@ -14,6 +14,9 @@ let gumbZvuk;
 let zvukAktivan=false;
 let slikaOn="resursi/sound_onn.png";
 let slikaOff="resursi/sound_offf.png";
+let sliderKoh, sliderSep, sliderAli;
+let panel;
+let tekstKoh, tekstSep, tekstAli;
 //osiguranje da se slike i  zvukovi ucitaju prvi
 function preload(){
     slikaOvce=loadImage("resursi/sheep_walk.png");
@@ -27,6 +30,19 @@ function preload(){
 
 function setup(){
     createCanvas(800,600);
+    panel = createDiv('');
+    panel.id("kontrole-panel"); 
+    createLabel("Cohesion", panel);
+    tekstKoh=createDiv("1.0").parent(panel);
+    sliderKoh = createSlider(0, 2.0, 1.0, 0.1).parent(panel);
+    
+    createLabel("Separation", panel);
+    tekstSep=createDiv("1.0").parent(panel);
+    sliderSep=createSlider(0, 2.0, 1.0, 0.1).parent(panel);
+    
+    createLabel("Alignment", panel);
+    tekstAli=createDiv("1.0").parent(panel);
+    sliderAli=createSlider(0, 2.0, 1.0, 0.1).parent(panel);
     
     // Kreiraj HTML kontejner za izbornik
     izbornikDiv=createDiv('');
@@ -57,6 +73,12 @@ function setup(){
         ograde.push(o2);
     }
 }
+function createLabel(tekst, roditelj) {
+    let lbl = createDiv(tekst);
+    lbl.parent(roditelj);
+    lbl.style('font-size', '14px');
+    lbl.style('margin-top', '10px');
+}
 function sound(){
     zvukAktivan=!zvukAktivan;
     if(zvukAktivan){
@@ -72,9 +94,18 @@ function sound(){
 
 function draw() {
     crtaIgru(); 
+
+    //azuriraj vrijednosti slidera
+    tekstKoh.html(sliderKoh.value());
+    tekstSep.html(sliderSep.value());
+    tekstAli.html(sliderAli.value());
     
     if (stanje==="igra") {
         izbornikDiv.hide();
+        panel.show();
+    }
+    else{
+        panel.hide();
     }
 }
 
@@ -93,10 +124,24 @@ function crtaIgru() {
     for(let ograda of ograde){
         ograda.prikazi();
     }
-    for(let boid of flock){
-        boid.rubovi();
-        boid.kretanje(flock,zidovi,ograde);
-        boid.prikazi();
+    //kako se kod ne bi srusio jer se prije izvrsi draw nego sto se slideri ucitaju
+    if (sliderSep && sliderAli && sliderKoh) {
+        let s=sliderSep.value();
+        let a=sliderAli.value();
+        let c=sliderKoh.value();
+
+        for(let boid of flock){
+            boid.rubovi();
+            boid.kretanje(flock,zidovi,ograde,c,s,a);
+            boid.prikazi();
+        }
+    } else {
+        // Ako slideri još ne postoje, boidovi se kreću sa zadanim vrijednostima
+        for(let boid of flock){
+            boid.rubovi();
+            boid.kretanje(flock,zidovi,ograde,0.1,0.1,0.05); 
+            boid.prikazi();
+        }
     }
 }
 
