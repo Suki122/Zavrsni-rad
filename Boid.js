@@ -152,7 +152,7 @@ class Boid{
             if (abs(doBoida.x) < zid.w / 2 + 0 && abs(doBoida.y) < zid.h / 2 + 15) { //provjera je li boid unutar zida
                 //zvuk svira kada ovca udari u prepreku
                 if (this.zvuk && this.zvuk.paused && stanje==="igra") { //ako zvuk postoji i trenutno ne svira te je igra krenula
-                    this.zvuk.currentTime = 0; // Vrati na nulu
+                    this.zvuk.currentTime=0; // Vrati na nulu
                     this.zvuk.play();          // Sviraj 
                 }
                 let silaOdbijanja = doBoida.copy();
