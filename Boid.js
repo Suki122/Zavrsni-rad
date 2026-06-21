@@ -6,7 +6,7 @@ class Boid{
         this.brzina.setMag(random(2,4)); //racuna broj piksela koje treba proci po frameu
         this.ubrzanje=createVector(0,0);
         this.maxSila=0.2; //maksimalna promjena brzine po frameu
-        this.maxBrzina=4;  //maksimalna brzina koju Boid nikada nece prijeci
+        this.maxBrzina=3;  //maksimalna brzina koju Boid nikada nece prijeci
         this.r=7; //velicina Boida 
         this.frame=0;
         this.slika=slika; //slika koju boid prima
@@ -131,19 +131,20 @@ class Boid{
     traziMis(){
         if (mouseX>=0 && mouseX<width && mouseY>=0 && mouseY<=height){
             let mis = createVector(mouseX, mouseY); //hvata koordinate misa
-            let zeljeniSmjer = mis.copy().sub(this.pozicija); //racuna smjer od boida prema misu, copy koristi da se ne uniste izvorne koordinate misa
+            let zeljeniSmjer = this.pozicija.copy().sub(mis); //racuna smjer od misa prema boidu, copy koristi da se ne uniste izvorne koordinate pozicije
             let d = zeljeniSmjer.mag(); //racuna udaljenost od misa do boida
-            if (d < 100) {
-                zeljeniSmjer.setMag(map(d, 0, 100, 2, this.maxBrzina)); //mapiramo prema udaljenosti boida od misa
-            } else {
-                zeljeniSmjer.setMag(this.maxBrzina);
-            }
+            if (d > 200) {
+                return createVector(0, 0);
+                
+            } 
+            zeljeniSmjer.setMag(map(d, 0, 100, 2, this.maxBrzina)); //mapiramo prema udaljenosti boida od misa
             let upravljanje = zeljeniSmjer.copy().sub(this.brzina); //racuna ispravak putanje boida
             upravljanje.limit(this.maxSila); //maksimalna snaga kojom boid smije promijeniti smjer u 1 frameu
             
             return upravljanje;
 
         }
+        //ako je mis izvan canvasa, nije potrebno bjezati
         return createVector(0, 0);
     }
 
