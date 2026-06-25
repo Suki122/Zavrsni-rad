@@ -46,11 +46,13 @@ function preload(){
 }
 
 function setup(){
-    createCanvas(800,600);
+    let canvas = createCanvas(800,600);
+    canvas.parent("canvas-kontejner");
 
     obavijestDiv=createDiv("");
     obavijestDiv.html("<h1>Level 1</h1><p>Easy</p><p>Get the sheeps to yellow grass!</p>");
     obavijestDiv.class("obavijest-box");
+    obavijestDiv.parent("canvas-kontejner");
     obavijestDiv.hide();
 
     panel=createDiv("");
