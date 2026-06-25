@@ -1,23 +1,24 @@
-
+let ciljX1=360;
+let ciljY1=20;
+let ciljSirina1=340;
+let ciljVisina1=260;
 function nacrtajLevel1(){
-    if(flag){
-        setTimeout(()=>{
-        obavijestDiv.show();
-        flag=false;
-    },2000);
-    }
     
     
     //oznacavamo koji tile iz pozadine zelimo 
     travaKvadrat1=pozadina.get(0,0,16,16);
     let travaKvadrat2=pozadina.get(0,64,16,16);
     let travaKvadrat3=pozadina.get(32,0,16,16);
+    let travaKvadrat4=pozadina.get(16,16,16,16);
     let cvjece=pozadina.get(80,160,16,16);
     noSmooth();  //da bi p5.js prikazao pozadinu ostro, inace bi bila mutna
     let brojac=0;
     for(let x=0;x<mapSirina;x+=16*2){ //ide po x-u
         for(let y=0;y<mapVisina;y+=16*2){ //ide po y
-            if(brojac%7==0){
+            if(x>360 && x<700 && y>20 && y<280){
+                image(travaKvadrat4,x,y,16*2,16*2);
+            }
+            else if(brojac%7==0){
                 image(travaKvadrat2,x,y,16*2,16*2);
             }
             else if(brojac%12==0){
@@ -72,11 +73,25 @@ function ucitajLevel1(){
     
     let o1=new Ograda(20,0,220,"h",ograda);
     ograde.push(o1);
-    let o4=new Ograda(20,300,15,"h",ograda);
+    let o4=new Ograda(100,300,15,"h",ograda);
     ograde.push(o4);
     let o2=new Ograda(10,0,220,"v",ograda);
     ograde.push(o2);
     let o3=new Ograda(347,10,10,"v",ograda);
     ograde.push(o3);
+    let o5=new Ograda(100,300,15,"v",ograda);
+    ograde.push(o5);
+    let o6=new Ograda(120,748,15,"h",ograda);
+    ograde.push(o6);
+    let o7=new Ograda(120,900,35,"h",ograda);
+    ograde.push(o7);
+    let o8=new Ograda(110,900,5,"v",ograda);
+    ograde.push(o8);
+    let o9=new Ograda(30,1055,20,"h",ograda);
+    ograde.push(o9);
+    let o10=new Ograda(1000,20,28,"v",ograda);
+    ograde.push(o10);
+    let o11=new Ograda(700,300,10,"h",ograda);
+    ograde.push(o11);
     
 }

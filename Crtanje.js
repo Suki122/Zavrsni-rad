@@ -25,6 +25,7 @@ let zadnjeLajanje=-3000;
 let pasAnimacijaVrijeme = 0;
 let trenutniLevel=1;
 let obavijestDiv;
+let obavijestDivKraj;
 let flag=true;
 // Globalne varijable za pomicnu kameru i velicinu svijeta
 let kameraX = 0;
@@ -54,6 +55,12 @@ function setup(){
     obavijestDiv.class("obavijest-box");
     obavijestDiv.parent("canvas-kontejner");
     obavijestDiv.hide();
+
+    obavijestDivKraj=createDiv("");
+    obavijestDivKraj.html("<h1>Great job!</h1><p>Continue to next level!</p>");
+    obavijestDivKraj.class("obavijest-box");
+    obavijestDivKraj.parent("canvas-kontejner");
+    obavijestDivKraj.hide();
 
     panel=createDiv("");
     panel.id("kontrole-panel"); 
@@ -119,7 +126,7 @@ function draw() {
         kameraX = lerp(kameraX, constrain(ciljX, 0, mapSirina - width), 0.05); //constraint sprjecava kameru da izade van granica mape
         kameraY = lerp(kameraY, constrain(ciljY, 0, mapVisina - height), 0.05);
     }
-
+    krajLevel(ciljX1,ciljY1,ciljSirina1,ciljVisina1);
     crtaIgru(); 
     cursor();
 
@@ -164,16 +171,19 @@ function crtaIgru() {
 
 function pokreniIgru() {
     stanje="igra";
+
+    
     
     izbornikDiv.hide(); // Sakrij izbornik kad igra krene
     //zvuk se crta i dok je stanje jednako igra, kako bismo mogli ugasiti glazbu ako je pokrenuta u menu-u
     obavijestDiv.show();
     
+
     // Sakrij ga nakon 5 sekundi
     setTimeout(() => {
         obavijestDiv.hide();
-    }, 5000);
-    
+    }, 1000);
+
     createLabel("Music", panel);
     gumbZvuk.show();
     gumbZvuk.parent(panel);
