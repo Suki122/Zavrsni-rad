@@ -7,8 +7,8 @@ function nacrtajLevel1(){
     let cvjece=pozadina.get(80,160,16,16);
     noSmooth();  //da bi p5.js prikazao pozadinu ostro, inace bi bila mutna
     let brojac=0;
-    for(let x=0;x<width;x+=16*2){ //ide po x-u
-        for(let y=0;y<height;y+=16*2){ //ide po y
+    for(let x=0;x<mapSirina;x+=16*2){ //ide po x-u
+        for(let y=0;y<mapVisina;y+=16*2){ //ide po y
             if(brojac%7==0){
                 image(travaKvadrat2,x,y,16*2,16*2);
             }
@@ -54,20 +54,21 @@ function ucitajLevel1(){
     flock=[];
     ograde=[];
 
-    //spawn Boida odreden svojom grupom
+    //spawn Boida odreden svojom grupom u centru veceg svijeta
     for(let i=0;i<30;i++){
-        let centar=createVector(200,200);
-        let b=new Boid(centar.x+random(-30,30),centar.y+random(-30,30),slikaOvce,zvukOvce);
+        let centar=createVector(mapSirina/2, mapVisina/2);
+        let b=new Boid(centar.x+random(-100,100),centar.y+random(-100,100),slikaOvce,zvukOvce);
         flock.push(b);
     }
-    //for(let j=0;j<5;j++){
-        let o1=new Ograda(10,0,24,"h",ograda);
-        ograde.push(o1);
-        let o2=new Ograda(0,0,19,"v",ograda);
-        ograde.push(o2);
-        let o3=new Ograda(760,0,18.5,"v",ograda);
-        ograde.push(o3);
-        let o4=new Ograda(20,580,24,"h",ograda);
-        ograde.push(o4);
-    //}
+    
+    
+    let o1=new Ograda(510,600,22,"h",ograda);
+    ograde.push(o1);
+    let o4=new Ograda(510,900,22,"h",ograda);
+    ograde.push(o4);
+    let o2=new Ograda(500,600,13,"v",ograda);
+    ograde.push(o2);
+    let o3=new Ograda(1200,600,13,"v",ograda);
+    ograde.push(o3);
+    
 }

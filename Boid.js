@@ -16,18 +16,18 @@ class Boid{
     
     //funkcija za vracanje Boida u Canvas
     rubovi(){
-       if(this.pozicija.x>width+this.r){  //provjera desnog ruba
+       if(this.pozicija.x>mapSirina+this.r){  //provjera desnog ruba
         this.pozicija.x=-this.r;
        } 
        else if(this.pozicija.x<-this.r){ //provjera lijevog ruba
-        this.pozicija.x=width+this.r;
+        this.pozicija.x=mapSirina+this.r;
        }
 
-       if(this.pozicija.y>height+this.r){  //provjera vrha
+       if(this.pozicija.y>mapVisina+this.r){  //provjera vrha
         this.pozicija.y=-this.r;
        } 
        else if(this.pozicija.y<-this.r){ //provjera dna
-        this.pozicija.y=height+this.r;
+        this.pozicija.y=mapVisina+this.r;
        }
     }
 
@@ -130,7 +130,7 @@ class Boid{
 
     traziMis(){
         if (mouseX>=0 && mouseX<width && mouseY>=0 && mouseY<=height){
-            let mis = createVector(mouseX, mouseY); //hvata koordinate misa
+            let mis=createVector(mouseX+kameraX, mouseY+kameraY); //hvata koordinate misa u svijetu, dodaju se koordinate kamere kako bi se ponistio translate svijeta
             let zeljeniSmjer = this.pozicija.copy().sub(mis); //racuna smjer od misa prema boidu, copy koristi da se ne uniste izvorne koordinate pozicije
             let d = zeljeniSmjer.mag(); //racuna udaljenost od misa do boida
             if (d > 200) {

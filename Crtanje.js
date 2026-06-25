@@ -25,6 +25,13 @@ let zadnjeLajanje=-3000;
 let pasAnimacijaVrijeme = 0;
 let trenutniLevel=1;
 
+// Globalne varijable za pomicnu kameru i velicinu svijeta
+let kameraX = 0;
+let kameraY = 0;
+let mapSirina = 2000;
+let mapVisina = 1500;
+
+
 //osiguranje da se slike i  zvukovi ucitaju prvi
 function preload(){
     slikaOvce=loadImage("resursi/sheep_walk.png");
@@ -52,15 +59,14 @@ function setup(){
     createLabel("Alignment", panel);
     tekstAli=createDiv("1.0").parent(panel);
     sliderAli=createSlider(0, 2.0, 1.0, 0.1).parent(panel);
-    
-    // Kreiraj HTML kontejner za izbornik
+
     izbornikDiv=createDiv('');
     izbornikDiv.class('izbornik-container');
     izbornikDiv.html('<h1>Sheep Scramble</h1><p>Get the sheeps!</p>');
     
     gumbIgraj=createButton("IGRAJ");
     gumbIgraj.class('play-gumb');
-    gumbIgraj.parent(izbornikDiv); // Stavi gumb unutar izbornika
+    gumbIgraj.parent(izbornikDiv); 
     gumbIgraj.mousePressed(pokreniIgru);
 
     gumbZvuk=createImg(slikaOff,"Zvuk");
@@ -90,6 +96,21 @@ function sound(){
 }
 
 function draw() {
+    // Racunanje kamere prema prosjecnom centru boida
+    if (flock.length > 0) {
+        let centarStada = createVector(0, 0);
+        for (let boid of flock) {
+            centarStada.add(boid.pozicija);
+        }
+        centarStada.div(flock.length);
+        
+        let ciljX = centarStada.x - width / 2; //cilj do kojeg kamera zeli doci
+        let ciljY = centarStada.y - height / 2;
+        //lerp->linear interpolation, omogucuje da kamera prijede 5% do cilja u svakom frameu (omogucuje sporije kretanje kamere)
+        kameraX = lerp(kameraX, constrain(ciljX, 0, mapSirina - width), 0.05); //constraint sprjecava kameru da izade van granica mape
+        kameraY = lerp(kameraY, constrain(ciljY, 0, mapVisina - height), 0.05);
+    }
+
     crtaIgru(); 
     cursor();
 
@@ -114,7 +135,9 @@ function draw() {
 }
 
 function crtaIgru() {
-
+    push(); //sprema trenutne postavke kooridinatnog sustava
+    //translate sluzi za stvaranje osjecaja da se mice kamera, a pomice se svijet
+    translate(-kameraX, -kameraY); //ako se kamera pomakne npr. desno, svijet se pomakne lijevo za isto
     switch(trenutniLevel){
         case 1:
             nacrtajLevel1();
@@ -126,7 +149,7 @@ function crtaIgru() {
             nacrtajLevel3();
             break
     }
-    
+    pop(); //vraca koordinatni sustav na sta je bio prije
 }
 
 
