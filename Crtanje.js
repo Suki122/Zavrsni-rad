@@ -2,7 +2,7 @@ let flock=[];
 let zidovi=[];
 let slikaOvce;
 let pozadina;
-let travaKvadrat;
+let travaKvadrat1;
 let ograda;
 let ograde=[];
 let zvukOvce;
@@ -47,7 +47,7 @@ function setup(){
     
     createLabel("Separation", panel);
     tekstSep=createDiv("1.0").parent(panel);
-    sliderSep=createSlider(0, 2.0, 1.0, 0.1).parent(panel);
+    sliderSep=createSlider(0, 2.0, 1.2, 0.1).parent(panel);
     
     createLabel("Alignment", panel);
     tekstAli=createDiv("1.0").parent(panel);
@@ -135,6 +135,7 @@ function pokreniIgru() {
     
     izbornikDiv.hide(); // Sakrij izbornik kad igra krene
     //zvuk se crta i dok je stanje jednako igra, kako bismo mogli ugasiti glazbu ako je pokrenuta u menu-u
+    createLabel("Music", panel);
     gumbZvuk.show();
     gumbZvuk.parent(panel);
 

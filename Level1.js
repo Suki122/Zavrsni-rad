@@ -1,10 +1,25 @@
 function nacrtajLevel1(){
+    
     //oznacavamo koji tile iz pozadine zelimo 
-    travaKvadrat=pozadina.get(0,0,16,16);
+    travaKvadrat1=pozadina.get(0,0,16,16);
+    let travaKvadrat2=pozadina.get(0,64,16,16);
+    let travaKvadrat3=pozadina.get(32,0,16,16);
+    let cvjece=pozadina.get(80,160,16,16);
     noSmooth();  //da bi p5.js prikazao pozadinu ostro, inace bi bila mutna
+    let brojac=0;
     for(let x=0;x<width;x+=16*2){ //ide po x-u
         for(let y=0;y<height;y+=16*2){ //ide po y
-            image(travaKvadrat,x,y,16*2,16*2); //na svaku koordinatu postavlja tile pozadine koji smo prije odabrali
+            if(brojac%7==0){
+                image(travaKvadrat2,x,y,16*2,16*2);
+            }
+            else if(brojac%12==0){
+                image(travaKvadrat3,x,y,16*2,16*2);
+            }
+            else{
+                image(travaKvadrat1,x,y,16*2,16*2); //na svaku koordinatu postavlja tile pozadine koji smo prije odabrali
+            }
+            brojac++;
+           
         }
     }
     
@@ -45,8 +60,14 @@ function ucitajLevel1(){
         let b=new Boid(centar.x+random(-30,30),centar.y+random(-30,30),slikaOvce,zvukOvce);
         flock.push(b);
     }
-    for(let j=0;j<5;j++){
-        let o2=new Ograda(random(0,800),random(0,600),5,"v",ograda);
+    //for(let j=0;j<5;j++){
+        let o1=new Ograda(10,0,24,"h",ograda);
+        ograde.push(o1);
+        let o2=new Ograda(0,0,19,"v",ograda);
         ograde.push(o2);
-    }
+        let o3=new Ograda(760,0,18.5,"v",ograda);
+        ograde.push(o3);
+        let o4=new Ograda(20,580,24,"h",ograda);
+        ograde.push(o4);
+    //}
 }
