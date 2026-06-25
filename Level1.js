@@ -1,4 +1,12 @@
+
 function nacrtajLevel1(){
+    if(flag){
+        setTimeout(()=>{
+        obavijestDiv.show();
+        flag=false;
+    },2000);
+    }
+    
     
     //oznacavamo koji tile iz pozadine zelimo 
     travaKvadrat1=pozadina.get(0,0,16,16);
@@ -56,19 +64,19 @@ function ucitajLevel1(){
 
     //spawn Boida odreden svojom grupom u centru veceg svijeta
     for(let i=0;i<30;i++){
-        let centar=createVector(mapSirina/2, mapVisina/2);
-        let b=new Boid(centar.x+random(-100,100),centar.y+random(-100,100),slikaOvce,zvukOvce);
+        //let centar=createVector(mapSirina/2, mapVisina/2);
+        let b=new Boid(100,100,slikaOvce,zvukOvce);
         flock.push(b);
     }
     
     
-    let o1=new Ograda(510,600,22,"h",ograda);
+    let o1=new Ograda(20,0,220,"h",ograda);
     ograde.push(o1);
-    let o4=new Ograda(510,900,22,"h",ograda);
+    let o4=new Ograda(20,300,15,"h",ograda);
     ograde.push(o4);
-    let o2=new Ograda(500,600,13,"v",ograda);
+    let o2=new Ograda(10,0,220,"v",ograda);
     ograde.push(o2);
-    let o3=new Ograda(1200,600,13,"v",ograda);
+    let o3=new Ograda(347,10,10,"v",ograda);
     ograde.push(o3);
     
 }

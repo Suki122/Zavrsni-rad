@@ -24,7 +24,8 @@ let pasSmjer = 1;
 let zadnjeLajanje=-3000;
 let pasAnimacijaVrijeme = 0;
 let trenutniLevel=1;
-
+let obavijestDiv;
+let flag=true;
 // Globalne varijable za pomicnu kameru i velicinu svijeta
 let kameraX = 0;
 let kameraY = 0;
@@ -46,7 +47,13 @@ function preload(){
 
 function setup(){
     createCanvas(800,600);
-    panel = createDiv('');
+
+    obavijestDiv=createDiv("");
+    obavijestDiv.html("<h1>Level 1</h1><p>Easy</p><p>Get the sheeps to yellow grass!</p>");
+    obavijestDiv.class("obavijest-box");
+    obavijestDiv.hide();
+
+    panel=createDiv("");
     panel.id("kontrole-panel"); 
     createLabel("Cohesion", panel);
     tekstKoh=createDiv("1.0").parent(panel);
@@ -60,7 +67,7 @@ function setup(){
     tekstAli=createDiv("1.0").parent(panel);
     sliderAli=createSlider(0, 2.0, 1.0, 0.1).parent(panel);
 
-    izbornikDiv=createDiv('');
+    izbornikDiv=createDiv("");
     izbornikDiv.class('izbornik-container');
     izbornikDiv.html('<h1>Sheep Scramble</h1><p>Get the sheeps!</p>');
     
@@ -158,6 +165,13 @@ function pokreniIgru() {
     
     izbornikDiv.hide(); // Sakrij izbornik kad igra krene
     //zvuk se crta i dok je stanje jednako igra, kako bismo mogli ugasiti glazbu ako je pokrenuta u menu-u
+    obavijestDiv.show();
+    
+    // Sakrij ga nakon 5 sekundi
+    setTimeout(() => {
+        obavijestDiv.hide();
+    }, 5000);
+    
     createLabel("Music", panel);
     gumbZvuk.show();
     gumbZvuk.parent(panel);

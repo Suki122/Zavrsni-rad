@@ -150,3 +150,18 @@ input[type=range] {
     color: #FF9800; /* Boja teksta u stilu gumba */
     font-family: sans-serif;
 }
+
+.obavijest-box {
+    /* Pozicioniranje preko canvasa */
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    
+    /* Dizajn: Rustikalni "plakat" stil */
+    background: linear-gradient(135deg, #4CAF50, #2E7D32); /* Nijanse trave */
+    color: #FFF8E1; /* Boja slame/papira */
+    padding: 15px 30px;
+    border-radius: 1
+}
