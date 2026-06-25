@@ -20,8 +20,9 @@ let tekstKoh, tekstSep, tekstAli;
 let slikaPsa;
 let zvukPsa;
 let igraUpravoPokrenuta;
-let pasSmjer = 1; // Globalna varijabla, vidljiva svugdje
+let pasSmjer = 1; 
 let zadnjeLajanje=-3000;
+let pasAnimacijaVrijeme = 0;
 //osiguranje da se slike i  zvukovi ucitaju prvi
 function preload(){
     slikaOvce=loadImage("resursi/sheep_walk.png");
@@ -35,7 +36,7 @@ function preload(){
 }
 
 function setup(){
-    createCanvas(800,600);
+    createCanvas(1200,700);
     panel = createDiv('');
     panel.id("kontrole-panel"); 
     createLabel("Cohesion", panel);
@@ -168,46 +169,43 @@ function pokreniIgru() {
     },70);
 }
 
-let pasAnimacijaVrijeme = 0; // Dodaj ovo na vrh skripte (globalno)
 
 function nacrtajPsa() {
-    let frameW = slikaPsa.width / 3;
-    let frameH = slikaPsa.height / 4 +50;
+    let frameW = slikaPsa.width / 3; //sirina ovira jedne slicice
+    let frameH = slikaPsa.height / 4 +50; //visina okvira + 50 jer prelaze jedna slika u drugu
     
-    let dx = mouseX - pmouseX;
+    let dx = mouseX - pmouseX; //promjena pozicije misa, pmouseX je pozicija misa u prethodnome frameu, a mouseX u trenutnom
     let dy = mouseY - pmouseY;
     
-    // Mijenjamo smjer samo ako je vertikalni pomak veći od 2 piksela
-    // Time sprječavamo titranje dok se mičeš vodoravno
-    if (dy > 2) {
-        pasSmjer = 1; // Dolje
+    if (dy > 2) { //ako se mis pomaknu vise od 2px prema dolje
+        pasSmjer = 1; // uzimamo red 1 jer se u njemu nalazi slicica psa prema dolje
     } else if (dy < -2) {
-        pasSmjer = 3; // Gore
+        pasSmjer = 3; // u redu 3 se nalazi slicica psa prema gore
     }
     
-    // Animacija - samo ako se pas miče
-    let brzina = dist(0, 0, dx, dy);
-    if (brzina > 0.1) {
-        pasAnimacijaVrijeme += 0.2;
+    let brzina = dist(0, 0, dx, dy); //euklidska udaljenost od tocke (0,0)
+    if (brzina > 0.1) { //ako se mis krece
+        pasAnimacijaVrijeme += 0.2; //povecaj brzinu animacije
     }
-    
+    //odreduje koja slicica (od 3) ce se prikazati, ovisi o brzini
     let stupac = floor(pasAnimacijaVrijeme) % 3;
-    
+    //podesavanje koordinatnog sustava
     push();
-    translate(mouseX, mouseY);
-    imageMode(CENTER);
-    noCursor();
-    // 1 i 3 su tvoji provjereni redovi
-    image(slikaPsa, 0, 0, 40, 40, 
-          (stupac * frameW) + 1, (pasSmjer * frameH) + 1, 
-          frameW - 2, frameH - 2);
-    pop();
+    translate(mouseX, mouseY); //pomakni tocku crtanja na trenutnu poziciju misa
+    imageMode(CENTER); //slikas se crta iz centra umjesto gornjeg lijevog kuta 
+    noCursor(); //sakrij kursor
     
-    if(zvukPsa.paused && mouseIsPressed && millis()-zadnjeLajanje>3000 ){
+    image(slikaPsa, 0, 0, 40, 40, //slika,x,y,velicina na ekranu x, velicina na ekranu y
+          (stupac * frameW) + 1, (pasSmjer * frameH) + 1, //x i y pozicija izrezavanja
+          frameW - 2, frameH - 2); //sirina i visina isjecka
+    pop(); //vrati postavke na staro
+    
+    //lajanje psa je izvedeno na ovaj način zbog problema gdje bi pas jednom zalajao kada bismo pritisnuli gumb play
+    if(zvukPsa.paused && mouseIsPressed && millis()-zadnjeLajanje>3000 ){ //je li zvuk pauziran, mis pritisnut i je li proslo 3 sekunde od zadnjeg lajanja
         zvukPsa.currentTime=0;
         zvukPsa.play();
     
-        zadnjeLajanje=millis();
+        zadnjeLajanje=millis(); //zabiljezi zadnje lajanje
     
         }
 }
