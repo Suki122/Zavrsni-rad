@@ -36,7 +36,7 @@ function preload(){
 }
 
 function setup(){
-    createCanvas(1200,700);
+    createCanvas(800,600);
     panel = createDiv('');
     panel.id("kontrole-panel"); 
     createLabel("Cohesion", panel);
@@ -162,6 +162,9 @@ function pokreniIgru() {
     stanje="igra";
     
     izbornikDiv.hide(); // Sakrij izbornik kad igra krene
+    gumbZvuk=createImg(slikaOff,"Zvuk");
+    gumbZvuk.class("zvuk-gumb");
+    gumbZvuk.mousePressed(sound);
 
     igraUpravoPokrenuta=true;
     setTimeout(()=>{
