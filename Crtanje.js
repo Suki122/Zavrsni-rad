@@ -23,6 +23,8 @@ let igraUpravoPokrenuta;
 let pasSmjer = 1; 
 let zadnjeLajanje=-3000;
 let pasAnimacijaVrijeme = 0;
+let trenutniLevel=1;
+
 //osiguranje da se slike i  zvukovi ucitaju prvi
 function preload(){
     slikaOvce=loadImage("resursi/sheep_walk.png");
@@ -66,19 +68,7 @@ function setup(){
     gumbZvuk.parent(izbornikDiv);
     gumbZvuk.mousePressed(sound);
     
-    //oznacavamo koji tile iz pozadine zelimo 
-    travaKvadrat=pozadina.get(0,0,16,16);
-
-    //spawn Boida odreden svojom grupom
-    for(let i=0;i<30;i++){
-        let centar=createVector(200,200);
-        let b=new Boid(centar.x+random(-30,30),centar.y+random(-30,30),slikaOvce,zvukOvce);
-        flock.push(b);
-    }
-    for(let j=0;j<5;j++){
-        let o2=new Ograda(random(0,800),random(0,600),5,"v",ograda);
-        ograde.push(o2);
-    }
+    ucitajLevel1();
 }
 function createLabel(tekst, roditelj) {
     let lbl = createDiv(tekst);
@@ -103,6 +93,7 @@ function draw() {
     crtaIgru(); 
     cursor();
 
+
     //azuriraj vrijednosti slidera
     tekstKoh.html(sliderKoh.value());
     tekstSep.html(sliderSep.value());
@@ -123,48 +114,29 @@ function draw() {
 }
 
 function crtaIgru() {
-    background(100,200,100); 
-    noSmooth();  //da bi p5.js prikazao pozadinu ostro, inace bi bila mutna
-    for(let x=0;x<width;x+=16*2){ //ide po x-u
-        for(let y=0;y<height;y+=16*2){ //ide po y
-            image(travaKvadrat,x,y,16*2,16*2); //na svaku koordinatu postavlja tile pozadine koji smo prije odabrali
-        }
+
+    switch(trenutniLevel){
+        case 1:
+            nacrtajLevel1();
+            break;
+        case 2:
+            nacrtajLevel2();
+            break;
+        case 3:
+            nacrtajLevel3();
+            break
     }
     
-    for(let zid of zidovi){
-        zid.prikazi();
-    }
-    for(let ograda of ograde){
-        ograda.prikazi();
-    }
-    //kako se kod ne bi srusio jer se prije izvrsi draw nego sto se slideri ucitaju
-    if (sliderSep && sliderAli && sliderKoh) {
-        let s=sliderSep.value();
-        let a=sliderAli.value();
-        let c=sliderKoh.value();
-
-        for(let boid of flock){
-            boid.rubovi();
-            boid.kretanje(flock,zidovi,ograde,c,s,a);
-            boid.prikazi();
-        }
-    } else {
-        // Ako slideri još ne postoje, boidovi se kreću sa zadanim vrijednostima
-        for(let boid of flock){
-            boid.rubovi();
-            boid.kretanje(flock,zidovi,ograde,0.1,0.1,0.05); 
-            boid.prikazi();
-        }
-    }
 }
+
 
 function pokreniIgru() {
     stanje="igra";
     
     izbornikDiv.hide(); // Sakrij izbornik kad igra krene
-    gumbZvuk=createImg(slikaOff,"Zvuk");
-    gumbZvuk.class("zvuk-gumb");
-    gumbZvuk.mousePressed(sound);
+    //zvuk se crta i dok je stanje jednako igra, kako bismo mogli ugasiti glazbu ako je pokrenuta u menu-u
+    gumbZvuk.show();
+    gumbZvuk.parent(panel);
 
     igraUpravoPokrenuta=true;
     setTimeout(()=>{
