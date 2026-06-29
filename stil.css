@@ -1,0 +1,204 @@
+/* Globalni stilovi */
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a201a; /* Tamnozelena pozadina */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    gap: 20px;
+}
+
+/* Kontejner koji drži canvas i obavijesti */
+#canvas-kontejner {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+/* Stil za p5.js canvas */
+canvas {
+    display: block;
+    border-radius: inherit;
+}
+
+/* MODERNI IZBORNIK - Ciljamo klasu iz Crtanje.js */
+.izbornik-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Savršeno centriranje na ekranu */
+    background-image: url('resursi/pozadina_menu.png');
+    background-size: cover;
+    width: 500px;
+    padding: 50px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    border: 6px solid #FFA726; /* Žuti obrub */
+    z-index: 9999;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Stilovi za tekst unutar izbornika */
+.izbornik-container h1 {
+    color: #FF9800; /* Narančasta */
+    font-size: 52px;
+    margin: 0;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.izbornik-container p {
+    color: #333333;
+    font-size: 20px;
+    margin: 20px 0 40px 0;
+    font-weight: 600;
+}
+
+/* MODERNI 3D GUMB */
+.play-gumb {
+    background-color: #FF9800 !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    padding: 18px 50px !important;
+    font-size: 24px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    border-radius: 100px !important;
+    cursor: pointer !important;
+    outline: none !important;
+    
+    /* Onemogućujemo p5.js automatsko pozicioniranje ako postoji */
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    
+    /* 3D efekt sjena */
+    box-shadow: 0 8px 0 #E65100, 
+                0 15px 25px rgba(0, 0, 0, 0.3) !important;
+    
+    transition: all 0.1s ease !important;
+}
+
+.play-gumb:hover {
+    background-color: #FFA726 !important;
+    transform: translateY(-4px) !important;
+    box-shadow: 0 12px 0 #E65100, 
+                0 20px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+.play-gumb:active {
+    transform: translateY(4px) !important;
+    box-shadow: 0 4px 0 #E65100, 
+                0 8px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.zvuk-gumb {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.2s;
+    
+    /* Ovo uklanja sve defaultne obrube i pozadine */
+    background: white !important;
+    border: solid 4px  #FFA726 !important;
+    border-radius: 360px;
+    outline: none !important;
+    padding: 0 !important;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.zvuk-gumb:hover {
+    transform: scale(1.1); /* Blago povečanje kad pređeš mišem */
+}
+
+#kontrole-panel {
+    background: #ffffff; /* Čista bijela pozadina */
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 4px solid #FF9800; /* Narančasti okvir kao gumb */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Lagana sjena za dubinu */
+    transition: all 0.3s ease; /* Za glatki hover efekt */
+}
+
+/* Hover efekt: panel se malo poveća i promijeni boju okvira */
+#kontrole-panel:hover {
+    border-color: #e68900;
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(255,152,0,0.3);
+}
+
+/* Stil za slider */
+input[type=range] {
+    accent-color: #FF9800; /* Boja slidera */
+    cursor: pointer;
+}
+
+/* Stil za labele i brojeve */
+#kontrole-panel div {
+    font-weight: bold;
+    color: #FF9800; /* Boja teksta u stilu gumba */
+    font-family: sans-serif;
+}
+
+.obavijest-box {
+    /* Pozicioniranje u središte canvasa/ekrana */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: auto !important; /* Ovo je ključno */
+    z-index: 1000 !important;
+    
+    /* Dizajn: U skladu s ostatkom igre (bijela pozadina, narančasti obrub) */
+    background: #ffffff;
+    color: #FF9800;
+    padding: 20px 40px;
+    border-radius: 20px;
+    border: 5px solid #FF9800;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    
+    /* Tipografija */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 900;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-align: center;
+    
+    /* Onemogućujemo ometanje klikova na canvas */
+    pointer-events: none;
+    
+    /* Animacija ulaska (bounce efekt) */
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Keyframes za animaciju iskakanja */
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
