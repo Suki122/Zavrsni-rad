@@ -179,10 +179,10 @@ function pokreniIgru() {
     obavijestDiv.show();
     
 
-    // Sakrij ga nakon 5 sekundi
+    // Sakrij ga nakon 2 sekund3
     setTimeout(() => {
         obavijestDiv.hide();
-    }, 1000);
+    }, 2000);
 
     createLabel("Music", panel);
     gumbZvuk.show();
