@@ -1,8 +1,8 @@
-let ciljX1=360;
-let ciljY1=20;
-let ciljSirina1=340;
-let ciljVisina1=260;
-function nacrtajLevel1(){
+let ciljX2=360;
+let ciljY2=20;
+let ciljSirina2=340;
+let ciljVisina2=260;
+function nacrtajLevel2(){
     
     
     //oznacavamo koji tile iz pozadine zelimo 
@@ -170,7 +170,7 @@ function nacrtajLevel1(){
         }
 }
 
-function ucitajLevel1(){
+function ucitajLevel2(){
     flock=[];
     ograde=[];
 

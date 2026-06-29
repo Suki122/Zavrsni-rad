@@ -30,6 +30,7 @@ let flag=true;
 let gumbPonovno;
 let gameOverDiv;
 let zvukGubitak;
+let gumbNext;
 // Globalne varijable za pomicnu kameru i velicinu svijeta
 let kameraX = 0;
 let kameraY = 0;
@@ -55,16 +56,23 @@ function setup(){
     canvas.parent("canvas-kontejner");
 
     obavijestDiv=createDiv("");
-    obavijestDiv.html("<h1>Level 1</h1><p>Easy</p><p>Get the sheeps to yellow grass!</p>");
+    obavijestDiv.html("<h1>Level 1</h1><p>Easy</p><p>Get the sheep to yellow grass!</p>");
     obavijestDiv.class("obavijest-box");
     obavijestDiv.parent("canvas-kontejner");
     obavijestDiv.hide();
+    
 
     obavijestDivKraj=createDiv("");
     obavijestDivKraj.html("<h1>Great job!</h1><p>Continue to next level!</p>");
     obavijestDivKraj.class("obavijest-box");
     obavijestDivKraj.parent("canvas-kontejner");
+    gumbNext=createButton("Next Level");
+    gumbNext.class("play-gumb");
+    gumbNext.parent(obavijestDivKraj); 
+    gumbNext.mousePressed(sljedeciLevel);
     obavijestDivKraj.hide();
+
+    
 
     panel=createDiv("");
     panel.id("kontrole-panel"); 
@@ -84,7 +92,7 @@ function setup(){
 
     izbornikDiv=createDiv("");
     izbornikDiv.class("izbornik-container");
-    izbornikDiv.html("<h1>Sheep Scramble</h1><p>Get the sheeps!</p>");
+    izbornikDiv.html("<h1>Sheep Scramble</h1><p>Get the sheep!</p>");
     
     gumbIgraj=createButton("Play");
     gumbIgraj.class("play-gumb");
@@ -102,7 +110,7 @@ function setup(){
     gameOverDiv.html("<h1>Sheep got away!</h1><p>Don't lose the sheep out of the sight</p>");
     gameOverDiv.hide();
 
-    gumbPonovno=createButton("Try again");
+    gumbPonovno=createButton("Try Again");
     gumbPonovno.class("play-gumb");
     gumbPonovno.parent(gameOverDiv); 
     gumbPonovno.mousePressed(pokreniIgru);
@@ -110,6 +118,20 @@ function setup(){
     
     ucitajLevel1();
 }
+function sljedeciLevel(){
+        obavijestDivKraj.hide();
+        levelZavrsen=false;
+        if(trenutniLevel<2){
+            trenutniLevel++;
+        }
+        if(trenutniLevel==2){
+            ucitajLevel2();
+        }
+        else{
+            console.log("kraj");
+        }
+        
+    }
 function createLabel(tekst, roditelj) {
     let lbl=createDiv(tekst);
     lbl.parent(roditelj);
@@ -189,9 +211,6 @@ function crtaIgru() {
         case 2:
             nacrtajLevel2();
             break;
-        case 3:
-            nacrtajLevel3();
-            break
     }
     pop(); //vraca koordinatni sustav na sta je bio prije
 }

@@ -71,7 +71,7 @@ class Boid{
         let ukupno=0; //broj Boidova koji su unutar vidnog polja Boida
         for(let boid of boidi){
             let d=dist(this.pozicija.x,this.pozicija.y,boid.pozicija.x,boid.pozicija.y); //udaljenost izmedu Boidova
-            if(boid!=this && d<percepcija && this.grupa==boid.grupa){ //ako nije on sam taj Boid i susjedni Boid je u vidnom polju
+            if(boid!=this && d<percepcija && d>0){ //ako nije on sam taj Boid i susjedni Boid je u vidnom polju, d>0 sprjecava dijeljenje s nulom u slucaju da se boidovi nalaze na istoj lokaciji
                 let razlika=p5.Vector.sub(this.pozicija,boid.pozicija); //izracun smjera za bijeg
                 razlika.div(d*d); //sto je susjed blize sila odgurivanja je jaca i obrnuto
                 upravljanje.add(razlika);
@@ -93,7 +93,7 @@ class Boid{
         let ukupno=0; 
         for(let boid of boidi){
             let d=dist(this.pozicija.x,this.pozicija.y,boid.pozicija.x,boid.pozicija.y); 
-            if(boid!=this && d<percepcija && this.grupa==boid.grupa){ 
+            if(boid!=this && d<percepcija){ 
                 upravljanje.add(boid.brzina); //zbrajamo brzine svih Boidova u vidnom polju
                 ukupno++;
             }
@@ -113,7 +113,7 @@ class Boid{
         let ukupno=0; 
         for(let boid of boidi){
             let d=dist(this.pozicija.x,this.pozicija.y,boid.pozicija.x,boid.pozicija.y); 
-            if(boid!=this && d<percepcija && this.grupa==boid.grupa){ 
+            if(boid!=this && d<percepcija){ 
                 upravljanje.add(boid.pozicija); //zbrajamo pozicije svih Boidova u vidnom polju
                 ukupno++;
             }
