@@ -29,6 +29,7 @@ let obavijestDivKraj;
 let flag=true;
 let gumbPonovno;
 let gameOverDiv;
+let zvukGubitak;
 // Globalne varijable za pomicnu kameru i velicinu svijeta
 let kameraX = 0;
 let kameraY = 0;
@@ -46,6 +47,7 @@ function preload(){
     introGlazba.loop=true;
     slikaPsa=loadImage("resursi/pas.png");
     zvukPsa=new Audio("resursi/dogBark.mp3");
+    zvukGubitak=new Audio("resursi/fail.mp3");
 }
 
 function setup(){
@@ -97,7 +99,7 @@ function setup(){
     //GameOver panel koji sadrži poruku i gumb za ponovni pokušaj
     gameOverDiv=createDiv("");
     gameOverDiv.class("izbornik-container");
-    gameOverDiv.html("<h1>Sheep got away!</h1><p>Don't lose the sheep out of the camera box!</p>");
+    gameOverDiv.html("<h1>Sheep got away!</h1><p>Don't lose the sheep out of the sight</p>");
     gameOverDiv.hide();
 
     gumbPonovno=createButton("Try again");
@@ -135,6 +137,8 @@ function draw() {
             centarStada.add(boid.pozicija);
             //ako je pozicija ovce van kamere, igra daje obavijest i igrac moze pokusati ponovno
             if (stanje==="igra" && (boid.pozicija.x<kameraX || boid.pozicija.x > kameraX + width || boid.pozicija.y < kameraY || boid.pozicija.y > kameraY + height)) {
+                zvukGubitak.currentTime=0;
+                zvukGubitak.play();
                 stanje="gameOver";
                 gameOverDiv.show();
             }
