@@ -27,6 +27,8 @@ let trenutniLevel=1;
 let obavijestDiv;
 let obavijestDivKraj;
 let flag=true;
+let gumbPonovno;
+let gameOverDiv;
 // Globalne varijable za pomicnu kameru i velicinu svijeta
 let kameraX = 0;
 let kameraY = 0;
@@ -76,12 +78,14 @@ function setup(){
     tekstAli=createDiv("1.0").parent(panel);
     sliderAli=createSlider(0, 2.0, 1.0, 0.1).parent(panel);
 
+    createLabel("Music", panel);
+
     izbornikDiv=createDiv("");
-    izbornikDiv.class('izbornik-container');
-    izbornikDiv.html('<h1>Sheep Scramble</h1><p>Get the sheeps!</p>');
+    izbornikDiv.class("izbornik-container");
+    izbornikDiv.html("<h1>Sheep Scramble</h1><p>Get the sheeps!</p>");
     
-    gumbIgraj=createButton("IGRAJ");
-    gumbIgraj.class('play-gumb');
+    gumbIgraj=createButton("Play");
+    gumbIgraj.class("play-gumb");
     gumbIgraj.parent(izbornikDiv); 
     gumbIgraj.mousePressed(pokreniIgru);
 
@@ -89,11 +93,23 @@ function setup(){
     gumbZvuk.class("zvuk-gumb");
     gumbZvuk.parent(izbornikDiv);
     gumbZvuk.mousePressed(sound);
+
+    //GameOver panel koji sadrži poruku i gumb za ponovni pokušaj
+    gameOverDiv=createDiv("");
+    gameOverDiv.class("izbornik-container");
+    gameOverDiv.html("<h1>Sheep got away!</h1><p>Don't lose the sheep out of the camera box!</p>");
+    gameOverDiv.hide();
+
+    gumbPonovno=createButton("Try again");
+    gumbPonovno.class("play-gumb");
+    gumbPonovno.parent(gameOverDiv); 
+    gumbPonovno.mousePressed(pokreniIgru);
+    
     
     ucitajLevel1();
 }
 function createLabel(tekst, roditelj) {
-    let lbl = createDiv(tekst);
+    let lbl=createDiv(tekst);
     lbl.parent(roditelj);
     lbl.style('font-size', '14px');
     lbl.style('margin-top', '10px');
@@ -114,17 +130,22 @@ function sound(){
 function draw() {
     // Racunanje kamere prema prosjecnom centru boida
     if (flock.length > 0) {
-        let centarStada = createVector(0, 0);
+        let centarStada=createVector(0, 0);
         for (let boid of flock) {
             centarStada.add(boid.pozicija);
+            //ako je pozicija ovce van kamere, igra daje obavijest i igrac moze pokusati ponovno
+            if (stanje==="igra" && (boid.pozicija.x<kameraX || boid.pozicija.x > kameraX + width || boid.pozicija.y < kameraY || boid.pozicija.y > kameraY + height)) {
+                stanje="gameOver";
+                gameOverDiv.show();
+            }
         }
         centarStada.div(flock.length);
         
-        let ciljX = centarStada.x - width / 2; //cilj do kojeg kamera zeli doci
-        let ciljY = centarStada.y - height / 2;
+        let ciljX=centarStada.x-width / 2; //cilj do kojeg kamera zeli doci
+        let ciljY=centarStada.y-height / 2;
         //lerp->linear interpolation, omogucuje da kamera prijede 5% do cilja u svakom frameu (omogucuje sporije kretanje kamere)
-        kameraX = lerp(kameraX, constrain(ciljX, 0, mapSirina - width), 0.05); //constraint sprjecava kameru da izade van granica mape
-        kameraY = lerp(kameraY, constrain(ciljY, 0, mapVisina - height), 0.05);
+        kameraX=lerp(kameraX, constrain(ciljX, 0, mapSirina-width), 0.05); //constraint sprjecava kameru da izade van granica mape
+        kameraY=lerp(kameraY, constrain(ciljY, 0, mapVisina-height), 0.05);
     }
     krajLevel(ciljX1,ciljY1,ciljSirina1,ciljVisina1);
     crtaIgru(); 
@@ -139,6 +160,9 @@ function draw() {
     if (stanje==="igra" && !igraUpravoPokrenuta) {
         izbornikDiv.hide();
         panel.show();
+        gumbZvuk.parent(panel); //gumb se prebacuje u panel, a labela se vec tamo  nalazi
+        gumbZvuk.show();
+        
         if(mouseIsPressed){
             nacrtajPsa();
         }
@@ -172,21 +196,27 @@ function crtaIgru() {
 function pokreniIgru() {
     stanje="igra";
 
-    
-    
-    izbornikDiv.hide(); // Sakrij izbornik kad igra krene
-    //zvuk se crta i dok je stanje jednako igra, kako bismo mogli ugasiti glazbu ako je pokrenuta u menu-u
-    obavijestDiv.show();
-    
+    if (gameOverDiv) {
+        gameOverDiv.hide();
+    }
 
-    // Sakrij ga nakon 2 sekund3
+    // Ponovno učitaj level 1 da resetiramo ovce i ograde na početne pozicije
+    ucitajLevel1();
+
+    // Resetiraj poziciju kamere
+    kameraX=0;
+    kameraY=0;
+
+    izbornikDiv.hide(); // Sakrij izbornik kad igra krene
+    obavijestDiv.show();
+
+    // Sakrij ga nakon 2 sekunde
     setTimeout(() => {
         obavijestDiv.hide();
     }, 2000);
 
-    createLabel("Music", panel);
-    gumbZvuk.show();
-    gumbZvuk.parent(panel);
+
+    
 
     igraUpravoPokrenuta=true;
     setTimeout(()=>{
@@ -196,24 +226,24 @@ function pokreniIgru() {
 
 
 function nacrtajPsa() {
-    let frameW = slikaPsa.width / 3; //sirina ovira jedne slicice
-    let frameH = slikaPsa.height / 4 +50; //visina okvira + 50 jer prelaze jedna slika u drugu
+    let frameW=slikaPsa.width / 3; //sirina ovira jedne slicice
+    let frameH=slikaPsa.height / 4 +50; //visina okvira + 50 jer prelaze jedna slika u drugu
     
-    let dx = mouseX - pmouseX; //promjena pozicije misa, pmouseX je pozicija misa u prethodnome frameu, a mouseX u trenutnom
-    let dy = mouseY - pmouseY;
+    let dx=mouseX-pmouseX; //promjena pozicije misa, pmouseX je pozicija misa u prethodnome frameu, a mouseX u trenutnom
+    let dy=mouseY-pmouseY;
     
-    if (dy > 2) { //ako se mis pomaknu vise od 2px prema dolje
-        pasSmjer = 1; // uzimamo red 1 jer se u njemu nalazi slicica psa prema dolje
-    } else if (dy < -2) {
-        pasSmjer = 3; // u redu 3 se nalazi slicica psa prema gore
+    if (dy>2) { //ako se mis pomaknu vise od 2px prema dolje
+        pasSmjer=1; // uzimamo red 1 jer se u njemu nalazi slicica psa prema dolje
+    } else if (dy<-2) {
+        pasSmjer=3; // u redu 3 se nalazi slicica psa prema gore
     }
     
-    let brzina = dist(0, 0, dx, dy); //euklidska udaljenost od tocke (0,0)
-    if (brzina > 0.1) { //ako se mis krece
-        pasAnimacijaVrijeme += 0.2; //povecaj brzinu animacije
+    let brzina=dist(0, 0, dx, dy); //euklidska udaljenost od tocke (0,0)
+    if (brzina>0.1) { //ako se mis krece
+        pasAnimacijaVrijeme+=0.2; //povecaj brzinu animacije
     }
     //odreduje koja slicica (od 3) ce se prikazati, ovisi o brzini
-    let stupac = floor(pasAnimacijaVrijeme) % 3;
+    let stupac=floor(pasAnimacijaVrijeme)%3;
     //podesavanje koordinatnog sustava
     push();
     translate(mouseX, mouseY); //pomakni tocku crtanja na trenutnu poziciju misa
@@ -221,8 +251,8 @@ function nacrtajPsa() {
     noCursor(); //sakrij kursor
     
     image(slikaPsa, 0, 0, 40, 40, //slika,x,y,velicina na ekranu x, velicina na ekranu y
-          (stupac * frameW) + 1, (pasSmjer * frameH) + 1, //x i y pozicija izrezavanja
-          frameW - 2, frameH - 2); //sirina i visina isjecka
+          (stupac*frameW)+1, (pasSmjer*frameH) + 1, //x i y pozicija izrezavanja
+          frameW-2, frameH-2); //sirina i visina isjecka
     pop(); //vrati postavke na staro
     
     //lajanje psa je izvedeno na ovaj način zbog problema gdje bi pas jednom zalajao kada bismo pritisnuli gumb play
