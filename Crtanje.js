@@ -9,6 +9,7 @@ let zvukOvceBijele;
 let zvukOvceCrne;
 let stanje="izbornik";
 let gumbIgraj;
+let gumbSandbox;
 let izbornikDiv; 
 let introGlazba;
 let gumbZvuk;
@@ -19,6 +20,7 @@ let sliderKoh1, sliderSep1, sliderAli1;
 let panel1;
 let sliderKoh2, sliderSep2, sliderAli2;
 let panel2;
+let panel3;
 let tekstKoh1, tekstSep1, tekstAli1;
 let slikaPsa;
 let zvukPsa;
@@ -95,7 +97,7 @@ function setup(){
     tekstAli1=createDiv("1.0").parent(panel1);
     sliderAli1=createSlider(0, 2.0, 1.0, 0.1).parent(panel1);
 
-    createLabel("Music", panel1);
+    
     //panel za crne ovce
     panel2=createDiv("");
     panel2.id("kontrole-panel"); 
@@ -114,6 +116,17 @@ function setup(){
 
     panel2.hide();
     
+    //panel za postavke
+    panel3=createDiv("");
+    panel3.id("kontrole-panel");
+    panel3.hide();
+
+    gumbVrati=createButton("Return");
+    gumbVrati.class("return");
+    gumbVrati.parent(panel3); 
+    gumbVrati.mousePressed(vratiNaMainMenu);
+    createLabel("Music", panel3);
+
 
     izbornikDiv=createDiv("");
     izbornikDiv.class("izbornik-container");
@@ -123,6 +136,11 @@ function setup(){
     gumbIgraj.class("play-gumb");
     gumbIgraj.parent(izbornikDiv); 
     gumbIgraj.mousePressed(pokreniIgru);
+
+    gumbSandbox=createButton("Sandbox");
+    gumbSandbox.class("play-gumb");
+    gumbSandbox.parent(izbornikDiv); 
+    gumbSandbox.mousePressed(ucitajSandbox);
 
     gumbZvuk=createImg(slikaOff,"Zvuk");
     gumbZvuk.class("zvuk-gumb");
@@ -216,10 +234,11 @@ function draw() {
     tekstSep2.html(sliderSep2.value());
     tekstAli2.html(sliderAli2.value());
     
-    if (stanje==="igra" && !igraUpravoPokrenuta) {
+    if ((stanje==="igra" && !igraUpravoPokrenuta) || stanje=="sandbox" ) {
         izbornikDiv.hide();
         panel1.show();
-        gumbZvuk.parent(panel1); //gumb se prebacuje u panel, a labela se vec tamo  nalazi
+        panel3.show();
+        gumbZvuk.parent(panel3); //gumb se prebacuje u panel, a labela se vec tamo  nalazi
         gumbZvuk.show();
         
         if(mouseIsPressed){
@@ -243,6 +262,9 @@ function crtaIgru() {
             break;
         case 2:
             nacrtajLevel2();
+            break;
+        case 3:
+            nacrtajSandbox();
             break;
     }
     pop(); //vraca koordinatni sustav na sta je bio prije
@@ -320,4 +342,15 @@ function nacrtajPsa() {
         zadnjeLajanje=millis(); //zabiljezi zadnje lajanje
     
         }
+}
+
+
+function vratiNaMainMenu(){  //funkcija za vracanje na main menu pomocu gumba return
+    stanje="izbornik";
+    gumbZvuk.parent(izbornikDiv);
+    izbornikDiv.style('display', 'flex');
+    izbornikDiv.show();
+    panel1.hide();
+    panel2.hide();
+    panel3.hide();
 }
