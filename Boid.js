@@ -6,7 +6,7 @@ class Boid{
         this.brzina.setMag(random(2,4)); //racuna broj piksela koje treba proci po frameu
         this.ubrzanje=createVector(0,0);
         this.maxSila=0.2; //maksimalna promjena brzine po frameu
-        this.maxBrzina=3;  //maksimalna brzina koju Boid nikada nece prijeci
+        this.maxBrzina=2.5;  //maksimalna brzina koju Boid nikada nece prijeci
         this.r=7; //velicina Boida 
         this.frame=0;
         this.slika=slika; //slika koju boid prima

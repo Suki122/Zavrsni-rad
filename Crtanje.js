@@ -128,11 +128,14 @@ function sljedeciLevel(){
         levelUcitan=false; //postavi da level nije ucitan
         if(trenutniLevel<2){
             trenutniLevel++;
+            console.log(trenutniLevel);
         }
         if(trenutniLevel==2){
+            console.log(trenutniLevel);
             ucitajLevel2();
         }
         else{
+            console.log(trenutniLevel);
             console.log("kraj");
         }
         
@@ -229,7 +232,8 @@ function pokreniIgru() {
     }
 
     // Ponovno učitaj level 1 da resetiramo ovce i ograde na početne pozicije
-    ucitajLevel1();
+    trenutniLevel=1;
+    ucitajLevel1;
 
     // Resetiraj poziciju kamere
     kameraX=0;

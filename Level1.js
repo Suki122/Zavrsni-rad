@@ -197,4 +197,5 @@ function ucitajLevel1(){
         levelUcitan=true;
     },500); //odgoda kako bi se stiglo obraditi, bez nje ne radi
     
+    
 }
