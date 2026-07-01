@@ -232,8 +232,8 @@ function pokreniIgru() {
     }
 
     // Ponovno učitaj level 1 da resetiramo ovce i ograde na početne pozicije
-    trenutniLevel=1;
-    ucitajLevel1;
+
+    ucitajLevel1();
 
     // Resetiraj poziciju kamere
     kameraX=0;
