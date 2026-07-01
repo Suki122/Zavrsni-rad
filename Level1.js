@@ -181,27 +181,16 @@ function ucitajLevel1(){
     }
     
     
-    let o1=new Ograda(20,0,220,"h",ograda);
-    ograde.push(o1);
-    let o4=new Ograda(110,300,15,"h",ograda);
-    ograde.push(o4);
-    let o2=new Ograda(10,0,220,"v",ograda);
-    ograde.push(o2);
-    let o3=new Ograda(347,10,10,"v",ograda);
-    ograde.push(o3);
-    let o5=new Ograda(100,300,15,"v",ograda);
-    ograde.push(o5);
-    let o6=new Ograda(120,748,15,"h",ograda);
-    ograde.push(o6);
-    let o7=new Ograda(120,900,35,"h",ograda);
-    ograde.push(o7);
-    let o8=new Ograda(110,900,5,"v",ograda);
-    ograde.push(o8);
-    let o9=new Ograda(30,1055,20,"h",ograda);
-    ograde.push(o9);
-    let o10=new Ograda(1000,20,28,"v",ograda);
-    ograde.push(o10);
-    let o11=new Ograda(700,300,10,"h",ograda);
-    ograde.push(o11);
+    ograde.push(new Ograda(20,0,220,"h",ograda));
+    ograde.push(new Ograda(110,300,15,"h",ograda));
+    ograde.push(new Ograda(10,0,220,"v",ograda));
+    ograde.push(new Ograda(347,10,10,"v",ograda));
+    ograde.push(new Ograda(100,300,15,"v",ograda));
+    ograde.push(new Ograda(120,748,15,"h",ograda));
+    ograde.push(new Ograda(120,900,35,"h",ograda));
+    ograde.push(new Ograda(110,900,5,"v",ograda));
+    ograde.push(new Ograda(30,1055,20,"h",ograda));
+    ograde.push(new Ograda(1000,20,28,"v",ograda));
+    ograde.push(new Ograda(700,300,10,"h",ograda));
     
 }
