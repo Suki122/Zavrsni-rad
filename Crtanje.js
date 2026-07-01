@@ -15,9 +15,11 @@ let gumbZvuk;
 let zvukAktivan=false;
 let slikaOn="resursi/sound_onn.png";
 let slikaOff="resursi/sound_offf.png";
-let sliderKoh, sliderSep, sliderAli;
-let panel;
-let tekstKoh, tekstSep, tekstAli;
+let sliderKoh1, sliderSep1, sliderAli1;
+let panel1;
+let sliderKoh2, sliderSep2, sliderAli2;
+let panel2;
+let tekstKoh1, tekstSep1, tekstAli1;
 let slikaPsa;
 let zvukPsa;
 let igraUpravoPokrenuta;
@@ -77,22 +79,41 @@ function setup(){
     obavijestDivKraj.hide();
 
     
-
-    panel=createDiv("");
-    panel.id("kontrole-panel"); 
-    createLabel("Cohesion", panel);
-    tekstKoh=createDiv("1.0").parent(panel);
-    sliderKoh = createSlider(0, 2.0, 1.0, 0.1).parent(panel);
+    //panel za bijele ovce
+    panel1=createDiv("");
+    panel1.id("kontrole-panel"); 
+    createLabel("White sheep", panel1);
+    createLabel("Cohesion", panel1);
+    tekstKoh1=createDiv("1.0").parent(panel1);
+    sliderKoh1=createSlider(0, 2.0, 1.0, 0.1).parent(panel1);
     
-    createLabel("Separation", panel);
-    tekstSep=createDiv("1.0").parent(panel);
-    sliderSep=createSlider(0, 2.0, 1.2, 0.1).parent(panel);
+    createLabel("Separation", panel1);
+    tekstSep1=createDiv("1.0").parent(panel1);
+    sliderSep1=createSlider(0, 2.0, 1.2, 0.1).parent(panel1);
     
-    createLabel("Alignment", panel);
-    tekstAli=createDiv("1.0").parent(panel);
-    sliderAli=createSlider(0, 2.0, 1.0, 0.1).parent(panel);
+    createLabel("Alignment", panel1);
+    tekstAli1=createDiv("1.0").parent(panel1);
+    sliderAli1=createSlider(0, 2.0, 1.0, 0.1).parent(panel1);
 
-    createLabel("Music", panel);
+    createLabel("Music", panel1);
+    //panel za crne ovce
+    panel2=createDiv("");
+    panel2.id("kontrole-panel"); 
+    createLabel("Black sheep", panel2);
+    createLabel("Cohesion", panel2);
+    tekstKoh2=createDiv("1.0").parent(panel2);
+    sliderKoh2=createSlider(0, 2.0, 0.7, 0.1).parent(panel2);
+    
+    createLabel("Separation", panel2);
+    tekstSep2=createDiv("1.0").parent(panel2);
+    sliderSep2=createSlider(0, 2.0, 1.3, 0.1).parent(panel2);
+    
+    createLabel("Alignment", panel2);
+    tekstAli2=createDiv("1.0").parent(panel2);
+    sliderAli2=createSlider(0, 2.0, 0.5, 0.1).parent(panel2);
+
+    panel2.hide();
+    
 
     izbornikDiv=createDiv("");
     izbornikDiv.class("izbornik-container");
@@ -187,14 +208,18 @@ function draw() {
 
 
     //azuriraj vrijednosti slidera
-    tekstKoh.html(sliderKoh.value());
-    tekstSep.html(sliderSep.value());
-    tekstAli.html(sliderAli.value());
+    tekstKoh1.html(sliderKoh1.value());
+    tekstSep1.html(sliderSep1.value());
+    tekstAli1.html(sliderAli1.value());
+
+    tekstKoh2.html(sliderKoh2.value());
+    tekstSep2.html(sliderSep2.value());
+    tekstAli2.html(sliderAli2.value());
     
     if (stanje==="igra" && !igraUpravoPokrenuta) {
         izbornikDiv.hide();
-        panel.show();
-        gumbZvuk.parent(panel); //gumb se prebacuje u panel, a labela se vec tamo  nalazi
+        panel1.show();
+        gumbZvuk.parent(panel1); //gumb se prebacuje u panel, a labela se vec tamo  nalazi
         gumbZvuk.show();
         
         if(mouseIsPressed){
@@ -202,7 +227,7 @@ function draw() {
         }
     }
     else{
-        panel.hide();
+        panel1.hide();
     }
 
     

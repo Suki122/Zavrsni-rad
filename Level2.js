@@ -150,14 +150,19 @@ function nacrtajLevel2(){
             ograda.prikazi();
         }
         //kako se kod ne bi srusio jer se prije izvrsi draw nego sto se slideri ucitaju
-        if (sliderSep && sliderAli && sliderKoh) {
-            let s=sliderSep.value();
-            let a=sliderAli.value();
-            let c=sliderKoh.value();
+        if (sliderSep1 && sliderAli1 && sliderKoh1 && sliderSep2 && sliderAli2 && sliderKoh2) {
+            let s1=sliderSep1.value();
+            let a1=sliderAli1.value();
+            let c1=sliderKoh1.value();
+            //slideri crnih ovaca
+            let s2=sliderSep2.value();
+            let a2=sliderAli2.value();
+            let c2=sliderKoh2.value();
 
             for(let boid of flock){
                 boid.rubovi();
-                boid.kretanje(flock,zidovi,ograde,c,s,a);
+                boid.kretanje(flock,zidovi,ograde,c1,s1,a1,c2,s2,a2);
+                boid.glasajSe();
                 boid.prikazi();
             }
         } else {
@@ -165,6 +170,7 @@ function nacrtajLevel2(){
             for(let boid of flock){
                 boid.rubovi();
                 boid.kretanje(flock,zidovi,ograde,0.1,0.1,0.05); 
+                boid.glasajSe();
                 boid.prikazi();
             }
         }
@@ -174,13 +180,15 @@ function ucitajLevel2(){
     flock=[];
     ograde=[];
 
+    panel2.show();
+
     //spawn Boida 
     for(let i=0;i<30;i++){
         let b=new Boid(100,100,slikaOvceBijela,zvukOvceBijele);
         flock.push(b);
     }
     for(let i=0;i<10;i++){
-        let b=new Boid(100,100,slikaOvceCrna,zvukOvceCrne);
+        let b=new Boid(100,100,slikaOvceCrna,zvukOvceCrne,true);
         flock.push(b);
     }
     

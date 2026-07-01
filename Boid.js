@@ -1,6 +1,6 @@
 
 class Boid{
-    constructor(x,y,slika,zvuk){
+    constructor(x,y,slika,zvuk,jeCrna=false){
         this.pozicija=createVector(x,y); //kreiramo instancu klase p5.Vector koja prima koordinate 
         this.brzina=p5.Vector.random2D(); //bira nasumican kut i racuna x i y
         this.brzina.setMag(random(2,4)); //racuna broj piksela koje treba proci po frameu
@@ -11,6 +11,8 @@ class Boid{
         this.frame=0;
         this.slika=slika; //slika koju boid prima
         this.zvuk=zvuk; //zvuk koji boid prima
+        this.jeCrna=jeCrna; //ako je ovca crna
+        this.zadnjiGlas=millis();  //spremi trenutno vrijeme pri stvaranju
     }
 
     
@@ -31,20 +33,30 @@ class Boid{
        }
     }
 
-    kretanje(boidi,zidovi,ograde,KOH,SEP,ALI){
-        let sep = this.separacija(boidi);
-        let ali = this.poravnanje(boidi);
-        let coh = this.kohezija(boidi);
+    kretanje(boidi,zidovi,ograde,KOH1,SEP1,ALI1,KOH2,SEP2,ALI2){
+        let sep=this.separacija(boidi);
+        let ali=this.poravnanje(boidi);
+        let coh=this.kohezija(boidi);
+
+
         let svePrepreke=[...zidovi]; //prepisi zidove u niz svePrepreke
         for(let o of ograde){
             svePrepreke.push(...o.pretvoriOgradu());    //nad svakom ogradom pozov funkciju i stavi ju u niz svePrepreke
         }
         let prepreka=this.izbjegavanjeZida(svePrepreke);
         
-
-        sep.mult(SEP); 
-        ali.mult(ALI); 
-        coh.mult(KOH);
+        if(this.jeCrna){
+            sep.mult(SEP2); 
+            ali.mult(ALI2); 
+            coh.mult(KOH2);
+        }
+        else{
+            sep.mult(SEP1); 
+            ali.mult(ALI1); 
+            coh.mult(KOH1);
+        }
+        
+        
         
 
         this.ubrzanje.add(sep);
@@ -131,14 +143,14 @@ class Boid{
     traziMis(){
         if (mouseX>=0 && mouseX<width && mouseY>=0 && mouseY<=height){
             let mis=createVector(mouseX+kameraX, mouseY+kameraY); //hvata koordinate misa u svijetu, dodaju se koordinate kamere kako bi se ponistio translate svijeta
-            let zeljeniSmjer = this.pozicija.copy().sub(mis); //racuna smjer od misa prema boidu, copy koristi da se ne uniste izvorne koordinate pozicije
+            let zeljeniSmjer=this.pozicija.copy().sub(mis); //racuna smjer od misa prema boidu, copy koristi da se ne uniste izvorne koordinate pozicije
             let d = zeljeniSmjer.mag(); //racuna udaljenost od misa do boida
             if (d > 200) {
                 return createVector(0, 0);
                 
             } 
             zeljeniSmjer.setMag(map(d, 0, 200, this.maxBrzina*2, 2)); //mapiramo prema udaljenosti boida od misa
-            let upravljanje = zeljeniSmjer.copy().sub(this.brzina); //racuna ispravak putanje boida
+            let upravljanje=zeljeniSmjer.copy().sub(this.brzina); //racuna ispravak putanje boida
             upravljanje.limit(this.maxSila); //maksimalna snaga kojom boid smije promijeniti smjer u 1 frameu
             
             return upravljanje;
@@ -148,17 +160,25 @@ class Boid{
         return createVector(0, 0);
     }
 
+    glasajSe() {
+        let trenutnoVrijeme=millis();
+        if(trenutnoVrijeme-this.zadnjiGlas>5000){ //provjeri je li proslo 10 sekundi
+                // Provjeri zvuk, status reprodukcije i stanje igre
+            if (this.zvuk && stanje==="igra") {
+                this.zvuk.currentTime = 0; // Vrati na početak
+                this.zvuk.play();          // pokreni zvuk
+                this.zadnjiGlas=trenutnoVrijeme; //resetiraj timer
+            }
+        }
+        
+    }
+
     izbjegavanjeZida(zidovi){
             let upravljanje = createVector(0, 0);
 
         for (let zid of zidovi) {
-            let doBoida = p5.Vector.sub(this.pozicija, zid.srediste); //kreira vektor koji ide od sredista zida ka boidu (ako je boid desno od zida x je pozitivan, ako je boid iznad zida y je negativan)
-            if (abs(doBoida.x) < zid.w / 2 + 0 && abs(doBoida.y) < zid.h / 2 + 15) { //provjera je li boid unutar zida
-                //zvuk svira kada ovca udari u prepreku
-                if (this.zvuk && this.zvuk.paused && stanje==="igra") { //ako zvuk postoji i trenutno ne svira te je igra krenula
-                    this.zvuk.currentTime=0; // Vrati na nulu
-                    this.zvuk.play();          // Sviraj 
-                }
+            let doBoida=p5.Vector.sub(this.pozicija, zid.srediste); //kreira vektor koji ide od sredista zida ka boidu (ako je boid desno od zida x je pozitivan, ako je boid iznad zida y je negativan)
+            if (abs(doBoida.x)<zid.w/2+0 && abs(doBoida.y)<zid.h/2+15) { //provjera je li boid unutar zida
                 let silaOdbijanja = doBoida.copy();
                 silaOdbijanja.setMag(this.maxBrzina * 2); //postavlja silu i i osigurava da je 2 puta jaca od svih ostalih
                 this.brzina.mult(-0.5); //okrece smjer brzine za 180 i smanjuje jakost za pola

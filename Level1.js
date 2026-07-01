@@ -150,14 +150,15 @@ function nacrtajLevel1(){
             ograda.prikazi();
         }
         //kako se kod ne bi srusio jer se prije izvrsi draw nego sto se slideri ucitaju
-        if (sliderSep && sliderAli && sliderKoh) {
-            let s=sliderSep.value();
-            let a=sliderAli.value();
-            let c=sliderKoh.value();
+        if (sliderSep1 && sliderAli1 && sliderKoh1) {
+            let s1=sliderSep1.value();
+            let a2=sliderAli1.value();
+            let c2=sliderKoh1.value();
 
             for(let boid of flock){
                 boid.rubovi();
-                boid.kretanje(flock,zidovi,ograde,c,s,a);
+                boid.kretanje(flock,zidovi,ograde,c2,s1,a2);
+                boid.glasajSe();
                 boid.prikazi();
             }
         } else {
@@ -165,6 +166,7 @@ function nacrtajLevel1(){
             for(let boid of flock){
                 boid.rubovi();
                 boid.kretanje(flock,zidovi,ograde,0.1,0.1,0.05); 
+                boid.glasajSe();
                 boid.prikazi();
             }
         }
