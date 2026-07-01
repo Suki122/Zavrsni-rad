@@ -24,6 +24,13 @@ body {
     overflow: hidden; /* Osigurava da se ništa ne prelijeva izvan */
 }
 
+#panel-kontejner {
+    display: flex;       /* Ovo osigurava da se paneli slažu kako želiš */
+    flex-direction: column;
+    gap: 10px;           /* Razmak između panela */
+    top: 20px;
+    right: 20px;
+}
 /* Sredi tijelo stranice */
 body {
     background-color: #121212; /* Vrlo tamna siva, ugodnija od čiste crne */
@@ -211,8 +218,11 @@ input[type=range] {
     background-color: #FF9800 !important;
     color: #FFFFFF !important;
     border: none !important;
-    padding: 18px 50px !important;
-    font-size: 24px !important;
+    /* Smanji padding: prva vrijednost gore/dolje, druga lijevo/desno */
+    padding: 10px 25px !important; 
+    /* Smanji font */
+    font-size: 16px !important; 
+    
     font-weight: 900 !important;
     text-transform: uppercase !important;
     letter-spacing: 2px !important;
@@ -221,6 +231,7 @@ input[type=range] {
     outline: none !important;
     margin: 10px;
 }
+
 
 /* Keyframes za animaciju iskakanja */
 @keyframes popIn {

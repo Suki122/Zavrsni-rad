@@ -21,6 +21,7 @@ let panel1;
 let sliderKoh2, sliderSep2, sliderAli2;
 let panel2;
 let panel3;
+let panel_kontejner;
 let tekstKoh1, tekstSep1, tekstAli1;
 let slikaPsa;
 let zvukPsa;
@@ -60,7 +61,7 @@ function preload(){
 }
 
 function setup(){
-    let canvas = createCanvas(800,600);
+    let canvas=createCanvas(800,600);
     canvas.parent("canvas-kontejner");
 
     obavijestDiv=createDiv("");
@@ -127,6 +128,11 @@ function setup(){
     gumbVrati.mousePressed(vratiNaMainMenu);
     createLabel("Music", panel3);
 
+    panel_kontejner=createDiv("");
+    panel_kontejner.id("panel-kontejner");
+    panel1.parent(panel_kontejner);
+    panel2.parent(panel_kontejner);
+    panel3.parent(panel_kontejner);
 
     izbornikDiv=createDiv("");
     izbornikDiv.class("izbornik-container");
