@@ -120,7 +120,7 @@ function setup(){
     gumbPonovno.mousePressed(pokreniIgru);
     
     
-    ucitajLevel1();
+    ucitajMenuLevel();
 }
 function sljedeciLevel(){
         obavijestDivKraj.hide();

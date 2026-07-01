@@ -18,8 +18,10 @@ body {
     position: relative;
     width: 800px;
     height: 600px;
+    background: #000;
+    border: 2px solid #FF9800; /* Okvir kao rub konzole */
     border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    overflow: hidden; /* Osigurava da se ništa ne prelijeva izvan */
 }
 
 /* Sredi tijelo stranice */
