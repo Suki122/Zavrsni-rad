@@ -176,7 +176,11 @@ function ucitajLevel2(){
 
     //spawn Boida 
     for(let i=0;i<30;i++){
-        let b=new Boid(100,100,slikaOvce,zvukOvce);
+        let b=new Boid(100,100,slikaOvceBijela,zvukOvceBijele);
+        flock.push(b);
+    }
+    for(let i=0;i<10;i++){
+        let b=new Boid(100,100,slikaOvceCrna,zvukOvceCrne);
         flock.push(b);
     }
     
@@ -194,5 +198,9 @@ function ucitajLevel2(){
     ograde.push(new Ograda(900, 100, 10, "v", ograda));
     ograde.push(new Ograda(900, 100, 10, "h", ograda));
     ograde.push(new Ograda(1000, 100, 10, "v", ograda));
+    
+    setTimeout(()=>{
+        levelUcitan=true;
+    },500);  //odgoda kako bi se stiglo obraditi, bez nje ne radi
     
 }

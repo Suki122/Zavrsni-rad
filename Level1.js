@@ -176,7 +176,7 @@ function ucitajLevel1(){
 
     //spawn Boida 
     for(let i=0;i<30;i++){
-        let b=new Boid(100,100,slikaOvce,zvukOvce);
+        let b=new Boid(100,100,slikaOvceBijela,zvukOvceBijele);
         flock.push(b);
     }
     
@@ -192,5 +192,9 @@ function ucitajLevel1(){
     ograde.push(new Ograda(30,1055,20,"h",ograda));
     ograde.push(new Ograda(1000,20,28,"v",ograda));
     ograde.push(new Ograda(700,300,10,"h",ograda));
+
+    setTimeout(()=>{
+        levelUcitan=true;
+    },500); //odgoda kako bi se stiglo obraditi, bez nje ne radi
     
 }

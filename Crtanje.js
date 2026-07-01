@@ -1,11 +1,12 @@
 let flock=[];
 let zidovi=[];
-let slikaOvce;
+let slikaOvceBijela;
 let pozadina;
 let travaKvadrat1;
 let ograda;
 let ograde=[];
-let zvukOvce;
+let zvukOvceBijele;
+let zvukOvceCrne;
 let stanje="izbornik";
 let gumbIgraj;
 let izbornikDiv; 
@@ -31,6 +32,7 @@ let gumbPonovno;
 let gameOverDiv;
 let zvukGubitak;
 let gumbNext;
+let levelUcitan=false; //provjera je li level ucitan, da ne javi odmah da smo izgubili
 // Globalne varijable za pomicnu kameru i velicinu svijeta
 let kameraX = 0;
 let kameraY = 0;
@@ -40,10 +42,12 @@ let mapVisina = 1500;
 
 //osiguranje da se slike i  zvukovi ucitaju prvi
 function preload(){
-    slikaOvce=loadImage("resursi/sheep_walk.png");
+    slikaOvceBijela=loadImage("resursi/sheep_walk.png");
+    slikaOvceCrna=loadImage("resursi/sheep_walk_black.png");
     pozadina=loadImage("resursi/GRASS+.png");
     ograda=loadImage("resursi/fence.png");
-    zvukOvce=new Audio("resursi/test1.wav"); //p5.js iz nekog razloga ne radi za zvuk pa koristimo ovaj nacin
+    zvukOvceBijele=new Audio("resursi/zvukovcebijele.wav"); //p5.js iz nekog razloga ne radi za zvuk pa koristimo ovaj nacin
+    zvukOvceCrne=new Audio("resursi/zvukovcecrne.mp3");
     introGlazba=new Audio("resursi/glazba_uvod.mp3");
     introGlazba.loop=true;
     slikaPsa=loadImage("resursi/pas.png");
@@ -121,6 +125,7 @@ function setup(){
 function sljedeciLevel(){
         obavijestDivKraj.hide();
         levelZavrsen=false;
+        levelUcitan=false; //postavi da level nije ucitan
         if(trenutniLevel<2){
             trenutniLevel++;
         }
@@ -157,8 +162,8 @@ function draw() {
         let centarStada=createVector(0, 0);
         for (let boid of flock) {
             centarStada.add(boid.pozicija);
-            //ako je pozicija ovce van kamere, igra daje obavijest i igrac moze pokusati ponovno
-            if (stanje==="igra" && (boid.pozicija.x<kameraX || boid.pozicija.x > kameraX + width || boid.pozicija.y < kameraY || boid.pozicija.y > kameraY + height)) {
+            //ako je pozicija ovce van kamere,level je ucitan, onda igra daje obavijest i igrac moze pokusati ponovno
+            if (stanje==="igra" && levelUcitan==true && (boid.pozicija.x<kameraX || boid.pozicija.x > kameraX + width || boid.pozicija.y < kameraY || boid.pozicija.y > kameraY + height)) {
                 zvukGubitak.currentTime=0;
                 zvukGubitak.play();
                 stanje="gameOver";
