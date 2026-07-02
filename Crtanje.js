@@ -22,6 +22,7 @@ let sliderKoh2, sliderSep2, sliderAli2;
 let panel2;
 let panel3;
 let panel_kontejner;
+let panelGornjiRed;
 let sliderBrojBijelih, sliderBrojCrnih, sliderPercepcija;
 let tekstBrBijelih, tekstBrCrnih, tekstPercepcija;
 let panelSandbox;
@@ -88,7 +89,19 @@ function setup(){
     //panel za bijele ovce
     panel1=createDiv("");
     panel1.id("kontrole-panel"); 
-    createLabel("White sheep", panel1);
+    
+    let zaglavlje1=createDiv("");
+    zaglavlje1.class("panel-zaglavlje");
+    zaglavlje1.parent(panel1);
+    
+    let ikona1=createDiv("");
+    ikona1.class("sheep-icon sheep-white");
+    ikona1.parent(zaglavlje1);
+    
+    let naslov1=createDiv("White sheep");
+    naslov1.class("panel-naslov");
+    naslov1.parent(zaglavlje1);
+    
     createLabel("Cohesion", panel1);
     tekstKoh1=createDiv("1.0").parent(panel1);
     sliderKoh1=createSlider(0, 2.0, 1.0, 0.1).parent(panel1);
@@ -105,7 +118,19 @@ function setup(){
     //panel za crne ovce
     panel2=createDiv("");
     panel2.id("kontrole-panel"); 
-    createLabel("Black sheep", panel2);
+    
+    let zaglavlje2=createDiv("");
+    zaglavlje2.class("panel-zaglavlje");
+    zaglavlje2.parent(panel2);
+    
+    let ikona2=createDiv("");
+    ikona2.class("sheep-icon sheep-black");
+    ikona2.parent(zaglavlje2);
+    
+    let naslov2=createDiv("Black sheep");
+    naslov2.class("panel-naslov");
+    naslov2.parent(zaglavlje2);
+    
     createLabel("Cohesion", panel2);
     tekstKoh2=createDiv("1.0").parent(panel2);
     sliderKoh2=createSlider(0, 2.0, 0.7, 0.1).parent(panel2);
@@ -131,10 +156,15 @@ function setup(){
     gumbVrati.mousePressed(vratiNaMainMenu);
     createLabel("Music", panel3);
 
+    panelGornjiRed=createDiv("");
+    panelGornjiRed.id("panel-gornji-red");
+
     panel_kontejner=createDiv("");
     panel_kontejner.id("panel-kontejner");
-    panel1.parent(panel_kontejner);
-    panel2.parent(panel_kontejner);
+    
+    panel1.parent(panelGornjiRed);
+    panel2.parent(panelGornjiRed);
+    panelGornjiRed.parent(panel_kontejner);
     panel3.parent(panel_kontejner);
 
     izbornikDiv=createDiv("");
@@ -383,8 +413,8 @@ function nacrtajPsa() {
 function vratiNaMainMenu(){  //funkcija za vracanje na main menu pomocu gumba return
     stanje="izbornik";
     gumbZvuk.parent(izbornikDiv);
-    izbornikDiv.style('display', 'flex');
     izbornikDiv.show();
+    izbornikDiv.style('display', 'flex');
     panel1.hide();
     panel2.hide();
     panel3.hide();
