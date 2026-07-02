@@ -23,8 +23,8 @@ let panel2;
 let panel3;
 let panel_kontejner;
 let panelGornjiRed;
-let sliderBrojBijelih, sliderBrojCrnih, sliderPercepcija;
-let tekstBrBijelih, tekstBrCrnih, tekstPercepcija;
+let sliderBrojBijelih, sliderBrojCrnih, sliderPercepcija, sliderMaxBrzina, sliderMaxSila, sliderVelicina, sliderSnagaPsa;
+let tekstBrBijelih, tekstBrCrnih, tekstPercepcija, tekstMaxBrzina, tekstMaxSila, tekstVelicina, tekstSnagaPsa;
 let panelSandbox;
 let tekstKoh1, tekstSep1, tekstAli1;
 let slikaPsa;
@@ -213,6 +213,19 @@ function setup(){
     createLabel("Perception", panelSandbox);
     tekstPercepcija=createDiv("0").parent(panelSandbox);
     sliderPercepcija=createSlider(50, 300, 100).parent(panelSandbox);
+    createLabel("Max Speed", panelSandbox);
+    tekstMaxBrzina=createDiv("3.0").parent(panelSandbox);
+    sliderMaxBrzina=createSlider(1, 10, 3, 0.5).parent(panelSandbox);
+    createLabel("Max Force", panelSandbox);
+    tekstMaxSila=createDiv("0.1").parent(panelSandbox);
+    sliderMaxSila=createSlider(0.01, 0.5, 0.1, 0.01).parent(panelSandbox);
+    createLabel("Sheep Size", panelSandbox);
+    tekstVelicina=createDiv("50").parent(panelSandbox);
+    sliderVelicina=createSlider(20, 100, 50).parent(panelSandbox);
+    createLabel("Dog Strength", panelSandbox);
+    tekstSnagaPsa=createDiv("2.0").parent(panelSandbox);
+    sliderSnagaPsa=createSlider(0, 5, 2, 0.1).parent(panelSandbox);
+    panelSandbox.hide();
 
     // Gumb za primjenu postavki
     gumbPrimjeni=createButton("Apply");
@@ -299,6 +312,11 @@ function draw() {
     tekstBrCrnih.html(sliderBrojCrnih.value());
     tekstPercepcija.html(sliderPercepcija.value());
 
+    tekstMaxBrzina.html(sliderMaxBrzina.value());
+    tekstMaxSila.html(sliderMaxSila.value());
+    tekstVelicina.html(sliderVelicina.value());
+    tekstSnagaPsa.html(sliderSnagaPsa.value());
+
     
     if ((stanje==="igra" && !igraUpravoPokrenuta) || stanje=="sandbox" ) {
         izbornikDiv.hide();
@@ -339,7 +357,10 @@ function crtaIgru() {
 
 function pokreniIgru() {
     stanje="igra";
-
+    trenutniLevel=1; // Resetiranje na level 1
+    panelSandbox.hide();
+    panel2.hide(); 
+    
     if (gameOverDiv) {
         gameOverDiv.hide();
     }
@@ -419,4 +440,5 @@ function vratiNaMainMenu(){  //funkcija za vracanje na main menu pomocu gumba re
     panel1.hide();
     panel2.hide();
     panel3.hide();
+    panelSandbox.hide();
 }
