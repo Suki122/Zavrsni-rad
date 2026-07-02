@@ -169,6 +169,7 @@ function setup(){
 
     izbornikDiv=createDiv("");
     izbornikDiv.class("izbornik-container");
+    izbornikDiv.parent("canvas-kontejner");
     izbornikDiv.html("<h1>Sheep Scramble</h1><p>Get the sheep!</p>");
     
     gumbIgraj=createButton("Play");
@@ -414,7 +415,7 @@ function vratiNaMainMenu(){  //funkcija za vracanje na main menu pomocu gumba re
     stanje="izbornik";
     gumbZvuk.parent(izbornikDiv);
     izbornikDiv.show();
-    izbornikDiv.style('display', 'flex');
+    izbornikDiv.style("display", "flex");
     panel1.hide();
     panel2.hide();
     panel3.hide();

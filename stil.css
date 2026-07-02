@@ -59,7 +59,7 @@ canvas {
 
 /* MODERNI IZBORNIK - Ciljamo klasu iz Crtanje.js */
 .izbornik-container {
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /* Savršeno centriranje na ekranu */
