@@ -158,7 +158,8 @@ function setup(){
 
     //GameOver panel koji sadrži poruku i gumb za ponovni pokušaj
     gameOverDiv=createDiv("");
-    gameOverDiv.class("izbornik-container");
+    gameOverDiv.class("obavijest-box");
+    gameOverDiv.parent("canvas-kontejner");
     gameOverDiv.html("<h1>Sheep got away!</h1><p>Don't lose the sheep out of the sight</p>");
     gameOverDiv.hide();
 
@@ -167,9 +168,10 @@ function setup(){
     gumbPonovno.parent(gameOverDiv); 
     gumbPonovno.mousePressed(pokreniIgru);
     
-    //panel s postavkama sandbox moda
+    //panel s postavakama sandbox moda
     panelSandbox=createDiv("");
     panelSandbox.id("sandbox-overlay");
+    panelSandbox.parent("canvas-kontejner");
     panelSandbox.hide();
     createLabel("Number of white sheep", panelSandbox);
     tekstBrBijelih=createDiv("0").parent(panelSandbox);

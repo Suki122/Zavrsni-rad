@@ -13,6 +13,7 @@ class Boid{
         this.zvuk=zvuk; //zvuk koji boid prima
         this.jeCrna=jeCrna; //ako je ovca crna
         this.zadnjiGlas=millis();  //spremi trenutno vrijeme pri stvaranju
+        this.percepcija=100; // defaultni doseg percepcije (vidnog polja)
     }
 
     
@@ -78,7 +79,7 @@ class Boid{
     }
     //Reynold's flocking rules
     separacija(boidi){
-        let percepcija=100; //vidno polje Boida
+        let percepcija=this.percepcija; //vidno polje Boida
         let upravljanje=createVector(0,0); //vektor na koji se spremaju sve sile koje utjecu na Boid
         let ukupno=0; //broj Boidova koji su unutar vidnog polja Boida
         for(let boid of boidi){
@@ -100,7 +101,7 @@ class Boid{
     }
 
     poravnanje(boidi){
-        let percepcija=100; 
+        let percepcija=this.percepcija; 
         let upravljanje=createVector(0,0); 
         let ukupno=0; 
         for(let boid of boidi){
@@ -120,7 +121,7 @@ class Boid{
     }
 
     kohezija(boidi){
-        let percepcija=150; 
+        let percepcija=this.percepcija * 1.5; 
         let upravljanje=createVector(0,0); 
         let ukupno=0; 
         for(let boid of boidi){
