@@ -22,6 +22,9 @@ let sliderKoh2, sliderSep2, sliderAli2;
 let panel2;
 let panel3;
 let panel_kontejner;
+let sliderBrojBijelih, sliderBrojCrnih, sliderPercepcija;
+let tekstBrBijelih, tekstBrCrnih, tekstPercepcija;
+let panelSandbox;
 let tekstKoh1, tekstSep1, tekstAli1;
 let slikaPsa;
 let zvukPsa;
@@ -164,6 +167,25 @@ function setup(){
     gumbPonovno.parent(gameOverDiv); 
     gumbPonovno.mousePressed(pokreniIgru);
     
+    //panel s postavkama sandbox moda
+    panelSandbox=createDiv("");
+    panelSandbox.id("sandbox-overlay");
+    panelSandbox.hide();
+    createLabel("Number of white sheep", panelSandbox);
+    tekstBrBijelih=createDiv("0").parent(panelSandbox);
+    sliderBrojBijelih=createSlider(0, 100, 30).parent(panelSandbox);
+    createLabel("Number of black sheep", panelSandbox);
+    tekstBrCrnih=createDiv("0").parent(panelSandbox);
+    sliderBrojCrnih=createSlider(0, 50, 10).parent(panelSandbox);
+    createLabel("Perception", panelSandbox);
+    tekstPercepcija=createDiv("0").parent(panelSandbox);
+    sliderPercepcija=createSlider(50, 300, 100).parent(panelSandbox);
+
+    // Gumb za primjenu postavki
+    gumbPrimjeni=createButton("Apply");
+    gumbPrimjeni.class("return");
+    gumbPrimjeni.parent(panelSandbox);
+    gumbPrimjeni.mousePressed(pokreniSandboxPostavke);
     
     ucitajMenuLevel();
 }
@@ -239,6 +261,11 @@ function draw() {
     tekstKoh2.html(sliderKoh2.value());
     tekstSep2.html(sliderSep2.value());
     tekstAli2.html(sliderAli2.value());
+
+    tekstBrBijelih.html(sliderBrojBijelih.value());
+    tekstBrCrnih.html(sliderBrojCrnih.value());
+    tekstPercepcija.html(sliderPercepcija.value());
+
     
     if ((stanje==="igra" && !igraUpravoPokrenuta) || stanje=="sandbox" ) {
         izbornikDiv.hide();

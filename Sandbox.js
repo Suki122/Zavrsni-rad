@@ -67,20 +67,11 @@ function ucitajSandbox(){
     trenutniLevel=3;
     stanje="sandbox";
     izbornikDiv.hide();
-    flock=[];
+    panelSandbox.show();
     ograde=[];
     panel1.show();
     panel2.show();
-
-    //spawn Boida 
-    for(let i=0;i<30;i++){
-        let b=new Boid(100,100,slikaOvceBijela,zvukOvceBijele);
-        flock.push(b);
-    }
-    for(let i=0;i<10;i++){
-        let b=new Boid(100,100,slikaOvceCrna,zvukOvceCrne,true);
-        flock.push(b);
-    }
+    
     
     
     ograde.push(new Ograda(7, 1, 80, "h", ograda));
@@ -94,4 +85,23 @@ function ucitajSandbox(){
         levelUcitan=true;
     },500);  //odgoda kako bi se stiglo obraditi, bez nje ne radi
     
+}
+
+function pokreniSandboxPostavke() {
+    panelSandbox.hide();
+    flock=[];
+    let brBijelih=sliderBrojBijelih.value();
+    let brCrnih=sliderBrojCrnih.value();
+    let doseg=sliderPercepcija.value();
+
+    for(let i=0; i<brBijelih; i++) {
+        let b=new Boid(random(100,700), random(100,700), slikaOvceBijela, zvukOvceBijele);
+        b.percepcija=doseg;
+        flock.push(b);
+    }
+    for(let i=0; i<brCrnih; i++) {
+        let b=new Boid(random(100,700), random(100,700), slikaOvceCrna, zvukOvceCrne, true);
+        b.percepcija=doseg;
+        flock.push(b);
+    }
 }
