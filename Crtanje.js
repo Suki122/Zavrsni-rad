@@ -41,6 +41,9 @@ let gumbPonovno;
 let gameOverDiv;
 let zvukGubitak;
 let gumbNext;
+let pravilaDiv;
+let gumbZatvori;
+let gumbPravila;
 let levelUcitan=false; //provjera je li level ucitan, da ne javi odmah da smo izgubili
 // Globalne varijable za pomicnu kameru i velicinu svijeta
 let kameraX = 0;
@@ -154,6 +157,12 @@ function setup(){
     gumbVrati.class("return");
     gumbVrati.parent(panel3); 
     gumbVrati.mousePressed(vratiNaMainMenu);
+
+    gumbPravila=createButton("Rules");
+    gumbPravila.class("return");
+    gumbPravila.parent(panel3);
+    gumbPravila.mousePressed(()=>pravilaDiv.show());
+
     createLabel("Music", panel3);
 
     panelGornjiRed=createDiv("");
@@ -232,6 +241,32 @@ function setup(){
     gumbPrimjeni.class("return");
     gumbPrimjeni.parent(panelSandbox);
     gumbPrimjeni.mousePressed(pokreniSandboxPostavke);
+
+    pravilaDiv=createDiv("");
+    pravilaDiv.id("rules-overlay");
+    pravilaDiv.parent("canvas-kontejner");
+    pravilaDiv.hide();
+
+    pravilaDiv.html("<h1>How to Play</h1>" +
+    "<div class='rules-text'>" +
+    "<b>Goal:</b> Guide the sheep to the yellow grass area!<br>" +
+    "<b>Controls:</b> Move your mouse to control the dog.<br><br>" +
+    "<b>Settings Explained:</b><br><br>" +
+    "• <b>Cohesion:</b> Sheep want to stay together.<br>" +
+    "• <b>Separation:</b> Sheep want personal space.<br>" +
+    "• <b>Alignment:</b> Sheep want to follow the same direction.<br>" +
+    "• <b>Number of white/black sheep:</b> Total count of each type of sheep in the field.<br>" +
+    "• <b>Perception:</b> How far away a sheep can 'see' its neighbors. Higher values make them react to distant sheep.<br>" +
+    "• <b>Max Speed:</b> The maximum velocity a sheep can reach when moving.<br>" +
+    "• <b>Max Force:</b> How sharply a sheep can turn. Lower values make movement smoother and more realistic.<br>" +
+    "• <b>Sheep Size:</b> The visual scale of the sheep on the screen.<br>" +
+    "• <b>Dog Strength:</b> How powerfully the sheep are pushed away when the dog (mouse) gets close." +
+    "</div>");
+    gumbZatvori=createButton("Close");
+    gumbZatvori.class("play-gumb");
+    gumbZatvori.parent(pravilaDiv);
+    gumbZatvori.mousePressed(()=>pravilaDiv.hide());
+
     
     ucitajMenuLevel();
 }
