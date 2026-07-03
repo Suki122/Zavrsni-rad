@@ -21,5 +21,12 @@ function krajLevel(ciljX,ciljY,ciljSirina,ciljVisina){
 function zavrsiLevel(){
     
     trenutniLevel++;
-    obavijestDivKraj.show();
+    if (trenutniLevel>2) { 
+        obavijestDivKraj.html("<h1>CONGRATULATIONS!</h1><p>You have successfully guided all sheep home!</p>");
+        obavijestDivKraj.show();
+        
+    }
+    else{
+        obavijestDivKraj.show();
+    }
 }

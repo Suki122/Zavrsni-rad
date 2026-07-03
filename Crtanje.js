@@ -72,7 +72,6 @@ function setup(){
     canvas.parent("canvas-kontejner");
 
     obavijestDiv=createDiv("");
-    obavijestDiv.html("<h1>Level 1</h1><p>Easy</p><p>Get the sheep to yellow grass!</p>");
     obavijestDiv.class("obavijest-box");
     obavijestDiv.parent("canvas-kontejner");
     obavijestDiv.hide();
@@ -136,15 +135,15 @@ function setup(){
     
     createLabel("Cohesion", panel2);
     tekstKoh2=createDiv("1.0").parent(panel2);
-    sliderKoh2=createSlider(0, 2.0, 0.8, 0.1).parent(panel2);
+    sliderKoh2=createSlider(0, 2.0, 0.9, 0.1).parent(panel2);
     
     createLabel("Separation", panel2);
     tekstSep2=createDiv("1.0").parent(panel2);
-    sliderSep2=createSlider(0, 2.0, 1.3, 0.1).parent(panel2);
+    sliderSep2=createSlider(0, 2.0, 1.2, 0.1).parent(panel2);
     
     createLabel("Alignment", panel2);
     tekstAli2=createDiv("1.0").parent(panel2);
-    sliderAli2=createSlider(0, 2.0, 0.7, 0.1).parent(panel2);
+    sliderAli2=createSlider(0, 2.0, 0.9, 0.1).parent(panel2);
 
     panel2.hide();
     
@@ -393,6 +392,7 @@ function crtaIgru() {
 
 
 function pokreniIgru() {
+    obavijestDivKraj.hide();
     stanje="igra";
     trenutniLevel=1; // Resetiranje na level 1
     panelSandbox.hide();
@@ -411,16 +411,7 @@ function pokreniIgru() {
     kameraY=0;
 
     izbornikDiv.hide(); // Sakrij izbornik kad igra krene
-    obavijestDiv.show();
-
-    // Sakrij ga nakon 2 sekunde
-    setTimeout(() => {
-        obavijestDiv.hide();
-    }, 2000);
-
-
     
-
     igraUpravoPokrenuta=true;
     setTimeout(()=>{
         igraUpravoPokrenuta=false;
@@ -478,5 +469,6 @@ function vratiNaMainMenu(){  //funkcija za vracanje na main menu pomocu gumba re
     panel2.hide();
     panel3.hide();
     panelSandbox.hide();
+    obavijestDiv.hide();
     ucitajMenuLevel()
 }

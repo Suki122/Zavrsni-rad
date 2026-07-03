@@ -173,6 +173,14 @@ function nacrtajLevel1(){
 }
 
 function ucitajLevel1(){
+    if(trenutniLevel=1){
+        obavijestDiv.html("<h1>Level 1</h1><p>Easy</p><p>Get the sheep to yellow grass!</p>");
+        obavijestDiv.show();
+    }
+    // Sakrij ga nakon 2 sekunde
+    setTimeout(() => {
+        obavijestDiv.hide();
+    }, 2000);
     flock=[];
     ograde=[];
 

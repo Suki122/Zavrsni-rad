@@ -171,6 +171,15 @@ function nacrtajLevel2(){
 }
 
 function ucitajLevel2(){
+    if(trenutniLevel>1){
+        obavijestDiv.html("<h1>Level 2</h1><p>Hard</p><p>Get the sheep to yellow grass!</p>")
+        obavijestDiv.show();
+    }
+    // Sakrij ga nakon 2 sekunde
+    setTimeout(() => {
+        obavijestDiv.hide();
+    }, 2000);
+
     flock=[];
     ograde=[];
 
@@ -178,13 +187,13 @@ function ucitajLevel2(){
 
     //spawn Boida 
     for(let i=0;i<10;i++){
-        let b=new Boid(100,100,slikaOvceBijela,zvukOvceBijele);
+        let b=new Boid(200,200,slikaOvceBijela,zvukOvceBijele);
         flock.push(b);
     }
-    // for(let i=0;i<10;i++){
-    //     let b=new Boid(100,100,slikaOvceCrna,zvukOvceCrne,true);
-    //     flock.push(b);
-    // }
+    for(let i=0;i<5;i++){
+        let b=new Boid(200,200,slikaOvceCrna,zvukOvceCrne,true);
+        flock.push(b);
+    }
     
     
     ograde.push(new Ograda(0, 0, 150, "h", ograda));
@@ -192,9 +201,7 @@ function ucitajLevel2(){
     ograde.push(new Ograda(0, 800, 150, "h", ograda)); 
     ograde.push(new Ograda(1700, 0, 100, "v", ograda));
     ograde.push(new Ograda(400, 200, 30, "v", ograda)); 
-
     ograde.push(new Ograda(1150, 650, 10, "v", ograda));
-
     ograde.push(new Ograda(550, 200, 20, "h", ograda));
     ograde.push(new Ograda(790, 340, 30, "v", ograda));
     ograde.push(new Ograda(600, 100, 19, "v", ograda));
