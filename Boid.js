@@ -153,7 +153,7 @@ class Boid{
             } 
             zeljeniSmjer.setMag(map(d, 0, 200, this.maxBrzina*2, 2)); //mapiramo prema udaljenosti boida od misa
             let upravljanje=zeljeniSmjer.copy().sub(this.brzina); //racuna ispravak putanje boida
-            upravljanje.limit(this.maxSila*this.pasSilaS); //maksimalna snaga kojom boid smije promijeniti smjer u 1 frameu
+            upravljanje.limit(this.maxSila*this.pasSila); //maksimalna snaga kojom boid smije promijeniti smjer u 1 frameu
             
             return upravljanje;
 

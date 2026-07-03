@@ -250,8 +250,9 @@ function setup(){
     pravilaDiv.html("<h1>How to Play</h1>" +
     "<div class='rules-text'>" +
     "<b>Goal:</b> Guide the sheep to the yellow grass area!<br>" +
-    "<b>Controls:</b> Move your mouse to control the dog.<br><br>" +
-    "<b>Settings Explained:</b><br><br>" +
+    "<b>Controls:</b> Move your mouse to control the dog.<br>" +
+    "<b>Rules:</b><br>• <b>Don't lose the sheep out of sight!</b> If they wander too far from your dog, you might lose them and have to restart a level.<br><br>" +
+    "<b>Settings Explained:</b><br>" +
     "• <b>Cohesion:</b> Sheep want to stay together.<br>" +
     "• <b>Separation:</b> Sheep want personal space.<br>" +
     "• <b>Alignment:</b> Sheep want to follow the same direction.<br>" +
