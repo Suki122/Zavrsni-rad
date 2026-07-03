@@ -136,7 +136,7 @@ function setup(){
     
     createLabel("Cohesion", panel2);
     tekstKoh2=createDiv("1.0").parent(panel2);
-    sliderKoh2=createSlider(0, 2.0, 0.7, 0.1).parent(panel2);
+    sliderKoh2=createSlider(0, 2.0, 0.8, 0.1).parent(panel2);
     
     createLabel("Separation", panel2);
     tekstSep2=createDiv("1.0").parent(panel2);
@@ -144,7 +144,7 @@ function setup(){
     
     createLabel("Alignment", panel2);
     tekstAli2=createDiv("1.0").parent(panel2);
-    sliderAli2=createSlider(0, 2.0, 0.5, 0.1).parent(panel2);
+    sliderAli2=createSlider(0, 2.0, 0.7, 0.1).parent(panel2);
 
     panel2.hide();
     
@@ -153,7 +153,7 @@ function setup(){
     panel3.id("kontrole-panel");
     panel3.hide();
 
-    gumbVrati=createButton("Return");
+    gumbVrati=createButton("Main Menu");
     gumbVrati.class("return");
     gumbVrati.parent(panel3); 
     gumbVrati.mousePressed(vratiNaMainMenu);
@@ -309,6 +309,7 @@ function sound(){
 }
 
 function draw() {
+
     // Racunanje kamere prema prosjecnom centru boida
     if (flock.length > 0) {
         let centarStada=createVector(0, 0);
@@ -330,7 +331,7 @@ function draw() {
         kameraX=lerp(kameraX, constrain(ciljX, 0, mapSirina-width), 0.05); //constraint sprjecava kameru da izade van granica mape
         kameraY=lerp(kameraY, constrain(ciljY, 0, mapVisina-height), 0.05);
     }
-    krajLevel(ciljX1,ciljY1,ciljSirina1,ciljVisina1);
+    
     crtaIgru(); 
     cursor();
 

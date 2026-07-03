@@ -4,7 +4,7 @@ let ciljSirina1=340;
 let ciljVisina1=260;
 function nacrtajLevel1(){
     
-    
+    krajLevel(ciljX1,ciljY1,ciljSirina1,ciljVisina1);
     //oznacavamo koji tile iz pozadine zelimo 
     travaKvadrat1=pozadina.get(0,0,16,16);
     let travaKvadrat2=pozadina.get(0,64,16,16);

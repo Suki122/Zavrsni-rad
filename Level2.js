@@ -1,10 +1,10 @@
-let ciljX2=360;
-let ciljY2=20;
-let ciljSirina2=340;
-let ciljVisina2=260;
+let ciljX2=1310;
+let ciljY2=460;
+let ciljSirina2=290;
+let ciljVisina2=240;
 function nacrtajLevel2(){
     
-    
+    krajLevel(ciljX2,ciljY2,ciljSirina2,ciljVisina2);
     //oznacavamo koji tile iz pozadine zelimo 
     travaKvadrat1=pozadina.get(0,0,16,16);
     let travaKvadrat2=pozadina.get(0,64,16,16);
@@ -35,14 +35,16 @@ function nacrtajLevel2(){
     let brojac=0;
     for(let x=0;x<mapSirina;x+=16*2){ //ide po x-u
         for(let y=0;y<mapVisina;y+=16*2){ //ide po y
-            if(x>360 && x<700 && y>20 && y<280){
+            if(x>1310 && x<1600 && y>460 && y<700){
+            
                 image(travaKvadrat4,x,y,16*2,16*2);
+            
             }
             else if(brojac%7==0){
-                image(travaKvadrat2,x,y,16*2,16*2);
+                image(travaKvadrat3,x,y,16*2,16*2);
             }
             else if(brojac%12==0){
-                image(travaKvadrat3,x,y,16*2,16*2);
+                image(travaKvadrat2,x,y,16*2,16*2);
             }
             else{
                 image(travaKvadrat1,x,y,16*2,16*2); //na svaku koordinatu postavlja tile pozadine koji smo prije odabrali
@@ -53,90 +55,82 @@ function nacrtajLevel2(){
     }
     //grid ukrasa
     let ukrasi = [
-        {x:64, y:50, img:cvjece1},
-        {x:300, y:200, img:cvjece1},
-        {x:250, y:700, img:cvjece1},
-        {x:700, y:200, img:cvjece1},
-        {x:1200, y:200, img:cvjece1},
+    {x:100, y:80, img:cvjece1},
+    {x:450, y:250, img:cvjece1},
+    {x:300, y:850, img:cvjece1},
+    {x:950, y:300, img:cvjece1},
+    {x:1100, y:150, img:cvjece1},
 
-        {x:800, y:570, img:cvjece1},
-        {x:830, y:570, img:cvjece1},
-        {x:800, y:600, img:cvjece1},
-        {x:830, y:600, img:cvjece1},
+    {x:120, y:50, img:cvjece2},
+    {x:550, y:400, img:cvjece2},
+    {x:400, y:900, img:cvjece2},
+    {x:650, y:150, img:cvjece2},
+    {x:1100, y:750, img:cvjece2},
+    {x:350, y:1250, img:cvjece2},
+    {x:1350, y:1100, img:cvjece2},
 
-        {x:500, y:1000, img:cvjece1},
-        {x:530, y:1000, img:cvjece1},
+    {x:420, y:500, img:panj1},
+    {x:1120, y:500, img:panj1},
+    {x:520, y:1200, img:panj1},
 
-        {x:80, y:32, img:cvjece2},
-        {x:400, y:300, img:cvjece2},
-        {x:500, y:800, img:cvjece2},
-        {x:500, y:222, img:cvjece2},
-        {x:970, y:655, img:cvjece2},
-        {x:200, y:1200, img:cvjece2},
-        {x:1202, y:1130, img:cvjece2},
+    {x:500, y:700, img:panj2},
+    {x:1200, y:900, img:panj2},
 
-        {x:200, y:400, img:panj1},
-        {x:900, y:400, img:panj1},
-        {x:300, y:1100, img:panj1},
+    {x:900, y:600, img:cvjece1}, 
+    {x:930, y:600, img:cvjece1},
+    {x:900, y:630, img:cvjece1}, 
+    {x:930, y:630, img:cvjece1},
+    {x:600, y:1100, img:cvjece1}, 
+    {x:630, y:1100, img:cvjece1},
 
-        {x:370, y:600, img:panj2},
-        {x:1030, y:800, img:panj2},
+    {x:250, y:350, img:grm1}, 
+    {x:280, y:350, img:grm2}, 
+    {x:310, y:350, img:grm3}, 
+    {x:340, y:350, img:grm4},
+    {x:900, y:350, img:grm1}, 
+    {x:930, y:350, img:grm2}, 
+    {x:960, y:350, img:grm3}, 
+    {x:990, y:350, img:grm4},
+    {x:700, y:950, img:grm1}, 
+    {x:730, y:950, img:grm2}, 
+    {x:760, y:950, img:grm3}, 
+    {x:790, y:950, img:grm4},
+    {x:500, y:80, img:grm1}, 
+    {x:530, y:80, img:grm2}, 
+    {x:560, y:80, img:grm3}, 
+    {x:590, y:80, img:grm4},
 
-        {x:100, y:280, img:grm1},
-        {x:130, y:280, img:grm2},
-        {x:160, y:280, img:grm3},
-        {x:190, y:280, img:grm4},
+    {x:750, y:1200, img:ograda1}, 
+    {x:782, y:1200, img:ograda2}, 
+    {x:814, y:1200, img:ograda3},
+    {x:1250, y:800, img:ograda1}, 
+    {x:1282, y:800, img:ograda2}, 
+    {x:1314, y:800, img:ograda3},
 
-        {x:800, y:280, img:grm1},
-        {x:830, y:280, img:grm2},
-        {x:860, y:280, img:grm3},
-        {x:890, y:280, img:grm4},
+    {x:800, y:800, img:bus}, 
+    {x:600, y:450, img:bus}, 
+    {x:630, y:450, img:bus},
 
-        {x:600, y:880, img:grm1},
-        {x:630, y:880, img:grm2},
-        {x:660, y:880, img:grm3},
-        {x:690, y:880, img:grm4},
+    {x:50, y:450, img:kamen}, 
+    {x:250, y:1050, img:kamen}, 
+    {x:1100, y:1050, img:kamen},
 
-        {x:400, y:30, img:grm1},
-        {x:430, y:30, img:grm2},
-        {x:460, y:30, img:grm3},
-        {x:490, y:30, img:grm4},
+    {x:200, y:200, img:gljiva1}, 
+    {x:700, y:600, img:gljiva1}, 
+    {x:1000, y:200, img:gljiva1},
+    {x:230, y:220, img:gljiva2}, 
+    {x:1030, y:220, img:gljiva2},
 
-        {x:635, y:1100, img:ograda1},
-        {x:667, y:1100, img:ograda2},
-        {x:699, y:1100, img:ograda3},
-
-        {x:1135, y:700, img:ograda1},
-        {x:1167, y:700, img:ograda2},
-        {x:1199, y:700, img:ograda3},
-
-        {x:700, y:700, img:bus},
-        {x:500, y:350, img:bus},
-        {x:530, y:350, img:bus},
-
-        {x:-15, y:350, img:kamen},
-        {x:150, y:950, img:kamen},
-        {x:1000, y:950, img:kamen},
-
-        {x:100, y:100, img:gljiva1},
-        {x:600, y:530, img:gljiva1},
-        {x:900, y:100, img:gljiva1},
-
-        {x:130, y:120, img:gljiva2},
-        {x:930, y:120, img:gljiva2},
-
-        {x:830, y:970, img:sas},
-        {x:860, y:970, img:sas},
-        {x:890, y:970, img:sas},
-
-        {x:130, y:500, img:sas},
-        {x:130, y:530, img:sas},
-        {x:130, y:560, img:sas},
-
-        {x:430, y:1250, img:sas},
-        {x:460, y:1250, img:sas},
-        {x:490, y:1250, img:sas},
-    ];
+    {x:930, y:1050, img:sas}, 
+    {x:960, y:1050, img:sas}, 
+    {x:990, y:1050, img:sas},
+    {x:200, y:600, img:sas}, 
+    {x:200, y:630, img:sas}, 
+    {x:200, y:660, img:sas},
+    {x:530, y:1350, img:sas}, 
+    {x:560, y:1350, img:sas}, 
+    {x:590, y:1350, img:sas}
+];
 
     //petlja za crtanje ukrasa
     for (let u of ukrasi) {
@@ -183,29 +177,33 @@ function ucitajLevel2(){
     panel2.show();
 
     //spawn Boida 
-    for(let i=0;i<30;i++){
+    for(let i=0;i<10;i++){
         let b=new Boid(100,100,slikaOvceBijela,zvukOvceBijele);
         flock.push(b);
     }
-    for(let i=0;i<10;i++){
-        let b=new Boid(100,100,slikaOvceCrna,zvukOvceCrne,true);
-        flock.push(b);
-    }
+    // for(let i=0;i<10;i++){
+    //     let b=new Boid(100,100,slikaOvceCrna,zvukOvceCrne,true);
+    //     flock.push(b);
+    // }
     
     
-    ograde.push(new Ograda(0, 0, 80, "h", ograda));
-    ograde.push(new Ograda(0, 0, 50, "v", ograda));
-    
-    ograde.push(new Ograda(400, 0, 15, "v", ograda));
-    ograde.push(new Ograda(400, 500, 15, "v", ograda));
+    ograde.push(new Ograda(0, 0, 150, "h", ograda));
+    ograde.push(new Ograda(0, 0, 100, "v", ograda)); 
+    ograde.push(new Ograda(0, 800, 150, "h", ograda)); 
+    ograde.push(new Ograda(1700, 0, 100, "v", ograda));
+    ograde.push(new Ograda(400, 200, 30, "v", ograda)); 
 
-    ograde.push(new Ograda(600, 200, 15, "h", ograda));
-    ograde.push(new Ograda(750, 400, 15, "h", ograda));
-    ograde.push(new Ograda(600, 600, 15, "h", ograda));
+    ograde.push(new Ograda(1150, 650, 10, "v", ograda));
 
-    ograde.push(new Ograda(900, 100, 10, "v", ograda));
-    ograde.push(new Ograda(900, 100, 10, "h", ograda));
-    ograde.push(new Ograda(1000, 100, 10, "v", ograda));
+    ograde.push(new Ograda(550, 200, 20, "h", ograda));
+    ograde.push(new Ograda(790, 340, 30, "v", ograda));
+    ograde.push(new Ograda(600, 100, 19, "v", ograda));
+    ograde.push(new Ograda(1000, 100, 20, "v", ograda));
+    ograde.push(new Ograda(1000, 100, 15, "h", ograda));
+    ograde.push(new Ograda(1150, 300, 20, "h", ograda));
+    ograde.push(new Ograda(1000, 450, 15, "h", ograda));
+    ograde.push(new Ograda(1300, 200, 4, "v", ograda));
+    ograde.push(new Ograda(1300, 400, 10, "v", ograda));
     
     setTimeout(()=>{
         levelUcitan=true;
