@@ -14,6 +14,7 @@ class Boid{
         this.jeCrna=jeCrna; //ako je ovca crna
         this.zadnjiGlas=millis();  //spremi trenutno vrijeme pri stvaranju
         this.percepcija=100; // defaultni doseg percepcije (vidnog polja)
+        this.pasSila=1; //sila s kojom se mnozi this.masSila u traziMis funkciji, dodana kako bismo utjecali na silu bjezanja ovce od psa
     }
 
     
@@ -145,14 +146,14 @@ class Boid{
         if (mouseX>=0 && mouseX<width && mouseY>=0 && mouseY<=height){
             let mis=createVector(mouseX+kameraX, mouseY+kameraY); //hvata koordinate misa u svijetu, dodaju se koordinate kamere kako bi se ponistio translate svijeta
             let zeljeniSmjer=this.pozicija.copy().sub(mis); //racuna smjer od misa prema boidu, copy koristi da se ne uniste izvorne koordinate pozicije
-            let d = zeljeniSmjer.mag(); //racuna udaljenost od misa do boida
-            if (d > 200) {
+            let d=zeljeniSmjer.mag(); //racuna udaljenost od misa do boida
+            if (d>200) {
                 return createVector(0, 0);
                 
             } 
             zeljeniSmjer.setMag(map(d, 0, 200, this.maxBrzina*2, 2)); //mapiramo prema udaljenosti boida od misa
             let upravljanje=zeljeniSmjer.copy().sub(this.brzina); //racuna ispravak putanje boida
-            upravljanje.limit(this.maxSila); //maksimalna snaga kojom boid smije promijeniti smjer u 1 frameu
+            upravljanje.limit(this.maxSila*this.pasSilaS); //maksimalna snaga kojom boid smije promijeniti smjer u 1 frameu
             
             return upravljanje;
 

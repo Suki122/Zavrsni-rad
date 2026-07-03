@@ -93,15 +93,27 @@ function pokreniSandboxPostavke() {
     let brBijelih=sliderBrojBijelih.value();
     let brCrnih=sliderBrojCrnih.value();
     let doseg=sliderPercepcija.value();
+    let brzina=sliderMaxBrzina.value();
+    let sila=sliderMaxSila.value();
+    let velicina=sliderVelicina.value();
+    let snaga=sliderSnagaPsa.value();
 
     for(let i=0; i<brBijelih; i++) {
         let b=new Boid(random(100,700), random(100,700), slikaOvceBijela, zvukOvceBijele);
         b.percepcija=doseg;
+        b.maxBrzina=brzina;
+        b.maxSila=sila;
+        b.r=velicina;
+        b.pasSila=snaga;
         flock.push(b);
     }
     for(let i=0; i<brCrnih; i++) {
         let b=new Boid(random(100,700), random(100,700), slikaOvceCrna, zvukOvceCrne, true);
         b.percepcija=doseg;
+        b.maxBrzina=brzina;
+        b.maxSila=sila;
+        b.r=velicina;
+        b.pasSilaS=snaga;
         flock.push(b);
     }
 }

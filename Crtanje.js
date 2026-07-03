@@ -212,16 +212,16 @@ function setup(){
     sliderBrojCrnih=createSlider(0, 50, 10).parent(panelSandbox);
     createLabel("Perception", panelSandbox);
     tekstPercepcija=createDiv("0").parent(panelSandbox);
-    sliderPercepcija=createSlider(50, 300, 100).parent(panelSandbox);
+    sliderPercepcija=createSlider(1, 300, 100).parent(panelSandbox);
     createLabel("Max Speed", panelSandbox);
     tekstMaxBrzina=createDiv("3.0").parent(panelSandbox);
     sliderMaxBrzina=createSlider(1, 10, 3, 0.5).parent(panelSandbox);
     createLabel("Max Force", panelSandbox);
     tekstMaxSila=createDiv("0.1").parent(panelSandbox);
-    sliderMaxSila=createSlider(0.01, 0.5, 0.1, 0.01).parent(panelSandbox);
+    sliderMaxSila=createSlider(0.01, 0.5, 0.2, 0.01).parent(panelSandbox);
     createLabel("Sheep Size", panelSandbox);
     tekstVelicina=createDiv("50").parent(panelSandbox);
-    sliderVelicina=createSlider(20, 100, 50).parent(panelSandbox);
+    sliderVelicina=createSlider(1, 20, 7).parent(panelSandbox);
     createLabel("Dog Strength", panelSandbox);
     tekstSnagaPsa=createDiv("2.0").parent(panelSandbox);
     sliderSnagaPsa=createSlider(0, 5, 2, 0.1).parent(panelSandbox);
@@ -441,4 +441,5 @@ function vratiNaMainMenu(){  //funkcija za vracanje na main menu pomocu gumba re
     panel2.hide();
     panel3.hide();
     panelSandbox.hide();
+    ucitajMenuLevel()
 }

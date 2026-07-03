@@ -277,34 +277,55 @@ input[type=range] {
     z-index: 1000 !important;
     background: linear-gradient(135deg, #ffffff 0%, #fffbf5 100%);
     color: #FF9800;
-    padding: 25px 45px;
-    border-radius: 24px;
-    border: 5px solid #FF9800;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 152, 0, 0.05);
     
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    pointer-events: auto !important;
+    /* Smanjen padding za kompaktnost */
+    padding: 10px 15px; 
+    border-radius: 16px;
+    border: 3px solid #FF9800;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Smanjen razmak između elemenata */
+    gap: 2px 10px; 
+    
+    box-sizing: border-box;
+    width: 420px; /* Malo uži panel */
+    max-height: 80vh;
+    overflow-y: auto;
+    
+    font-family: 'Segoe UI', sans-serif;
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 1px;
     text-align: center;
-    
-    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Smanjeni fontovi da sve stane bez gužve */
+#sandbox-overlay label {
+    font-size: 9px;
+    margin: 0;
 }
 
 #sandbox-overlay div {
-    font-size: 16px;
-    font-weight: 900;
-    margin-bottom: 5px;
+    font-size: 9px;
+    margin: 0;
 }
 
+/* Smanjeni slideri */
 #sandbox-overlay input[type=range] {
-    margin-bottom: 15px;
-    width: 220px;
+    margin: 2px 0 6px 0;
+    width: 100%;
+    height: 10px; /* Tanji slider */
+    accent-color: #FF9800;
+    cursor: pointer;
+}
+
+/* Smanjen gumb */
+#sandbox-overlay button {
+    grid-column: 1 / -1;
+    margin-top: 5px;
+    padding: 5px 10px;
+    font-size: 11px;
 }
 
 /* Keyframes za animaciju iskakanja */
