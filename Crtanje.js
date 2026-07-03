@@ -157,10 +157,7 @@ function setup(){
     gumbVrati.parent(panel3); 
     gumbVrati.mousePressed(vratiNaMainMenu);
 
-    gumbPravila=createButton("Rules");
-    gumbPravila.class("return");
-    gumbPravila.parent(panel3);
-    gumbPravila.mousePressed(()=>pravilaDiv.show());
+    
 
     createLabel("Music", panel3);
 
@@ -240,6 +237,11 @@ function setup(){
     gumbPrimjeni.class("return");
     gumbPrimjeni.parent(panelSandbox);
     gumbPrimjeni.mousePressed(pokreniSandboxPostavke);
+
+    gumbPravila=createButton("Rules");
+    gumbPravila.class("play-gumb");
+    gumbPravila.parent(izbornikDiv);
+    gumbPravila.mousePressed(()=>pravilaDiv.show());
 
     pravilaDiv=createDiv("");
     pravilaDiv.id("rules-overlay");
