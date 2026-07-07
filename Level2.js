@@ -5,32 +5,7 @@ let ciljVisina2=240;
 function nacrtajLevel2(){
     
     krajLevel(ciljX2,ciljY2,ciljSirina2,ciljVisina2);
-    //oznacavamo koji tile iz pozadine zelimo 
-    travaKvadrat1=pozadina.get(0,0,16,16);
-    let travaKvadrat2=pozadina.get(0,64,16,16);
-    let travaKvadrat3=pozadina.get(32,0,16,16);
-    let travaKvadrat4=pozadina.get(16,16,16,16);
-    //dekoracije
-    let cvjece1=pozadina.get(96,192,16,16);
-    let cvjece2=pozadina.get(80,192,16,16);
-    let panj1=pozadina.get(160,192,16,16);
-    let panj2=pozadina.get(192,192,16,16);
-    let grm1=pozadina.get(288,192,16,16);
-    let grm2=pozadina.get(304,192,16,16);
-    let grm3=pozadina.get(320,192,16,16);
-    let grm4=pozadina.get(336,192,16,16);
-    let ograda1=pozadina.get(336,208,16,16);
-    let ograda2=pozadina.get(352,208,16,16);
-    let ograda3=pozadina.get(368,208,16,16);
-    let bus=pozadina.get(160,176,16,16);
-    let kamen=pozadina.get(32,208,16,16);
-    let gljiva1=pozadina.get(192,208,16,16);
-    let gljiva2=pozadina.get(208,208,16,16);
-    let sas=pozadina.get(256,192,16,16);
-    
-
-
-
+    //dohvat dekoracija i tekstura trave se od sada nalazi u setupu zbog optimizacije i performansi
     noSmooth();  //da bi p5.js prikazao pozadinu ostro, inace bi bila mutna
     let brojac=0;
     for(let x=0;x<mapSirina;x+=16*2){ //ide po x-u

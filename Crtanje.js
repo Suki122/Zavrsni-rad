@@ -2,7 +2,11 @@ let flock=[];
 let zidovi=[];
 let slikaOvceBijela;
 let pozadina;
-let travaKvadrat1;
+//tekstura i dekoracije
+let travaKvadrat1, travaKvadrat2, travaKvadrat3, travaKvadrat4, travaKvadrat5;
+let cvjece1, cvjece2, panj1, panj2, grm1, grm2, grm3, grm4;
+let ograda1, ograda2, ograda3, bus, kamen, gljiva1, gljiva2, sas;
+
 let ograda;
 let ograde=[];
 let zvukOvceBijele;
@@ -30,9 +34,9 @@ let tekstKoh1, tekstSep1, tekstAli1;
 let slikaPsa;
 let zvukPsa;
 let igraUpravoPokrenuta;
-let pasSmjer = 1; 
+let pasSmjer=1; 
 let zadnjeLajanje=-3000;
-let pasAnimacijaVrijeme = 0;
+let pasAnimacijaVrijeme=0;
 let trenutniLevel=1;
 let obavijestDiv;
 let obavijestDivKraj;
@@ -271,7 +275,8 @@ function setup(){
     gumbZatvori.parent(pravilaDiv);
     gumbZatvori.mousePressed(()=>pravilaDiv.hide());
 
-    
+    //u setupu se samo jednom dohvate teksture, puno optizimiranije
+    inicijalizirajTeksture();
     ucitajMenuLevel();
 }
 function sljedeciLevel(){
@@ -320,8 +325,10 @@ function draw() {
             centarStada.add(boid.pozicija);
             //ako je pozicija ovce van kamere,level je ucitan, onda igra daje obavijest i igrac moze pokusati ponovno
             if (stanje==="igra" && levelUcitan==true && (boid.pozicija.x<kameraX || boid.pozicija.x > kameraX + width || boid.pozicija.y < kameraY || boid.pozicija.y > kameraY + height)) {
-                zvukGubitak.currentTime=0;
-                zvukGubitak.play();
+                if (zvukAktivan) { //ako zvuk nije ugasen
+                    zvukGubitak.currentTime=0;
+                    zvukGubitak.play();
+                }
                 stanje="gameOver";
                 gameOverDiv.show();
             }
@@ -339,23 +346,26 @@ function draw() {
     cursor();
 
 
-    //azuriraj vrijednosti slidera
-    tekstKoh1.html(sliderKoh1.value());
-    tekstSep1.html(sliderSep1.value());
-    tekstAli1.html(sliderAli1.value());
+    //azuriraj vrijednosti slidera samo kada se igra ili konfigurira sandbox
+    if (stanje==="igra" || stanje==="sandbox") {
+        tekstKoh1.html(sliderKoh1.value());
+        tekstSep1.html(sliderSep1.value());
+        tekstAli1.html(sliderAli1.value());
 
-    tekstKoh2.html(sliderKoh2.value());
-    tekstSep2.html(sliderSep2.value());
-    tekstAli2.html(sliderAli2.value());
-
-    tekstBrBijelih.html(sliderBrojBijelih.value());
-    tekstBrCrnih.html(sliderBrojCrnih.value());
-    tekstPercepcija.html(sliderPercepcija.value());
-
-    tekstMaxBrzina.html(sliderMaxBrzina.value());
-    tekstMaxSila.html(sliderMaxSila.value());
-    tekstVelicina.html(sliderVelicina.value());
-    tekstSnagaPsa.html(sliderSnagaPsa.value());
+        if (stanje==="sandbox") {
+            tekstKoh2.html(sliderKoh2.value());
+            tekstSep2.html(sliderSep2.value());
+            tekstAli2.html(sliderAli2.value());
+            
+            tekstBrBijelih.html(sliderBrojBijelih.value());
+            tekstBrCrnih.html(sliderBrojCrnih.value());
+            tekstPercepcija.html(sliderPercepcija.value());
+            tekstMaxBrzina.html(sliderMaxBrzina.value());
+            tekstMaxSila.html(sliderMaxSila.value());
+            tekstVelicina.html(sliderVelicina.value());
+            tekstSnagaPsa.html(sliderSnagaPsa.value());
+        }
+    }
 
     
     if ((stanje==="igra" && !igraUpravoPokrenuta) || stanje=="sandbox" ) {
@@ -454,7 +464,7 @@ function nacrtajPsa() {
     pop(); //vrati postavke na staro
     
     //lajanje psa je izvedeno na ovaj način zbog problema gdje bi pas jednom zalajao kada bismo pritisnuli gumb play
-    if(zvukPsa.paused && mouseIsPressed && millis()-zadnjeLajanje>3000 ){ //je li zvuk pauziran, mis pritisnut i je li proslo 3 sekunde od zadnjeg lajanja
+    if(zvukAktivan && zvukPsa.paused && mouseIsPressed && millis()-zadnjeLajanje>3000 ){ //je li zvuk pauziran, mis pritisnut i je li proslo 3 sekunde od zadnjeg lajanja
         zvukPsa.currentTime=0;
         zvukPsa.play();
     
@@ -475,4 +485,29 @@ function vratiNaMainMenu(){  //funkcija za vracanje na main menu pomocu gumba re
     panelSandbox.hide();
     obavijestDiv.hide();
     ucitajMenuLevel()
+}
+
+function inicijalizirajTeksture() {
+    travaKvadrat1=pozadina.get(0, 0, 16, 16);
+    travaKvadrat2=pozadina.get(0, 64, 16, 16);
+    travaKvadrat3=pozadina.get(32, 0, 16, 16);
+    travaKvadrat4=pozadina.get(16, 16, 16, 16);
+    travaKvadrat5=pozadina.get(32, 32, 16, 16);
+    
+    cvjece1=pozadina.get(96, 192, 16, 16);
+    cvjece2=pozadina.get(80, 192, 16, 16);
+    panj1=pozadina.get(160, 192, 16, 16);
+    panj2=pozadina.get(192, 192, 16, 16);
+    grm1=pozadina.get(288, 192, 16, 16);
+    grm2=pozadina.get(304, 192, 16, 16);
+    grm3=pozadina.get(320, 192, 16, 16);
+    grm4=pozadina.get(336, 192, 16, 16);
+    ograda1=pozadina.get(336, 208, 16, 16);
+    ograda2=pozadina.get(352, 208, 16, 16);
+    ograda3=pozadina.get(368, 208, 16, 16);
+    bus=pozadina.get(160, 176, 16, 16);
+    kamen=pozadina.get(32, 208, 16, 16);
+    gljiva1=pozadina.get(192, 208, 16, 16);
+    gljiva2=pozadina.get(208, 208, 16, 16);
+    sas=pozadina.get(256, 192, 16, 16);
 }

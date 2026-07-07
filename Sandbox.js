@@ -1,13 +1,7 @@
 
 function nacrtajSandbox(){
     
-    
-    //oznacavamo koji tile iz pozadine zelimo 
-    travaKvadrat1=pozadina.get(0,0,16,16);
-    let travaKvadrat2=pozadina.get(0,64,16,16);
-    let travaKvadrat3=pozadina.get(32,0,16,16);
-    let travaKvadrat4=pozadina.get(16,16,16,16);
-    let travaKvadrat5=pozadina.get(32,32,16,16);
+    //dohvat tekstura trave se od sada nalazi u setupu zvog optimizacije
 
     noSmooth();  //da bi p5.js prikazao pozadinu ostro, inace bi bila mutna
     let brojac=0;

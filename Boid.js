@@ -165,8 +165,8 @@ class Boid{
     glasajSe() {
         let trenutnoVrijeme=millis();
         if(trenutnoVrijeme-this.zadnjiGlas>5000){ //provjeri je li proslo 10 sekundi
-                // Provjeri zvuk, status reprodukcije i stanje igre
-            if (this.zvuk && (stanje==="igra" || stanje=="sandbox")) {
+                // Provjeri je li zvuk ugasen, postoji li zvuk, status reprodukcije i stanje igre
+            if (zvukAktivan && this.zvuk && (stanje==="igra" || stanje=="sandbox")) {
                 this.zvuk.currentTime = 0; // Vrati na početak
                 this.zvuk.play();          // pokreni zvuk
                 this.zadnjiGlas=trenutnoVrijeme; //resetiraj timer
