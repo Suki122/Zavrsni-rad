@@ -408,7 +408,8 @@ function crtaIgru() {
 function pokreniIgru() {
     obavijestDivKraj.hide();
     stanje="igra";
-    trenutniLevel=1; // Resetiranje na level 1
+    trenutniLevel=1; //Resetiranje na level 1
+    levelZavrsen=false; //Resetiranje stanja završetka levela
     panelSandbox.hide();
     panel2.hide(); 
     
@@ -416,8 +417,7 @@ function pokreniIgru() {
         gameOverDiv.hide();
     }
 
-    // Ponovno učitaj level 1 da resetiramo ovce i ograde na početne pozicije
-
+    //Ponovno učitaj level 1 da resetiramo ovce i ograde na početne pozicije
     ucitajLevel1();
 
     // Resetiraj poziciju kamere

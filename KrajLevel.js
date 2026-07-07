@@ -35,6 +35,7 @@ function zavrsiLevel(){
             gumbNext.class("play-gumb");
             gumbNext.parent(obavijestDivKraj); 
             gumbNext.mousePressed(sljedeciLevel);
+            levelZavrsen=false; // Resetiraj završeni level
             vratiNaMainMenu();
         });
         obavijestDivKraj.show();
