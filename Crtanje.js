@@ -63,7 +63,7 @@ function preload(){
     introGlazba=new Audio("resursi/glazba_uvod.mp3");
     introGlazba.loop=true;
     slikaPsa=loadImage("resursi/pas.png");
-    zvukPsa=new Audio("resursi/dogBark.mp3");
+    zvukPsa=new Audio("resursi/dogbark.mp3");
     zvukGubitak=new Audio("resursi/fail.mp3");
 }
 
