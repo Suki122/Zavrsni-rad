@@ -104,15 +104,20 @@ function preload(){
 }
 
 function setup(){
+    
+    //KREIRANJE CANVAS-A
     let canvas=createCanvas(800,600);
     canvas.parent("canvas-kontejner");
 
+    //OBAVIJESTI I OVERLAYS
+    
+    //Obavijest o trenutnom nivou (npr. "Level 1 Easy")
     obavijestDiv=createDiv("");
     obavijestDiv.class("obavijest-box");
     obavijestDiv.parent("canvas-kontejner");
     obavijestDiv.hide();
     
-
+    //Obavijest za kraj nivoa s gumbom za idući nivo
     obavijestDivKraj=createDiv("");
     obavijestDivKraj.html("<h1>Great job!</h1><p>Continue to next level!</p>");
     obavijestDivKraj.class("obavijest-box");
@@ -123,91 +128,22 @@ function setup(){
     gumbNext.mousePressed(sljedeciLevel);
     obavijestDivKraj.hide();
 
-    
-    //panel za bijele ovce
-    panel1=createDiv("");
-    panel1.id("kontrole-panel"); 
-    
-    let zaglavlje1=createDiv("");
-    zaglavlje1.class("panel-zaglavlje");
-    zaglavlje1.parent(panel1);
-    
-    let ikona1=createDiv("");
-    ikona1.class("sheep-icon sheep-white");
-    ikona1.parent(zaglavlje1);
-    
-    let naslov1=createDiv("White sheep");
-    naslov1.class("panel-naslov");
-    naslov1.parent(zaglavlje1);
-    
-    createLabel("Cohesion", panel1);
-    tekstKoh1=createDiv("1.0").parent(panel1);
-    sliderKoh1=createSlider(0, 2.0, 1.0, 0.1).parent(panel1);
-    
-    createLabel("Separation", panel1);
-    tekstSep1=createDiv("1.0").parent(panel1);
-    sliderSep1=createSlider(0, 2.0, 1.2, 0.1).parent(panel1);
-    
-    createLabel("Alignment", panel1);
-    tekstAli1=createDiv("1.0").parent(panel1);
-    sliderAli1=createSlider(0, 2.0, 1.0, 0.1).parent(panel1);
+    //Game Over panel koji sadrži poruku i gumb za ponovni pokušaj
+    gameOverDiv=createDiv("");
+    gameOverDiv.class("obavijest-box");
+    gameOverDiv.parent("canvas-kontejner");
+    gameOverDiv.html("<h1>Sheep got away!</h1><p>Don't lose the sheep out of the sight</p>");
+    gameOverDiv.hide();
 
-    
-    //panel za crne ovce
-    panel2=createDiv("");
-    panel2.id("kontrole-panel"); 
-    
-    let zaglavlje2=createDiv("");
-    zaglavlje2.class("panel-zaglavlje");
-    zaglavlje2.parent(panel2);
-    
-    let ikona2=createDiv("");
-    ikona2.class("sheep-icon sheep-black");
-    ikona2.parent(zaglavlje2);
-    
-    let naslov2=createDiv("Black sheep");
-    naslov2.class("panel-naslov");
-    naslov2.parent(zaglavlje2);
-    
-    createLabel("Cohesion", panel2);
-    tekstKoh2=createDiv("1.0").parent(panel2);
-    sliderKoh2=createSlider(0, 2.0, 0.9, 0.1).parent(panel2);
-    
-    createLabel("Separation", panel2);
-    tekstSep2=createDiv("1.0").parent(panel2);
-    sliderSep2=createSlider(0, 2.0, 1.2, 0.1).parent(panel2);
-    
-    createLabel("Alignment", panel2);
-    tekstAli2=createDiv("1.0").parent(panel2);
-    sliderAli2=createSlider(0, 2.0, 0.9, 0.1).parent(panel2);
+    gumbPonovno=createButton("Try Again");
+    gumbPonovno.class("play-gumb");
+    gumbPonovno.parent(gameOverDiv); 
+    gumbPonovno.mousePressed(pokreniIgru);
 
-    panel2.hide();
-    
-    //panel za postavke
-    panel3=createDiv("");
-    panel3.id("kontrole-panel");
-    panel3.hide();
 
-    gumbVrati=createButton("Main Menu");
-    gumbVrati.class("return");
-    gumbVrati.parent(panel3); 
-    gumbVrati.mousePressed(vratiNaMainMenu);
+    //GLAVNI IZBORNIK I PRAVILA IGRE
 
-    
-
-    createLabel("Music", panel3);
-
-    panelGornjiRed=createDiv("");
-    panelGornjiRed.id("panel-gornji-red");
-
-    panel_kontejner=createDiv("");
-    panel_kontejner.id("panel-kontejner");
-    
-    panel1.parent(panelGornjiRed);
-    panel2.parent(panelGornjiRed);
-    panelGornjiRed.parent(panel_kontejner);
-    panel3.parent(panel_kontejner);
-
+    // Glavni izbornik (Sheep Scramble)
     izbornikDiv=createDiv("");
     izbornikDiv.class("izbornik-container");
     izbornikDiv.parent("canvas-kontejner");
@@ -233,54 +169,7 @@ function setup(){
     gumbZvuk.parent(izbornikDiv);
     gumbZvuk.mousePressed(sound);
 
-    //GameOver panel koji sadrži poruku i gumb za ponovni pokušaj
-    gameOverDiv=createDiv("");
-    gameOverDiv.class("obavijest-box");
-    gameOverDiv.parent("canvas-kontejner");
-    gameOverDiv.html("<h1>Sheep got away!</h1><p>Don't lose the sheep out of the sight</p>");
-    gameOverDiv.hide();
-
-    gumbPonovno=createButton("Try Again");
-    gumbPonovno.class("play-gumb");
-    gumbPonovno.parent(gameOverDiv); 
-    gumbPonovno.mousePressed(pokreniIgru);
-    
-    //panel s postavakama sandbox moda
-    panelSandbox=createDiv("");
-    panelSandbox.id("sandbox-overlay");
-    panelSandbox.parent("canvas-kontejner");
-    panelSandbox.hide();
-    createLabel("Number of white sheep", panelSandbox);
-    tekstBrBijelih=createDiv("0").parent(panelSandbox);
-    sliderBrojBijelih=createSlider(0, 100, 30).parent(panelSandbox);
-    createLabel("Number of black sheep", panelSandbox);
-    tekstBrCrnih=createDiv("0").parent(panelSandbox);
-    sliderBrojCrnih=createSlider(0, 50, 10).parent(panelSandbox);
-    createLabel("Perception", panelSandbox);
-    tekstPercepcija=createDiv("0").parent(panelSandbox);
-    sliderPercepcija=createSlider(1, 300, 100).parent(panelSandbox);
-    createLabel("Max Speed", panelSandbox);
-    tekstMaxBrzina=createDiv("3.0").parent(panelSandbox);
-    sliderMaxBrzina=createSlider(1, 10, 3, 0.5).parent(panelSandbox);
-    createLabel("Max Force", panelSandbox);
-    tekstMaxSila=createDiv("0.1").parent(panelSandbox);
-    sliderMaxSila=createSlider(0.01, 0.5, 0.2, 0.01).parent(panelSandbox);
-    createLabel("Sheep Size", panelSandbox);
-    tekstVelicina=createDiv("50").parent(panelSandbox);
-    sliderVelicina=createSlider(1, 20, 7).parent(panelSandbox);
-    createLabel("Dog Strength", panelSandbox);
-    tekstSnagaPsa=createDiv("2.0").parent(panelSandbox);
-    sliderSnagaPsa=createSlider(0, 5, 2, 0.1).parent(panelSandbox);
-    panelSandbox.hide();
-
-    // Gumb za primjenu postavki
-    gumbPrimjeni=createButton("Apply");
-    gumbPrimjeni.class("return");
-    gumbPrimjeni.parent(panelSandbox);
-    gumbPrimjeni.mousePressed(pokreniSandboxPostavke);
-
-    
-
+    // Prozor s pravilima igre (Rules overlay)
     pravilaDiv=createDiv("");
     pravilaDiv.id("rules-overlay");
     pravilaDiv.parent("canvas-kontejner");
@@ -302,12 +191,140 @@ function setup(){
     "• <b>Sheep Size:</b> The visual scale of the sheep on the screen.<br>" +
     "• <b>Dog Strength:</b> How powerfully the sheep are pushed away when the dog (mouse) gets close." +
     "</div>");
+    
     gumbZatvori=createButton("Close");
     gumbZatvori.class("play-gumb");
     gumbZatvori.parent(pravilaDiv);
     gumbZatvori.mousePressed(()=>pravilaDiv.hide());
 
-    //u setupu se samo jednom dohvate teksture, puno optizimiranije
+    
+    //KONTROLNI PANELI (Simulacija / Postavke stada)
+    
+    // Panel 1: Postavke Bijelih Ovaca
+    panel1=createDiv("");
+    panel1.id("kontrole-panel"); 
+    
+    let zaglavlje1=createDiv("");
+    zaglavlje1.class("panel-zaglavlje");
+    zaglavlje1.parent(panel1);
+    
+    let ikona1=createDiv("");
+    ikona1.class("sheep-icon sheep-white");
+    ikona1.parent(zaglavlje1);
+    
+    let naslov1=createDiv("White sheep");
+    naslov1.class("panel-naslov");
+    naslov1.parent(zaglavlje1);
+    
+    createLabel("Cohesion", panel1);
+    tekstKoh1=createDiv("1.0").parent(panel1);
+    sliderKoh1=createSlider(0, 2.0, 1.0, 0.1).parent(panel1);
+    
+    createLabel("Separation", panel1);
+    tekstSep1=createDiv("1.2").parent(panel1);
+    sliderSep1=createSlider(0, 2.0, 1.2, 0.1).parent(panel1);
+    
+    createLabel("Alignment", panel1);
+    tekstAli1=createDiv("1.0").parent(panel1);
+    sliderAli1=createSlider(0, 2.0, 1.0, 0.1).parent(panel1);
+
+    // Panel 2: Postavke Crnih Ovaca
+    panel2=createDiv("");
+    panel2.id("kontrole-panel"); 
+    
+    let zaglavlje2=createDiv("");
+    zaglavlje2.class("panel-zaglavlje");
+    zaglavlje2.parent(panel2);
+    
+    let ikona2=createDiv("");
+    ikona2.class("sheep-icon sheep-black");
+    ikona2.parent(zaglavlje2);
+    
+    let naslov2=createDiv("Black sheep");
+    naslov2.class("panel-naslov");
+    naslov2.parent(zaglavlje2);
+    
+    createLabel("Cohesion", panel2);
+    tekstKoh2=createDiv("0.9").parent(panel2);
+    sliderKoh2=createSlider(0, 2.0, 0.9, 0.1).parent(panel2);
+    
+    createLabel("Separation", panel2);
+    tekstSep2=createDiv("1.2").parent(panel2);
+    sliderSep2=createSlider(0, 2.0, 1.2, 0.1).parent(panel2);
+    
+    createLabel("Alignment", panel2);
+    tekstAli2=createDiv("0.9").parent(panel2);
+    sliderAli2=createSlider(0, 2.0, 0.9, 0.1).parent(panel2);
+    panel2.hide();
+    
+    // Panel 3: Gumb za povratak i zvuk
+    panel3=createDiv("");
+    panel3.id("kontrole-panel");
+    panel3.hide();
+
+    gumbVrati=createButton("Main Menu");
+    gumbVrati.class("return");
+    gumbVrati.parent(panel3); 
+    gumbVrati.mousePressed(vratiNaMainMenu);
+
+    createLabel("Music", panel3);
+
+    // Kontejneri za slaganje panela na ekranu
+    panelGornjiRed=createDiv("");
+    panelGornjiRed.id("panel-gornji-red");
+
+    panel_kontejner=createDiv("");
+    panel_kontejner.id("panel-kontejner");
+    
+    panel1.parent(panelGornjiRed);
+    panel2.parent(panelGornjiRed);
+    panelGornjiRed.parent(panel_kontejner);
+    panel3.parent(panel_kontejner);
+
+    
+    //POSTAVKE SANDBOX MODA
+    
+    panelSandbox=createDiv("");
+    panelSandbox.id("sandbox-overlay");
+    panelSandbox.parent("canvas-kontejner");
+    panelSandbox.hide();
+    
+    createLabel("Number of white sheep", panelSandbox);
+    tekstBrBijelih=createDiv("30").parent(panelSandbox);
+    sliderBrojBijelih=createSlider(0, 100, 30).parent(panelSandbox);
+    
+    createLabel("Number of black sheep", panelSandbox);
+    tekstBrCrnih=createDiv("10").parent(panelSandbox);
+    sliderBrojCrnih=createSlider(0, 50, 10).parent(panelSandbox);
+    
+    createLabel("Perception", panelSandbox);
+    tekstPercepcija=createDiv("100").parent(panelSandbox);
+    sliderPercepcija=createSlider(1, 300, 100).parent(panelSandbox);
+    
+    createLabel("Max Speed", panelSandbox);
+    tekstMaxBrzina=createDiv("3.0").parent(panelSandbox);
+    sliderMaxBrzina=createSlider(1, 10, 3, 0.5).parent(panelSandbox);
+    
+    createLabel("Max Force", panelSandbox);
+    tekstMaxSila=createDiv("0.2").parent(panelSandbox);
+    sliderMaxSila=createSlider(0.01, 0.5, 0.2, 0.01).parent(panelSandbox);
+    
+    createLabel("Sheep Size", panelSandbox);
+    tekstVelicina=createDiv("7").parent(panelSandbox);
+    sliderVelicina=createSlider(1, 20, 7).parent(panelSandbox);
+    
+    createLabel("Dog Strength", panelSandbox);
+    tekstSnagaPsa=createDiv("2.0").parent(panelSandbox);
+    sliderSnagaPsa=createSlider(0, 5, 2, 0.1).parent(panelSandbox);
+
+    gumbPrimjeni=createButton("Apply");
+    gumbPrimjeni.class("return");
+    gumbPrimjeni.parent(panelSandbox);
+    gumbPrimjeni.mousePressed(pokreniSandboxPostavke);
+
+    
+    //INICIJALIZACIJA I POKRETANJE
+    
     inicijalizirajTeksture();
     ucitajMenuLevel();
 }

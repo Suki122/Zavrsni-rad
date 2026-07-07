@@ -167,7 +167,7 @@ class Boid{
         if(trenutnoVrijeme-this.zadnjiGlas>5000){ //provjeri je li proslo 10 sekundi
                 // Provjeri je li zvuk ugasen, postoji li zvuk, status reprodukcije i stanje igre
             if (zvukAktivan && this.zvuk && (stanje==="igra" || stanje=="sandbox")) {
-                this.zvuk.currentTime = 0; // Vrati na početak
+                this.zvuk.currentTime=0; // Vrati na početak
                 this.zvuk.play();          // pokreni zvuk
                 this.zadnjiGlas=trenutnoVrijeme; //resetiraj timer
             }
@@ -176,12 +176,12 @@ class Boid{
     }
 
     izbjegavanjeZida(zidovi){
-            let upravljanje = createVector(0, 0);
+            let upravljanje=createVector(0, 0);
 
         for (let zid of zidovi) {
             let doBoida=p5.Vector.sub(this.pozicija, zid.srediste); //kreira vektor koji ide od sredista zida ka boidu (ako je boid desno od zida x je pozitivan, ako je boid iznad zida y je negativan)
             if (abs(doBoida.x)<zid.w/2+0 && abs(doBoida.y)<zid.h/2+15) { //provjera je li boid unutar zida
-                let silaOdbijanja = doBoida.copy();
+                let silaOdbijanja=doBoida.copy();
                 silaOdbijanja.setMag(this.maxBrzina * 2); //postavlja silu i i osigurava da je 2 puta jaca od svih ostalih
                 this.brzina.mult(-0.5); //okrece smjer brzine za 180 i smanjuje jakost za pola
                 upravljanje.add(silaOdbijanja);

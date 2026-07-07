@@ -27,7 +27,7 @@ function nacrtajLevel1(){
         }
     }
     //grid ukrasa
-    let ukrasi = [
+    let ukrasi=[
         {x:64, y:50, img:cvjece1},
         {x:300, y:200, img:cvjece1},
         {x:250, y:700, img:cvjece1},
