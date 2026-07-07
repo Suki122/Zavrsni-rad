@@ -65,7 +65,8 @@ canvas {
     transform: translate(-50%, -50%); /* Savršeno centriranje na ekranu */
     background-image: url('resursi/pozadina_menu.png');
     background-size: cover;
-    width: 500px;
+    width: 50%;
+    height: 75%;
     padding: 50px;
     border-radius: 30px;
     text-align: center;

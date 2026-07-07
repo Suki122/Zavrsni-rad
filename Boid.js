@@ -14,7 +14,7 @@ class Boid{
         this.jeCrna=jeCrna; //ako je ovca crna
         this.zadnjiGlas=millis();  //spremi trenutno vrijeme pri stvaranju
         this.percepcija=100; // defaultni doseg percepcije (vidnog polja)
-        this.pasSila=1; //sila s kojom se mnozi this.masSila u traziMis funkciji, dodana kako bismo utjecali na silu bjezanja ovce od psa
+        this.pasSila=0.7; //sila s kojom se mnozi this.maxSila u traziMis funkciji, dodana kako bismo utjecali na silu bjezanja ovce od psa
     }
 
     

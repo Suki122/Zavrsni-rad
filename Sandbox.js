@@ -113,7 +113,7 @@ function pokreniSandboxPostavke() {
         b.maxBrzina=brzina;
         b.maxSila=sila;
         b.r=velicina;
-        b.pasSilaS=snaga;
+        b.pasSila=snaga;
         flock.push(b);
     }
 }

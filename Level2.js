@@ -183,6 +183,14 @@ function ucitajLevel2(){
     flock=[];
     ograde=[];
 
+    //Resetiraj slidere na početne postavke 
+    if (sliderKoh1) sliderKoh1.value(1.0);
+    if (sliderSep1) sliderSep1.value(1.2);
+    if (sliderAli1) sliderAli1.value(1.0);
+    if (sliderKoh2) sliderKoh2.value(0.9);
+    if (sliderSep2) sliderSep2.value(1.2);
+    if (sliderAli2) sliderAli2.value(0.9);
+
     panel2.show();
 
     //spawn Boida 

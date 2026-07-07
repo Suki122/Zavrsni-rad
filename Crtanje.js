@@ -187,6 +187,11 @@ function setup(){
     gumbSandbox.parent(izbornikDiv); 
     gumbSandbox.mousePressed(ucitajSandbox);
 
+    gumbPravila=createButton("Rules");
+    gumbPravila.class("play-gumb");
+    gumbPravila.parent(izbornikDiv);
+    gumbPravila.mousePressed(()=>pravilaDiv.show());
+
     gumbZvuk=createImg(slikaOff,"Zvuk");
     gumbZvuk.class("zvuk-gumb");
     gumbZvuk.parent(izbornikDiv);
@@ -238,10 +243,7 @@ function setup(){
     gumbPrimjeni.parent(panelSandbox);
     gumbPrimjeni.mousePressed(pokreniSandboxPostavke);
 
-    gumbPravila=createButton("Rules");
-    gumbPravila.class("play-gumb");
-    gumbPravila.parent(izbornikDiv);
-    gumbPravila.mousePressed(()=>pravilaDiv.show());
+    
 
     pravilaDiv=createDiv("");
     pravilaDiv.id("rules-overlay");
