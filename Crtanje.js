@@ -1,59 +1,91 @@
-let flock=[];
-let zidovi=[];
-let slikaOvceBijela;
-let pozadina;
-//tekstura i dekoracije
+
+//STANJE I KONTROLA IGRE
+let stanje="izbornik";      // Trenutno stanje ("izbornik", "igra", "gameOver", "sandbox")
+let trenutniLevel=1;        // Trenutni nivo
+let levelUcitan=false;      // Provjera je li nivo spreman (sprječava trenutni game over pri učitavanju)
+let igraUpravoPokrenuta;      // Kratki timer/zastavica pri pokretanju levela kako se ne bi cuo zvuk lajanja cim se pritisne gumb
+
+
+//ENTITETI I FIZIKA
+let flock=[];               // Niz koji sadrži sve ovce (boidi)
+let zidovi=[];              // Niz koji sadrži nepomične zidove
+let ograde=[];              // Niz koji sadrži ograde
+
+
+//KAMERA I SVIJET
+let kameraX=0;              // X pozicija pomične kamere
+let kameraY=0;              // Y pozicija pomične kamere
+let mapSirina=2000;         // Širina cjelokupne mape
+let mapVisina=1500;         // Visina cjelokupne mape
+
+
+//MEDIJSKI RESURSI (Slike i Zvukovi)
+let pozadina;                 // Spritesheet pozadine (trava i dekoracije)
+let slikaOvceBijela;          // Sprite list za animaciju bijele ovce
+let slikaOvceCrna;            // Sprite list za animaciju crne ovce
+let slikaPsa;                 // Sprite list za animaciju psa
+let ograda;                   // Slika ograde
+
+let introGlazba;              // Pozadinska glazba za izbornik
+let zvukOvceBijele;           // Zvuk blejanja bijele ovce
+let zvukOvceCrne;             // Zvuk blejanja crne ovce
+let zvukPsa;                  // Zvuk lajanja psa
+let zvukGubitak;              // Zvuk za game over
+
+//TEKSTURE I DEKORACIJE
 let travaKvadrat1, travaKvadrat2, travaKvadrat3, travaKvadrat4, travaKvadrat5;
 let cvjece1, cvjece2, panj1, panj2, grm1, grm2, grm3, grm4;
 let ograda1, ograda2, ograda3, bus, kamen, gljiva1, gljiva2, sas;
 
-let ograda;
-let ograde=[];
-let zvukOvceBijele;
-let zvukOvceCrne;
-let stanje="izbornik";
-let gumbIgraj;
-let gumbSandbox;
-let izbornikDiv; 
-let introGlazba;
-let gumbZvuk;
-let zvukAktivan=false;
+//PAS (Igrač) - ANIMACIJA I PONAŠANJE
+let pasSmjer=1;             // Smjer gledanja psa (red u spritesheetu)
+let pasAnimacijaVrijeme=0;  // Vrijeme za izmjenu sličica animacije psa
+let zadnjeLajanje=-3000;    // Vrijeme zadnjeg lajanja (sprječava spam zvuka)
+
+//UPRAVLJANJE ZVUKOM 
+let zvukAktivan=false;      // Je li zvuk uključen u igri
+let gumbZvuk;                 
 let slikaOn="resursi/sound_onn.png";
 let slikaOff="resursi/sound_offf.png";
-let sliderKoh1, sliderSep1, sliderAli1;
+
+
+//GLAVNI IZBORNIK
+let izbornikDiv;              // Kontejner glavnog izbornika
+let gumbIgraj;                // Gumb "Play"
+let gumbSandbox;              // Gumb "Sandbox"
+let gumbPravila;              // Gumb "Rules"
+let pravilaDiv;               // Prozor s pravilima
+let gumbZatvori;              // Gumb za zatvaranje pravila
+
+//TIJEK IGRE I KRAJ LEVELA
+let obavijestDiv;             // Box za obavijest o trenutnom nivou (npr. "Level 1 Easy")
+let obavijestDivKraj;         // Box za završetak levela
+let gumbNext;                 // Gumb "Next Level"
+let gameOverDiv;              // Box za Game Over
+let gumbPonovno;              // Gumb "Try Again"
+let gumbVrati;                // Gumb "Main Menu" za povratak na glavni izbornik
+
+
+//SANDBOX MOD I KONTROLNI PANELI
+let panel_kontejner;          // Glavni kontejner za panele
+let panelGornjiRed;           // Red za panel1 i panel2
+let panel3;                   // Panel za opće postavke (npr. glazba)
+
+//Panel 1: Postavke Bijelih Ovaca
 let panel1;
-let sliderKoh2, sliderSep2, sliderAli2;
+let sliderKoh1, sliderSep1, sliderAli1;
+let tekstKoh1, tekstSep1, tekstAli1;
+
+//Panel 2: Postavke Crnih Ovaca
 let panel2;
-let panel3;
-let panel_kontejner;
-let panelGornjiRed;
+let sliderKoh2, sliderSep2, sliderAli2;
+let tekstKoh2, tekstSep2, tekstAli2;
+
+//Panel Sandbox: Postavke Sandbox moda
+let panelSandbox;
+let gumbPrimjeni;             // Gumb za primjenu postavki
 let sliderBrojBijelih, sliderBrojCrnih, sliderPercepcija, sliderMaxBrzina, sliderMaxSila, sliderVelicina, sliderSnagaPsa;
 let tekstBrBijelih, tekstBrCrnih, tekstPercepcija, tekstMaxBrzina, tekstMaxSila, tekstVelicina, tekstSnagaPsa;
-let panelSandbox;
-let tekstKoh1, tekstSep1, tekstAli1;
-let slikaPsa;
-let zvukPsa;
-let igraUpravoPokrenuta;
-let pasSmjer=1; 
-let zadnjeLajanje=-3000;
-let pasAnimacijaVrijeme=0;
-let trenutniLevel=1;
-let obavijestDiv;
-let obavijestDivKraj;
-let flag=true;
-let gumbPonovno;
-let gameOverDiv;
-let zvukGubitak;
-let gumbNext;
-let pravilaDiv;
-let gumbZatvori;
-let gumbPravila;
-let levelUcitan=false; //provjera je li level ucitan, da ne javi odmah da smo izgubili
-// Globalne varijable za pomicnu kameru i velicinu svijeta
-let kameraX = 0;
-let kameraY = 0;
-let mapSirina = 2000;
-let mapVisina = 1500;
 
 
 //osiguranje da se slike i  zvukovi ucitaju prvi
