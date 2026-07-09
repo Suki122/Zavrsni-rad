@@ -122,7 +122,7 @@ class Boid{
     }
 
     kohezija(boidi){
-        let percepcija=this.percepcija * 1.5; 
+        let percepcija=this.percepcija; 
         let upravljanje=createVector(0,0); 
         let ukupno=0; 
         for(let boid of boidi){
