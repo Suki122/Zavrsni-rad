@@ -175,12 +175,12 @@ class Boid{
         
     }
 
-    izbjegavanjeOgrade(zidovi){
+    izbjegavanjeOgrade(ograde){
             let upravljanje=createVector(0, 0);
 
-        for (let zid of zidovi) {
-            let doBoida=p5.Vector.sub(this.pozicija, zid.srediste); //kreira vektor koji ide od sredista zida ka boidu (ako je boid desno od zida x je pozitivan, ako je boid iznad zida y je negativan)
-            if (abs(doBoida.x)<zid.w/2+0 && abs(doBoida.y)<zid.h/2+15) { //provjera je li boid unutar zida
+        for (let segment of ograde) {
+            let doBoida=p5.Vector.sub(this.pozicija, segment.srediste); //kreira vektor koji ide od sredista zida ka boidu (ako je boid desno od zida x je pozitivan, ako je boid iznad zida y je negativan)
+            if (abs(doBoida.x)<segment.w/2+0 && abs(doBoida.y)<segment.h/2+15) { //provjera je li boid unutar zida
                 let silaOdbijanja=doBoida.copy();
                 silaOdbijanja.setMag(this.maxBrzina * 2); //postavlja silu i i osigurava da je 2 puta jaca od svih ostalih
                 this.brzina.mult(-0.5); //okrece smjer brzine za 180 i smanjuje jakost za pola
