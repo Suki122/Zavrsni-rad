@@ -45,7 +45,7 @@ class Boid{
         for(let o of ograde){
             svePrepreke.push(...o.pretvoriOgradu());    //nad svakom ogradom pozov funkciju i stavi ju u niz svePrepreke
         }
-        let prepreka=this.izbjegavanjeZida(svePrepreke);
+        let prepreka=this.izbjegavanjeOgrade(svePrepreke);
         
         if(this.jeCrna){
             sep.mult(SEP2); 
@@ -175,7 +175,7 @@ class Boid{
         
     }
 
-    izbjegavanjeZida(zidovi){
+    izbjegavanjeOgrade(zidovi){
             let upravljanje=createVector(0, 0);
 
         for (let zid of zidovi) {

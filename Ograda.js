@@ -36,7 +36,7 @@ class Ograda{
             image(this.ograda,px,py,segmentW,segmentH,sx,sy,sw,sh); //prva 4 govore gdje na ekranu crtamo, zadnja 4 sto izrezati iz slike
         }
     }
-    //pretvaramo ogradu u listu zidova kako bismo mogli koristiti metodu za izbjegavanje zidova definiranu u klasi Boid
+    //pretvaramo ogradu u niz ograda kako bismo mogli koristiti metodu za izbjegavanje zidova definiranu u klasi Boid
     pretvoriOgradu(){
         let ograde=[];
         let segmentW=32; //sirina hit-boxa (slicice)
