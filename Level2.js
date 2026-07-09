@@ -112,9 +112,6 @@ function nacrtajLevel2(){
         image(u.img, u.x, u.y, 32, 32);
     }
         
-        for(let zid of zidovi){
-            zid.prikazi();
-        }
         for(let ograda of ograde){
             ograda.prikazi();
         }
@@ -130,7 +127,7 @@ function nacrtajLevel2(){
 
             for(let boid of flock){
                 boid.rubovi();
-                boid.kretanje(flock,zidovi,ograde,c1,s1,a1,c2,s2,a2);
+                boid.kretanje(flock,ograde,c1,s1,a1,c2,s2,a2);
                 boid.glasajSe();
                 boid.prikazi();
             }
@@ -138,7 +135,7 @@ function nacrtajLevel2(){
             // Ako slideri još ne postoje, boidovi se kreću sa zadanim vrijednostima
             for(let boid of flock){
                 boid.rubovi();
-                boid.kretanje(flock,zidovi,ograde,0.1,0.1,0.05); 
+                boid.kretanje(flock,ograde,0.1,0.1,0.05); 
                 boid.glasajSe();
                 boid.prikazi();
             }

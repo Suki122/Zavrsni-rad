@@ -8,7 +8,6 @@ let igraUpravoPokrenuta;      // Kratki timer/zastavica pri pokretanju levela ka
 
 //ENTITETI I FIZIKA
 let flock=[];               // Niz koji sadrži sve ovce (boidi)
-let zidovi=[];              // Niz koji sadrži nepomične zidove
 let ograde=[];              // Niz koji sadrži ograde
 
 

@@ -35,13 +35,13 @@ class Boid{
        }
     }
 
-    kretanje(boidi,zidovi,ograde,KOH1,SEP1,ALI1,KOH2,SEP2,ALI2){
+    kretanje(boidi,ograde,KOH1,SEP1,ALI1,KOH2,SEP2,ALI2){
         let sep=this.separacija(boidi);
         let ali=this.poravnanje(boidi);
         let coh=this.kohezija(boidi);
 
 
-        let svePrepreke=[...zidovi]; //prepisi zidove u niz svePrepreke
+        let svePrepreke=[]; 
         for(let o of ograde){
             svePrepreke.push(...o.pretvoriOgradu());    //nad svakom ogradom pozov funkciju i stavi ju u niz svePrepreke
         }

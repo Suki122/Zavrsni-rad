@@ -38,7 +38,7 @@ class Ograda{
     }
     //pretvaramo ogradu u listu zidova kako bismo mogli koristiti metodu za izbjegavanje zidova definiranu u klasi Boid
     pretvoriOgradu(){
-        let zidovi=[];
+        let ograde=[];
         let segmentW=32; //sirina hit-boxa (slicice)
         let segmentH=32; //visina hit-boxa (slicice)
         for (let i=0; i < this.duljina; i++) {
@@ -46,6 +46,6 @@ class Ograda{
             let py=this.smjer==="v"?this.y+i*segmentH:this.y;
             zidovi.push({srediste:createVector(px+segmentW/2,py+segmentH/2),w:segmentW,h:segmentH}); //saljemo srediste, sirinu i visinu svakog dijela ograde
         }
-        return zidovi;
+        return ograde;
     }
 }
