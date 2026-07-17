@@ -290,11 +290,11 @@ function setup(){
     
     createLabel("Number of white sheep", panelSandbox);
     tekstBrBijelih=createDiv("30").parent(panelSandbox);
-    sliderBrojBijelih=createSlider(0, 100, 30).parent(panelSandbox);
+    sliderBrojBijelih=createSlider(0, 250, 30).parent(panelSandbox);
     
     createLabel("Number of black sheep", panelSandbox);
     tekstBrCrnih=createDiv("10").parent(panelSandbox);
-    sliderBrojCrnih=createSlider(0, 50, 10).parent(panelSandbox);
+    sliderBrojCrnih=createSlider(0, 150, 10).parent(panelSandbox);
     
     createLabel("Perception", panelSandbox);
     tekstPercepcija=createDiv("100").parent(panelSandbox);
