@@ -67,12 +67,9 @@ class Boid{
         this.ubrzanje.add(prepreka);
         if(prepreka.mag()===0 && mouseIsPressed){ //boid prati mis samo ako nema prepreku
             let misSila=this.bjeziOdPsa();
-            misSila.mult(1.0);
             this.ubrzanje.add(misSila);
         }
         
-        
-
         this.brzina.add(this.ubrzanje);  //dodaje ubrzanje na brzinu
         this.brzina.limit(this.maxBrzina); //Boid nikada ne prelazi maksimalnu zadanu brzinu
         this.pozicija.add(this.brzina);  //ovisno o brzini, boid mijenja poziciju
