@@ -322,6 +322,7 @@ function setup(){
     gumbPrimjeni.mousePressed(pokreniSandboxPostavke);
 
     
+
     //INICIJALIZACIJA I POKRETANJE
     
     inicijalizirajTeksture();
